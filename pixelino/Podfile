@@ -1,0 +1,3 @@
+target 'pixelino' do
+    pod 'ESTabBarController-swift', '~> 2.6.2'
+end
