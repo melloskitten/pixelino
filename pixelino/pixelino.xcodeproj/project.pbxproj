@@ -99,7 +99,6 @@
 				BCF7BCD220AA159F005C5468 /* Sources */,
 				BCF7BCD320AA159F005C5468 /* Frameworks */,
 				BCF7BCD420AA159F005C5468 /* Resources */,
-				357512D181483C05FBDAA185 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -157,24 +156,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		357512D181483C05FBDAA185 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-pixelino/Pods-pixelino-resources.sh",
-				"${PODS_ROOT}/ESTabBarController-swift/Sources/en.lproj",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pixelino/Pods-pixelino-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6A65F1677B882625A83CC3C7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
