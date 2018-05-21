@@ -22,6 +22,13 @@ class ViewController: UIViewController {
 
     var skView : SKView? = nil
     var skScene : SKScene? = nil
+    
+    override var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let SCREEN_HEIGHT = 2436
@@ -52,7 +59,7 @@ class ViewController: UIViewController {
         }
         
         
-        skScene?.scaleMode = .aspectFit
+        skScene?.scaleMode = .aspectFill
 
         cameraNode.position = CGPoint(x: 100, y:100)
         skScene?.addChild(cameraNode)
