@@ -11,13 +11,14 @@ import SpriteKit
 
 let darkGrey = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
 let lightGrey = UIColor(red:0.19, green:0.19, blue:0.19, alpha:1.0)
-let PIXEL_SIZE = 200
+let PIXEL_SIZE = 500
 // FIXME: make this dynamic
 let SCREEN_HEIGHT = 2436
 let SCREEN_WIDTH = 1125
 
 
 class Pixel : SKShapeNode {
+    
     init(x: Int, y: Int) {
         super.init()
 
@@ -26,7 +27,8 @@ class Pixel : SKShapeNode {
         self.strokeColor = UIColor.gray
         self.lineWidth = 3
         
-        self.path = UIBezierPath(rect: CGRect(x: 0, y: 0, width: PIXEL_SIZE, height: PIXEL_SIZE)).cgPath
+        let rect = UIBezierPath(rect: CGRect(x: 0, y: 0, width: PIXEL_SIZE, height: PIXEL_SIZE))
+        self.path = rect.cgPath
         self.isUserInteractionEnabled = true
         self.isAntialiased = false
     }
@@ -36,18 +38,33 @@ class Pixel : SKShapeNode {
     }
 }
 
-class Canvas : SKShapeNode {
+class Canvas : SKSpriteNode {
     
     let grid = [[Pixel]]()
+
     
     init(width: Int, height: Int) {
-        super.init()
+        // TODO: Refactor this method ASAP.
+        
+        super.init(texture: nil, color: .cyan, size: CGSize(width: width * PIXEL_SIZE, height: height * PIXEL_SIZE))
+        self.position = CGPoint(x:500, y:0)
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+
+
         
         for x in 0..<width {
             for y in 0..<height {
-                let pixel = Pixel(x: x, y: y)
-                //grid[x][y] = s
+
+                let xPos = Int(-self.size.width / 2) + x * Int(PIXEL_SIZE)
+                let yPos = Int(-self.size.height / 2) + y * Int(PIXEL_SIZE)
+                let pixel = Pixel(x: xPos , y: yPos)
+                
+                pixel.position.x = CGFloat(xPos)
+                pixel.position.y = CGFloat(yPos)
+
                 self.addChild(pixel)
+                
             }
         }
     }
@@ -61,6 +78,7 @@ class CanvasView : SKView {
     
     var canvasScene : SKScene
     var camera : SKCameraNode
+    var canvas : Canvas
     
     init() {
         
@@ -69,14 +87,16 @@ class CanvasView : SKView {
         self.canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
         self.canvasScene.isUserInteractionEnabled = true
         self.camera = SKCameraNode()
-        self.camera.position = CGPoint(x: 100, y: 100)
+        self.camera.position = CGPoint(x: 500, y: 500)
         
-        super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
 
         
-        self.canvasScene.addChild(camera)
         self.canvasScene.camera = camera
-        let canvas = Canvas(width: 10, height: 10)
+        canvas = Canvas(width: 10, height: 10)
+        canvasScene.addChild(camera)
+        super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
+
+
         self.canvasScene.addChild(canvas)
         self.canvasScene.scaleMode = .aspectFill
         
@@ -92,9 +112,14 @@ class CanvasView : SKView {
 
 class ViewController: UIViewController {
     
-    var canvasView : SKView? = nil
+    var canvasView : CanvasView? = nil
     var canvasScene : SKScene? = nil
     var toolbarView : UIView? = nil
+    var observer : AnyObject?
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
     
     
     override var prefersStatusBarHidden: Bool {
@@ -103,15 +128,52 @@ class ViewController: UIViewController {
         }
     }
     
+    func orientationChanged (_ notification: Notification) {
+        let orientation = UIDevice.current.orientation
+        // TODO: move to constants file
+        let animationDuration: TimeInterval = 0.4
+
+        var rotationAngle : CGFloat = 0
+        
+        switch orientation {
+        case .landscapeLeft:
+            rotationAngle = -CGFloat.pi / 2
+            
+        case .landscapeRight:
+            rotationAngle = CGFloat.pi / 2
+            
+        case .portrait:
+            break
+            
+        default:
+            break
+        }
+        
+        let rotation = SKAction.rotate(toAngle: rotationAngle, duration: animationDuration)
+        canvasView?.canvas.run(rotation)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set up orientation observer
+        observer = NotificationCenter.default.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: nil, using: orientationChanged)
+        
        
         // Setup scene and view
         self.canvasView = CanvasView()
         self.canvasScene = canvasView?.scene
-        self.view = canvasView
         
-        // Add handlers
+        //self.view = canvasView
+        
+        self.view.addSubview(canvasView!)
+     
+        
+
+
+        
+        
+        
         let zoomGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchFrom(_:)))
         zoomGestureRecognizer.delegate = self
         
@@ -155,7 +217,7 @@ class ViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
-        // FIXME: perform nice animation on draw view and no animaton for the menu.
+        /*// FIXME: perform nice animation on draw view and no animaton for the menu.
         
         let MENU_BAR_HEIGHT : CGFloat = 100.0
         var subViews = self.view.subviews
@@ -184,7 +246,7 @@ class ViewController: UIViewController {
                 UIView.setAnimationsEnabled(true)
         })
         
-        UIView.setAnimationsEnabled(false)*/
+        UIView.setAnimationsEnabled(false)*/*/
         
         super.viewWillTransition(to: size, with: coordinator)
     }
@@ -219,7 +281,11 @@ class ViewController: UIViewController {
     
     @objc func handlePanFrom(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: canvasView)
-        let pan = SKAction.moveBy(x: -1.0 * translation.x, y:  translation.y, duration: 0)
+        
+       // print(canvasScene?.camera?.xScale)
+        let xScale = canvasScene?.camera?.xScale
+        let yScale = canvasScene?.camera?.yScale
+        let pan = SKAction.moveBy(x: -1.0 * translation.x * xScale! , y:  translation.y * yScale!, duration: 0)
         canvasScene?.camera?.run(pan)
         sender.setTranslation(CGPoint.zero, in: canvasView)
     }
