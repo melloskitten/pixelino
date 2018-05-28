@@ -212,13 +212,18 @@ class ViewController: UIViewController {
     @objc func handlePinchFrom(_ sender: UIPinchGestureRecognizer) {
         // Calculate correct zooming
         var scale = sender.scale
+        
+        // This condition ensures that the user is not overcrossing their fingers while zooming
+        if scale < 1 {
+        
         let absolute = abs(1 - scale)
         scale = scale < 1 ? 1 + absolute : 1 - absolute
         
         let pinch = SKAction.scale(by: scale, duration: 0.0)
         
         sender.scale = 1.0
-        canvasView?.canvasScene.camera?.run(pinch)
+            canvasView?.canvasScene.camera?.run(pinch)
+        }
         
     }
     
