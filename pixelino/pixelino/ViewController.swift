@@ -19,6 +19,7 @@ let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 // Maximum amount of pixels shown on screen when zooming in.
 let MAX_AMOUNT_PIXEL_PER_SCREEN : CGFloat = 4.0
+let MAX_ZOOM_OUT : CGFloat = 0.75
 
 let animationDuration: TimeInterval = 0.4
 
@@ -222,35 +223,34 @@ class ViewController: UIViewController {
     }
     
     @objc func handlePinchFrom(_ sender: UIPinchGestureRecognizer) {
-        // Calculate correct zooming factor
 
         let pinch = SKAction.scale(by: sender.scale, duration: 0.0)
         
+        // Save scale attribute for later inspection, reset the original gesture scale.
         let scale = sender.scale
         sender.scale = 1.0
         
+        
         let canvasXScale = canvasView?.canvas.xScale
-        
+    
         let canvasWidth = CGFloat((canvasView?.canvas.getWidth())!)
-        let actualCanvasWidth = canvasWidth * canvasXScale!
-        
+        let augmentedCanvasWidth = canvasWidth * canvasXScale!
         let pixelWidth = CGFloat((canvasView?.canvas.getPixelWidth())!)
-        let actualPixelWidth = pixelWidth * canvasXScale!
+        let augmentedPixelWidth = pixelWidth * canvasXScale!
         
       
-        // Zooming out
-        if (actualCanvasWidth/SCREEN_WIDTH) < 0.75 && scale < 1 {
+        // Zooming out based on relative size of canvas width.
+        // FIXME: If needed, change this to a relative number for different canvas sizes.
+        if (augmentedCanvasWidth/SCREEN_WIDTH) < MAX_ZOOM_OUT && scale < 1 {
             return
         }
         
-        // Zooming in based on pixels visible on screen independent of actual canvas size
-        if (actualPixelWidth > SCREEN_WIDTH/MAX_AMOUNT_PIXEL_PER_SCREEN) && scale > 1 {
+        // Zooming in based on pixels visible on screen independent of actual canvas size.
+        if (augmentedPixelWidth > SCREEN_WIDTH/MAX_AMOUNT_PIXEL_PER_SCREEN) && scale > 1 {
             return
         }
         
         canvasView?.canvas.run(pinch)
-        
-        
     }
     
     @objc func handleDrawFrom(_ sender: UIPanGestureRecognizer) {
@@ -266,8 +266,6 @@ class ViewController: UIViewController {
                 pixel.fillColor = .blue
             }
         })
-        
-        
     }
     
     @objc func handleTapFrom(_ sender: UITapGestureRecognizer) {
