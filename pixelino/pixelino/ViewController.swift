@@ -89,7 +89,7 @@ class Canvas : SKSpriteNode {
                 let xPos = Int(-self.size.width / 2) + x * Int(PIXEL_SIZE)
                 let yPos = Int(-self.size.height / 2) + y * Int(PIXEL_SIZE)
                 
-                var pixel = Pixel()
+                let pixel = Pixel()
                 
                 pixel.position.x = CGFloat(xPos)
                 pixel.position.y = CGFloat(yPos)
