@@ -146,6 +146,7 @@ class ViewController: UIViewController {
         }
     }
     
+
     func orientationChanged (_ notification: Notification) {
         let orientation = UIDevice.current.orientation
         var rotationAngle : CGFloat = 0
@@ -160,11 +161,14 @@ class ViewController: UIViewController {
         case .portrait:
             break
             
+        case .portraitUpsideDown:
+            return
+            
         default:
             break
         }
         
-        let rotation = SKAction.rotate(toAngle: rotationAngle, duration: animationDuration)
+        let rotation = SKAction.rotate(toAngle: rotationAngle, duration: animationDuration, shortestUnitArc: true)
         canvasView?.canvas.run(rotation)
     }
     
