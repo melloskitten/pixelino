@@ -183,7 +183,21 @@ class ViewController: UIViewController {
      
         registerGestureRecognizer()
         registerToolbar()
+        
+        
+        // Add button
+        let colorPickerButton = UIButton()
+        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 30, height: 30)
+        colorPickerButton.setImage(UIImage(named: "ColorPicker"), for: .normal)
+        
+        colorPickerButton.addTarget(self, action: #selector(colorPickerButtonPressed(sender:)), for: .touchUpInside)
+        self.view.addSubview(colorPickerButton)
     }
+    
+    @objc func colorPickerButtonPressed(sender: UIButton!) {
+        print("touched button")
+    }
+
     
     private func setupOrientationObserver() {
         observer = NotificationCenter.default.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: nil, using: orientationChanged)
