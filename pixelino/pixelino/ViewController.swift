@@ -178,36 +178,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setupOrientationObserver()
-
         self.canvasView = CanvasView()
         self.view.addSubview(canvasView!)
-     
+    
         registerGestureRecognizer()
         registerToolbar()
-        
-        
-        // Add button
+        setUpColorPickerButton()
+    }
+    
+    private func setUpColorPickerButton() {
         let colorPickerButton = UIButton()
         colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50)
         colorPickerButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         colorPickerButton.setImage(UIImage(named: "ColorPicker"), for: .normal)
-        
         colorPickerButton.addTarget(self, action: #selector(colorPickerButtonPressed(sender:)), for: .touchUpInside)
         self.view.addSubview(colorPickerButton)
-        
     }
     
     @objc func colorPickerButtonPressed(sender: UIButton!) {
-        // TODO: Segue to new view controller
-        var newVC = ColorPickerViewController()
-        newVC.colorChoiceDelegate = self
-        newVC.transitioningDelegate = self
-        newVC.modalPresentationStyle = .custom
-        self.present(newVC, animated: true, completion: nil)
-        
+        var colorPickerVC = ColorPickerViewController()
+        colorPickerVC.colorChoiceDelegate = self
+        colorPickerVC.transitioningDelegate = self
+        colorPickerVC.modalPresentationStyle = .custom
+        self.present(colorPickerVC, animated: true, completion: nil)
     }
 
-    
     private func setupOrientationObserver() {
         observer = NotificationCenter.default.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: nil, using: orientationChanged)
     }
