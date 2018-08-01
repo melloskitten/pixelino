@@ -135,6 +135,7 @@ class ViewController: UIViewController {
     var canvasView : CanvasView? = nil
     var toolbarView : UIView? = nil
     var observer : AnyObject?
+    var currentDrawingColor : UIColor = .black
     
     override var shouldAutorotate: Bool {
         return false
@@ -187,15 +188,23 @@ class ViewController: UIViewController {
         
         // Add button
         let colorPickerButton = UIButton()
-        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 30, height: 30)
+        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50)
+        colorPickerButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         colorPickerButton.setImage(UIImage(named: "ColorPicker"), for: .normal)
         
         colorPickerButton.addTarget(self, action: #selector(colorPickerButtonPressed(sender:)), for: .touchUpInside)
         self.view.addSubview(colorPickerButton)
+        
     }
     
     @objc func colorPickerButtonPressed(sender: UIButton!) {
-        print("touched button")
+        // TODO: Segue to new view controller
+        var newVC = ColorPickerViewController()
+        newVC.colorChoiceDelegate = self
+        newVC.transitioningDelegate = self
+        newVC.modalPresentationStyle = .custom
+        self.present(newVC, animated: true, completion: nil)
+        
     }
 
     
@@ -277,7 +286,7 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = .blue
+                pixel.fillColor = currentDrawingColor
             }
         })
     }
@@ -292,7 +301,7 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = pixel.fillColor == .yellow ? .black : .yellow
+                pixel.fillColor = pixel.fillColor == currentDrawingColor ? .white : currentDrawingColor
             }
         })
     }
@@ -317,10 +326,27 @@ class ViewController: UIViewController {
     }
 }
 
+// Extension for handling half-views such as for the pipette tool.
+extension ViewController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
+    }
+    
+}
+
 extension ViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+}
+
+extension ViewController: ColorChoiceDelegate {
+    func colorChoicePicked(_ color: UIColor) {
+        self.currentDrawingColor = color
+    }
+    
+    
 }
 
