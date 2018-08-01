@@ -10,14 +10,16 @@ import UIKit
 import SpriteKit
 
 // FIXME: Move constants to appropriate file
-
 let darkGrey = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
 let lightGrey = UIColor(red:0.19, green:0.19, blue:0.19, alpha:1.0)
-let PIXEL_SIZE = 500
+let PIXEL_SIZE = 300
 
 // FIXME: Make this dynamic
-let SCREEN_HEIGHT = 2436
-let SCREEN_WIDTH = 1125
+let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
+let SCREEN_WIDTH = UIScreen.main.bounds.size.width
+// Maximum amount of pixels shown on screen when zooming in.
+let MAX_AMOUNT_PIXEL_PER_SCREEN : CGFloat = 4.0
+let MAX_ZOOM_OUT : CGFloat = 0.75
 
 let animationDuration: TimeInterval = 0.4
 
@@ -33,7 +35,7 @@ class Pixel : SKShapeNode {
         self.strokeColor = UIColor.gray
         
         // FIXME: Adjust line width to scroll rate
-        self.lineWidth = 3
+        self.lineWidth = 10
         
         let rect = UIBezierPath(rect: CGRect(x: 0, y: 0, width: PIXEL_SIZE, height: PIXEL_SIZE))
         self.path = rect.cgPath
@@ -47,19 +49,37 @@ class Pixel : SKShapeNode {
 }
 
 class Canvas : SKSpriteNode {
-    
-    let grid = [[Pixel]]()
 
+    private var width: Int = 0
+    private var height: Int = 0
     
     init(width: Int, height: Int) {
         // TODO: Refactor this method ASAP
         
+        self.width = width
+        self.height = height
+        
         super.init(texture: nil, color: .cyan, size: CGSize(width: width * PIXEL_SIZE, height: height * PIXEL_SIZE))
-        self.position = CGPoint(x:500, y:0)
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         setUpPixelGrid(width: width, height: height)
         
+    }
+    
+    func getWidth() -> Int {
+        return width * PIXEL_SIZE
+    }
+    
+    func getHeight() -> Int {
+        return height * PIXEL_SIZE
+    }
+    
+    func getPixelWidth() -> Int {
+        return PIXEL_SIZE
+    }
+    
+    func getPixelHeight() -> Int {
+        return PIXEL_SIZE
     }
     
     private func setUpPixelGrid(width: Int, height: Int) {
@@ -70,11 +90,11 @@ class Canvas : SKSpriteNode {
                 let yPos = Int(-self.size.height / 2) + y * Int(PIXEL_SIZE)
                 
                 let pixel = Pixel()
+                
                 pixel.position.x = CGFloat(xPos)
                 pixel.position.y = CGFloat(yPos)
                 
                 self.addChild(pixel)
-                
             }
         }
     }
@@ -87,32 +107,21 @@ class Canvas : SKSpriteNode {
 class CanvasView : SKView {
     
     var canvasScene : SKScene
-    private var camera : SKCameraNode
     var canvas : Canvas
     
     init() {
         
-        self.canvasScene = SKScene(size: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
-        self.canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
-        self.canvasScene.isUserInteractionEnabled = true
-        
-        
-        self.camera = SKCameraNode()
-        self.camera.position = CGPoint(x: 500, y: 500)
-        
-
-        
-        self.canvasScene.camera = camera
+        canvasScene = SKScene(size: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
+        canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
+        canvasScene.isUserInteractionEnabled = true
         canvas = Canvas(width: 10, height: 10)
-        canvasScene.addChild(camera)
+        
         super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
-
-
-        self.canvasScene.addChild(canvas)
-        self.canvasScene.scaleMode = .aspectFill
-        
-        presentScene(self.canvasScene)
-        
+    
+        // Add canvas properties to view & show.
+        canvasScene.addChild(canvas)
+        canvasScene.scaleMode = .aspectFill
+        presentScene(canvasScene)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -214,21 +223,34 @@ class ViewController: UIViewController {
     }
     
     @objc func handlePinchFrom(_ sender: UIPinchGestureRecognizer) {
-        // Calculate correct zooming
-        var scale = sender.scale
+
+        let pinch = SKAction.scale(by: sender.scale, duration: 0.0)
         
-        // This condition ensures that the user is not overcrossing their fingers while zooming
-        if scale < 1 {
-        
-        let absolute = abs(1 - scale)
-        scale = scale < 1 ? 1 + absolute : 1 - absolute
-        
-        let pinch = SKAction.scale(by: scale, duration: 0.0)
-        
+        // Save scale attribute for later inspection, reset the original gesture scale.
+        let scale = sender.scale
         sender.scale = 1.0
-            canvasView?.canvasScene.camera?.run(pinch)
+        
+        
+        let canvasXScale = canvasView?.canvas.xScale
+    
+        let canvasWidth = CGFloat((canvasView?.canvas.getWidth())!)
+        let augmentedCanvasWidth = canvasWidth * canvasXScale!
+        let pixelWidth = CGFloat((canvasView?.canvas.getPixelWidth())!)
+        let augmentedPixelWidth = pixelWidth * canvasXScale!
+        
+      
+        // Zooming out based on relative size of canvas width.
+        // FIXME: If needed, change this to a relative number for different canvas sizes.
+        if (augmentedCanvasWidth/SCREEN_WIDTH) < MAX_ZOOM_OUT && scale < 1 {
+            return
         }
         
+        // Zooming in based on pixels visible on screen independent of actual canvas size.
+        if (augmentedPixelWidth > SCREEN_WIDTH/MAX_AMOUNT_PIXEL_PER_SCREEN) && scale > 1 {
+            return
+        }
+        
+        canvasView?.canvas.run(pinch)
     }
     
     @objc func handleDrawFrom(_ sender: UIPanGestureRecognizer) {
@@ -244,8 +266,6 @@ class ViewController: UIViewController {
                 pixel.fillColor = .blue
             }
         })
-        
-        
     }
     
     @objc func handleTapFrom(_ sender: UITapGestureRecognizer) {
@@ -268,10 +288,12 @@ class ViewController: UIViewController {
         
         let translation = sender.translation(in: canvasView)
 
-        let xScale = canvasScene?.camera?.xScale
-        let yScale = canvasScene?.camera?.yScale
-        let pan = SKAction.moveBy(x: -1.0 * translation.x * xScale! , y:  translation.y * yScale!, duration: 0)
-        canvasScene?.camera?.run(pan)
+        let xScale = canvasScene?.xScale
+        let yScale = canvasScene?.yScale
+
+        let pan = SKAction.moveBy(x: translation.x * xScale! , y:  -1.0 * translation.y * yScale!, duration: 0)
+        
+        canvasView?.canvas.run(pan)
         sender.setTranslation(CGPoint.zero, in: canvasView)
     }
     
