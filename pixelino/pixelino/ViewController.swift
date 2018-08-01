@@ -326,27 +326,24 @@ class ViewController: UIViewController {
     }
 }
 
-// Extension for handling half-views such as for the pipette tool.
+// Extension for handling half-views such as for the color picker tool.
 extension ViewController: UIViewControllerTransitioningDelegate {
-    
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
+        return SplitPresentationController(presentedViewController: presented, presenting: presenting)
     }
     
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
-    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
 
+// Extension for writing back colors from the color picker view.
 extension ViewController: ColorChoiceDelegate {
     func colorChoicePicked(_ color: UIColor) {
         self.currentDrawingColor = color
     }
-    
-    
 }
 
