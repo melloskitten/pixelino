@@ -135,6 +135,7 @@ class ViewController: UIViewController {
     var canvasView : CanvasView? = nil
     var toolbarView : UIView? = nil
     var observer : AnyObject?
+    var currentDrawingColor : UIColor = .black
     
     override var shouldAutorotate: Bool {
         return false
@@ -177,14 +178,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setupOrientationObserver()
-
         self.canvasView = CanvasView()
         self.view.addSubview(canvasView!)
-     
+    
         registerGestureRecognizer()
         registerToolbar()
+        setUpColorPickerButton()
     }
     
+    private func setUpColorPickerButton() {
+        let colorPickerButton = UIButton()
+        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50)
+        colorPickerButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        colorPickerButton.setImage(UIImage(named: "ColorPicker"), for: .normal)
+        colorPickerButton.addTarget(self, action: #selector(colorPickerButtonPressed(sender:)), for: .touchUpInside)
+        self.view.addSubview(colorPickerButton)
+    }
+    
+    @objc func colorPickerButtonPressed(sender: UIButton!) {
+        var colorPickerVC = ColorPickerViewController()
+        colorPickerVC.colorChoiceDelegate = self
+        colorPickerVC.transitioningDelegate = self
+        colorPickerVC.modalPresentationStyle = .custom
+        self.present(colorPickerVC, animated: true, completion: nil)
+    }
+
     private func setupOrientationObserver() {
         observer = NotificationCenter.default.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: nil, using: orientationChanged)
     }
@@ -263,7 +281,7 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = .blue
+                pixel.fillColor = currentDrawingColor
             }
         })
     }
@@ -278,7 +296,7 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = pixel.fillColor == .yellow ? .black : .yellow
+                pixel.fillColor = pixel.fillColor == currentDrawingColor ? .white : currentDrawingColor
             }
         })
     }
@@ -303,10 +321,24 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UIGestureRecognizerDelegate {
+// Extension for handling half-views such as for the color picker tool.
+extension ViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return SplitPresentationController(presentedViewController: presented, presenting: presenting)
+    }
     
+}
+
+extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+// Extension for writing back colors from the color picker view.
+extension ViewController: ColorChoiceDelegate {
+    func colorChoicePicked(_ color: UIColor) {
+        self.currentDrawingColor = color
     }
 }
 

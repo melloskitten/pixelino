@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9137FDE736318DEC1135226C /* libPods-pixelino.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EC29205962B713DD80DA9F /* libPods-pixelino.a */; };
+		7FEAE8C808A874161F2D5CA5 /* Pods_pixelino.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */; };
+		BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */; };
+		BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */; };
+		BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B82111F43900384785 /* SplitPresentationController.swift */; };
 		BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7BCD920AA159F005C5468 /* AppDelegate.swift */; };
 		BCF7BCDC20AA159F005C5468 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7BCDB20AA159F005C5468 /* ViewController.swift */; };
 		BCF7BCDF20AA159F005C5468 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCF7BCDD20AA159F005C5468 /* Main.storyboard */; };
@@ -16,9 +19,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		08EC29205962B713DD80DA9F /* libPods-pixelino.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pixelino.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A3DE91FA43F7E53A6552444 /* Pods-pixelino.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.debug.xcconfig"; sourceTree = "<group>"; };
+		88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixelino.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2492726C00F6C59E27C46F2 /* Pods-pixelino.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.release.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.release.xcconfig"; sourceTree = "<group>"; };
+		BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
+		BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceDelegate.swift; sourceTree = "<group>"; };
+		BCF6B4B82111F43900384785 /* SplitPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPresentationController.swift; sourceTree = "<group>"; };
 		BCF7BCD620AA159F005C5468 /* pixelino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pixelino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF7BCD920AA159F005C5468 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCF7BCDB20AA159F005C5468 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -33,7 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9137FDE736318DEC1135226C /* libPods-pixelino.a in Frameworks */,
+				7FEAE8C808A874161F2D5CA5 /* Pods_pixelino.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +82,9 @@
 				BCF7BCE020AA15A0005C5468 /* Assets.xcassets */,
 				BCF7BCE220AA15A0005C5468 /* LaunchScreen.storyboard */,
 				BCF7BCE520AA15A0005C5468 /* Info.plist */,
+				BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */,
+				BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */,
+				BCF6B4B82111F43900384785 /* SplitPresentationController.swift */,
 			);
 			path = pixelino;
 			sourceTree = "<group>";
@@ -83,7 +92,7 @@
 		D670A1C2F42E784392406920 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				08EC29205962B713DD80DA9F /* libPods-pixelino.a */,
+				88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,6 +108,7 @@
 				BCF7BCD220AA159F005C5468 /* Sources */,
 				BCF7BCD320AA159F005C5468 /* Frameworks */,
 				BCF7BCD420AA159F005C5468 /* Resources */,
+				AB3DAB40F28E39EBB9728EAB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -174,6 +184,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		AB3DAB40F28E39EBB9728EAB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pixelino/Pods-pixelino-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChromaColorPicker/ChromaColorPicker.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChromaColorPicker.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pixelino/Pods-pixelino-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -182,7 +210,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCF7BCDC20AA159F005C5468 /* ViewController.swift in Sources */,
+				BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */,
+				BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */,
 				BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */,
+				BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
