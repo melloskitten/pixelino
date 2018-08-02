@@ -196,7 +196,7 @@ class ViewController: UIViewController {
     }
     
     @objc func colorPickerButtonPressed(sender: UIButton!) {
-        var colorPickerVC = ColorPickerViewController()
+        let colorPickerVC = ColorPickerViewController()
         colorPickerVC.colorChoiceDelegate = self
         colorPickerVC.transitioningDelegate = self
         colorPickerVC.modalPresentationStyle = .custom
