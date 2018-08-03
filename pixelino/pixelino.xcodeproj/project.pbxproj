@@ -12,6 +12,7 @@
 		BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */; };
 		BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B82111F43900384785 /* SplitPresentationController.swift */; };
 		BCF6B4BB2112061600384785 /* ColorHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4BA2112061600384785 /* ColorHistoryCollectionViewCell.swift */; };
+		BCF6B4BE2114E45300384785 /* pixelino.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4BC2114E45300384785 /* pixelino.xcdatamodeld */; };
 		BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7BCD920AA159F005C5468 /* AppDelegate.swift */; };
 		BCF7BCDC20AA159F005C5468 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7BCDB20AA159F005C5468 /* ViewController.swift */; };
 		BCF7BCDF20AA159F005C5468 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCF7BCDD20AA159F005C5468 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceDelegate.swift; sourceTree = "<group>"; };
 		BCF6B4B82111F43900384785 /* SplitPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPresentationController.swift; sourceTree = "<group>"; };
 		BCF6B4BA2112061600384785 /* ColorHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		BCF6B4BD2114E45300384785 /* Model.xcdatamodel */ = {isa = PBXFileReference; explicitFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		BCF7BCD620AA159F005C5468 /* pixelino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pixelino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF7BCD920AA159F005C5468 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCF7BCDB20AA159F005C5468 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				BCF6B4BA2112061600384785 /* ColorHistoryCollectionViewCell.swift */,
 				BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */,
 				BCF6B4B82111F43900384785 /* SplitPresentationController.swift */,
+				BCF6B4BC2114E45300384785 /* pixelino.xcdatamodeld */,
 			);
 			path = pixelino;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				BCF7BCDC20AA159F005C5468 /* ViewController.swift in Sources */,
 				BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */,
 				BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */,
+				BCF6B4BE2114E45300384785 /* pixelino.xcdatamodeld in Sources */,
 				BCF6B4BB2112061600384785 /* ColorHistoryCollectionViewCell.swift in Sources */,
 				BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */,
 				BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */,
@@ -421,6 +425,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BCF6B4BC2114E45300384785 /* pixelino.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BCF6B4BD2114E45300384785 /* Model.xcdatamodel */,
+			);
+			currentVersion = BCF6B4BD2114E45300384785 /* Model.xcdatamodel */;
+			path = pixelino.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BCF7BCCE20AA159F005C5468 /* Project object */;
 }
