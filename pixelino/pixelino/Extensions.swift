@@ -29,8 +29,8 @@ public extension UIColor {
         
         return
             fabs(r1 - r2) <= tolerance &&
-                fabs(g1 - g2) <= tolerance &&
-                fabs(b1 - b2) <= tolerance &&
-                fabs(a1 - a2) <= tolerance
+            fabs(g1 - g2) <= tolerance &&
+            fabs(b1 - b2) <= tolerance &&
+            fabs(a1 - a2) <= tolerance
     }
 }

@@ -21,6 +21,8 @@ let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 // Maximum amount of pixels shown on screen when zooming in.
 let MAX_AMOUNT_PIXEL_PER_SCREEN : CGFloat = 4.0
 let MAX_ZOOM_OUT : CGFloat = 0.75
+// Tolerance for checking equality of UIColors.
+let COLOR_EQUALITY_TOLERANCE = 0.1
 
 let animationDuration: TimeInterval = 0.4
 
@@ -303,11 +305,12 @@ class ViewController: UIViewController {
     }
     
     // Custom method to check for equality for UIColors.
+    // FIXME: chosen tolerance value more sophisticatedly.
     private func isEqual(firstColor: UIColor, secondColor: UIColor) -> Bool {
         if firstColor == secondColor {
             return true
         }
-        else if firstColor.isEqualToColor(color: secondColor, withTolerance: 0.1) {
+        else if firstColor.isEqualToColor(color: secondColor, withTolerance: COLOR_EQUALITY_TOLERANCE) {
             return true
         }
         return false
