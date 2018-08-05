@@ -55,8 +55,6 @@ class ColorPickerViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        //deleteColorHistory()
-        
         self.view.backgroundColor = lightGrey
         setUpColorPicker()
         setUpColorHistoryCollectionView()

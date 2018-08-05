@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import CoreGraphics
 
 // FIXME: Move constants to appropriate file
 let darkGrey = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
@@ -296,9 +297,20 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = pixel.fillColor == currentDrawingColor ? .white : currentDrawingColor
+                pixel.fillColor = isEqual(firstColor: pixel.fillColor, secondColor: currentDrawingColor) ? UIColor.white : currentDrawingColor
             }
         })
+    }
+    
+    // Custom method to check for equality for UIColors.
+    private func isEqual(firstColor: UIColor, secondColor: UIColor) -> Bool {
+        if firstColor == secondColor {
+            return true
+        }
+        else if firstColor.isEqualToColor(color: secondColor, withTolerance: 0.1) {
+            return true
+        }
+        return false
     }
     
     @objc func handlePanFrom(_ sender: UIPanGestureRecognizer) {
