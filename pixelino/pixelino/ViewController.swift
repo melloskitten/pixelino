@@ -8,10 +8,11 @@
 
 import UIKit
 import SpriteKit
+import CoreGraphics
 
 // FIXME: Move constants to appropriate file
-let darkGrey = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
-let lightGrey = UIColor(red:0.19, green:0.19, blue:0.19, alpha:1.0)
+let DARK_GREY = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
+let LIGHT_GREY = UIColor(red:0.19, green:0.19, blue:0.19, alpha:1.0)
 let PIXEL_SIZE = 300
 
 // FIXME: Make this dynamic
@@ -20,6 +21,8 @@ let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 // Maximum amount of pixels shown on screen when zooming in.
 let MAX_AMOUNT_PIXEL_PER_SCREEN : CGFloat = 4.0
 let MAX_ZOOM_OUT : CGFloat = 0.75
+// Tolerance for checking equality of UIColors.
+let COLOR_EQUALITY_TOLERANCE : CGFloat = 0.1
 
 let animationDuration: TimeInterval = 0.4
 
@@ -196,7 +199,7 @@ class ViewController: UIViewController {
     }
     
     @objc func colorPickerButtonPressed(sender: UIButton!) {
-        var colorPickerVC = ColorPickerViewController()
+        let colorPickerVC = ColorPickerViewController()
         colorPickerVC.colorChoiceDelegate = self
         colorPickerVC.transitioningDelegate = self
         colorPickerVC.modalPresentationStyle = .custom
@@ -213,7 +216,7 @@ class ViewController: UIViewController {
         let screenHeight = screenSize.height
         
         toolbarView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: screenHeight-100), size: CGSize(width: screenWidth, height: 100 )))
-        toolbarView?.backgroundColor = lightGrey
+        toolbarView?.backgroundColor = LIGHT_GREY
         
         self.view.addSubview(toolbarView!)
     }
@@ -296,9 +299,20 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = pixel.fillColor == currentDrawingColor ? .white : currentDrawingColor
+                pixel.fillColor = isEqual(firstColor: pixel.fillColor, secondColor: currentDrawingColor) ? UIColor.white : currentDrawingColor
             }
         })
+    }
+    
+    // Custom method to check for equality for UIColors.
+    // FIXME: chosen tolerance value more sophisticatedly.
+    private func isEqual(firstColor: UIColor, secondColor: UIColor) -> Bool {
+        if firstColor == secondColor {
+            return true
+        } else if firstColor.isEqualToColor(color: secondColor, withTolerance: COLOR_EQUALITY_TOLERANCE) {
+            return true
+        }
+        return false
     }
     
     @objc func handlePanFrom(_ sender: UIPanGestureRecognizer) {
