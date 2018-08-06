@@ -55,15 +55,12 @@ class ColorPickerViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        self.view.backgroundColor = lightGrey
+        self.view.backgroundColor = LIGHT_GREY
         setUpColorPicker()
         setUpColorHistoryCollectionView()
-        
         setUpGestureRecognizer()
         
-        // Load the previously used colors in the image.
         loadColorHistory()
-        
     }
     
     @objc func dismissView(_ sender: UISwipeGestureRecognizer) {
@@ -83,16 +80,17 @@ class ColorPickerViewController: UIViewController {
     // Removes entire color history.
     private func deleteColorHistory() {
         // Grab Core Data context.
-        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let context = delegate.persistentContainer.viewContext
+        guard let managedContext = getCoreDataContext() else {
+            return
+        }
         
         // Perform actual deletion request.
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ColorHistory")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         
         do {
-            try context.execute(deleteRequest)
-            try context.save()
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
         } catch let error as NSError {
             // FIXME: Implement proper error handling.
             print("Could not delete. \(error), \(error.userInfo)")
@@ -102,27 +100,35 @@ class ColorPickerViewController: UIViewController {
     // Saves current color history to CoreData.
     private func saveColorInColorHistory(color: UIColor) {
         // Grab Core Data context.
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let context = appDelegate.persistentContainer.viewContext
-        let colorHistoryEntity = NSEntityDescription.entity(forEntityName: "ColorHistory", in: context)!
-        let colorHistoryObject = NSManagedObject(entity: colorHistoryEntity, insertInto: context)
+        guard let managedContext = getCoreDataContext() else {
+            return
+        }
+        let colorHistoryEntity = NSEntityDescription.entity(forEntityName: "ColorHistory", in: managedContext)!
+        let colorHistoryObject = NSManagedObject(entity: colorHistoryEntity, insertInto: managedContext)
     
         // Perform actual saving request
         colorHistoryObject.setValue(color, forKey: "color")
     
         do {
-            try context.save()
+            try managedContext.save()
         } catch let error as NSError {
             // FIXME: Implement proper error handling.
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
     
+    // Fetches core data context needed for all loading/storing requests.
+    private func getCoreDataContext() -> NSManagedObjectContext? {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        return appDelegate.persistentContainer.viewContext
+    }
+    
     // Loads the currently available color history.
     private func loadColorHistory() {
         // Grab Core Data context.
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let managedContext = getCoreDataContext() else {
+            return
+        }
         
         // Perform actual fetch request & save to local colorHistory array.
         // Note: The color history is sorted by most recently used color first.
@@ -134,6 +140,7 @@ class ColorPickerViewController: UIViewController {
             for data in result as! [NSManagedObject] {
                 fetchedColorHistory.insert(data.value(forKey: "color") as! UIColor, at: 0)
             }
+            
             self.colorHistory = fetchedColorHistory
             self.colorHistoryCollectionView.reloadData()
             
@@ -155,7 +162,7 @@ extension ColorPickerViewController: UICollectionViewDelegate {
 extension ColorPickerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // (Debatable) FIXME: Currently there is a hard coded amount of color history slots.
+        // Currently there is a hard coded amount of color history slots.
         return 20
     }
     

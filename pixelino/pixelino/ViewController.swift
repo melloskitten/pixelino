@@ -11,8 +11,8 @@ import SpriteKit
 import CoreGraphics
 
 // FIXME: Move constants to appropriate file
-let darkGrey = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
-let lightGrey = UIColor(red:0.19, green:0.19, blue:0.19, alpha:1.0)
+let DARK_GREY = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
+let LIGHT_GREY = UIColor(red:0.19, green:0.19, blue:0.19, alpha:1.0)
 let PIXEL_SIZE = 300
 
 // FIXME: Make this dynamic
@@ -216,7 +216,7 @@ class ViewController: UIViewController {
         let screenHeight = screenSize.height
         
         toolbarView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: screenHeight-100), size: CGSize(width: screenWidth, height: 100 )))
-        toolbarView?.backgroundColor = lightGrey
+        toolbarView?.backgroundColor = LIGHT_GREY
         
         self.view.addSubview(toolbarView!)
     }
@@ -309,8 +309,7 @@ class ViewController: UIViewController {
     private func isEqual(firstColor: UIColor, secondColor: UIColor) -> Bool {
         if firstColor == secondColor {
             return true
-        }
-        else if firstColor.isEqualToColor(color: secondColor, withTolerance: COLOR_EQUALITY_TOLERANCE) {
+        } else if firstColor.isEqualToColor(color: secondColor, withTolerance: COLOR_EQUALITY_TOLERANCE) {
             return true
         }
         return false
