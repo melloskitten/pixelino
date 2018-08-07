@@ -187,11 +187,21 @@ class ViewController: UIViewController {
         registerGestureRecognizer()
         registerToolbar()
         setUpColorPickerButton()
+        setUpExportButton()
     }
     
-    private func setUpColorPickerButton() {
+    fileprivate func setUpExportButton() {
+        let exportButton = UIButton()
+        exportButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50)
+        exportButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        exportButton.setImage(UIImage(named: "Export"), for: .normal)
+        exportButton.addTarget(self, action: #selector(exportButtonPressed(sender:)), for: .touchUpInside)
+        self.view.addSubview(exportButton)
+    }
+    
+    fileprivate func setUpColorPickerButton() {
         let colorPickerButton = UIButton()
-        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50)
+        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-170, y: SCREEN_HEIGHT-80, width: 50, height: 50)
         colorPickerButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         colorPickerButton.setImage(UIImage(named: "ColorPicker"), for: .normal)
         colorPickerButton.addTarget(self, action: #selector(colorPickerButtonPressed(sender:)), for: .touchUpInside)
@@ -204,6 +214,10 @@ class ViewController: UIViewController {
         colorPickerVC.transitioningDelegate = self
         colorPickerVC.modalPresentationStyle = .custom
         self.present(colorPickerVC, animated: true, completion: nil)
+    }
+    
+    @objc func exportButtonPressed(sender: UIButton!) {
+        print("button pushed")
     }
 
     private func setupOrientationObserver() {

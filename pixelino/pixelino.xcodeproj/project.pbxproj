@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7FEAE8C808A874161F2D5CA5 /* Pods_pixelino.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */; };
+		BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01F970211A2E8000D43A45 /* PictureExporter.swift */; };
 		BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */; };
 		BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */; };
 		BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B82111F43900384785 /* SplitPresentationController.swift */; };
@@ -25,6 +26,7 @@
 		1A3DE91FA43F7E53A6552444 /* Pods-pixelino.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.debug.xcconfig"; sourceTree = "<group>"; };
 		88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixelino.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2492726C00F6C59E27C46F2 /* Pods-pixelino.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.release.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.release.xcconfig"; sourceTree = "<group>"; };
+		BC01F970211A2E8000D43A45 /* PictureExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureExporter.swift; sourceTree = "<group>"; };
 		BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceDelegate.swift; sourceTree = "<group>"; };
 		BCF6B4B82111F43900384785 /* SplitPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPresentationController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				BCF6B4B82111F43900384785 /* SplitPresentationController.swift */,
 				BCF6B4E0211777C900384785 /* Extensions.swift */,
 				BCF6B4E52118664200384785 /* pixelino.xcdatamodeld */,
+				BC01F970211A2E8000D43A45 /* PictureExporter.swift */,
 			);
 			path = pixelino;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */,
 				BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */,
 				BCF6B4E1211777C900384785 /* Extensions.swift in Sources */,
+				BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */,
 				BCF6B4BB2112061600384785 /* ColorHistoryCollectionViewCell.swift in Sources */,
 				BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */,
 				BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */,
