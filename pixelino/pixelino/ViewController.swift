@@ -26,6 +26,9 @@ let COLOR_EQUALITY_TOLERANCE : CGFloat = 0.1
 
 let animationDuration: TimeInterval = 0.4
 
+let CANVAS_WIDTH = 20
+let CANVAS_HEIGHT = 20
+
 
 
 
@@ -55,6 +58,7 @@ class Canvas : SKSpriteNode {
 
     private var width: Int = 0
     private var height: Int = 0
+    private var pixelArray = [Pixel]()
     
     init(width: Int, height: Int) {
         // TODO: Refactor this method ASAP
@@ -69,12 +73,20 @@ class Canvas : SKSpriteNode {
         
     }
     
-    func getWidth() -> Int {
+    func getCanvasWidth() -> Int {
         return width * PIXEL_SIZE
     }
     
-    func getHeight() -> Int {
+    func getCanvasHeight() -> Int {
         return height * PIXEL_SIZE
+    }
+    
+    func getAmountOfPixelsForWidth() -> Int {
+        return width
+    }
+    
+    func getAmountofPixelsForHeight() -> Int {
+        return height
     }
     
     func getPixelWidth() -> Int {
@@ -83,6 +95,12 @@ class Canvas : SKSpriteNode {
     
     func getPixelHeight() -> Int {
         return PIXEL_SIZE
+    }
+    
+    func getPixelColorArray() -> [UIColor] {
+        return pixelArray.map({ (currentPixel) -> UIColor in
+            return currentPixel.fillColor
+        })
     }
     
     private func setUpPixelGrid(width: Int, height: Int) {
@@ -96,6 +114,7 @@ class Canvas : SKSpriteNode {
                 
                 pixel.position.x = CGFloat(xPos)
                 pixel.position.y = CGFloat(yPos)
+                pixelArray.append(pixel)
                 
                 self.addChild(pixel)
             }
@@ -117,7 +136,7 @@ class CanvasView : SKView {
         canvasScene = SKScene(size: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
         canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
         canvasScene.isUserInteractionEnabled = true
-        canvas = Canvas(width: 10, height: 10)
+        canvas = Canvas(width: CANVAS_WIDTH, height: CANVAS_HEIGHT)
         
         super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
     
@@ -217,7 +236,59 @@ class ViewController: UIViewController {
     }
     
     @objc func exportButtonPressed(sender: UIButton!) {
-        print("button pushed")
+        var rawPixelArray = [RawPixel]()
+        
+        guard let canvasColorArray = self.canvasView?.canvas.getPixelColorArray(),
+            let canvasWidth = self.canvasView?.canvas.getAmountOfPixelsForWidth(),
+            let canvasHeight = self.canvasView?.canvas.getAmountofPixelsForHeight() else {
+                return
+        }
+        
+        canvasColorArray.forEach { (color) in
+            let rawPixel = RawPixel(inputColor: color)
+            rawPixelArray.append(rawPixel)
+        }
+
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        var data = rawPixelArray
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        guard let dataProvider = CGDataProvider(data: NSData(bytes: &data,
+                                                             length: data.count * MemoryLayout<RawPixel>.size)
+            ) else { return }
+        
+        guard let exportedCGImage = CGImage.init(width: canvasWidth, height: canvasHeight, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: canvasWidth * (MemoryLayout<RawPixel>.size), space: rgbColorSpace, bitmapInfo: bitmapInfo, provider: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) else {
+            print("CGImage could not be created")
+            return
+        }
+        
+        let exportedUIImage = UIImage(cgImage: exportedCGImage)
+        let imageView = UIImageView(image: exportedUIImage)
+        imageView.layer.magnificationFilter = kCAFilterNearest
+        imageView.frame = CGRect(x: 5, y: 5, width: 300, height: 300)
+        
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, imageView.isOpaque, 0.0)
+        imageView.drawHierarchy(in: imageView.bounds, afterScreenUpdates: true)
+        let snapshotImageFromMyView = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        
+        
+        UIImageWriteToSavedPhotosAlbum(snapshotImageFromMyView!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    // FIXME: https://stackoverflow.com/questions/40854886/swift-take-a-photo-and-save-to-photo-library
+    // MARK: - Add image to Library
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
 
     private func setupOrientationObserver() {
@@ -268,7 +339,7 @@ class ViewController: UIViewController {
         
         let canvasXScale = canvasView?.canvas.xScale
     
-        let canvasWidth = CGFloat((canvasView?.canvas.getWidth())!)
+        let canvasWidth = CGFloat((canvasView?.canvas.getCanvasWidth())!)
         let augmentedCanvasWidth = canvasWidth * canvasXScale!
         let pixelWidth = CGFloat((canvasView?.canvas.getPixelWidth())!)
         let augmentedPixelWidth = pixelWidth * canvasXScale!
@@ -369,4 +440,21 @@ extension ViewController: ColorChoiceDelegate {
         self.currentDrawingColor = color
     }
 }
+
+struct RawPixel {
+    var r : UInt8
+    var g : UInt8
+    var b : UInt8
+    var a : UInt8
+    
+    init(inputColor: UIColor) {
+        let (r, g, b, a) = inputColor.rgb()
+        
+        self.r = UInt8(r!)
+        self.g = UInt8(g!)
+        self.b = UInt8(b!)
+        self.a = UInt8(a!)
+    }
+}
+
 
