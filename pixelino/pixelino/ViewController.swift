@@ -85,7 +85,7 @@ class Canvas : SKSpriteNode {
         return width
     }
     
-    func getAmountofPixelsForHeight() -> Int {
+    func getAmountOfPixelsForHeight() -> Int {
         return height
     }
     
@@ -239,7 +239,7 @@ class ViewController: UIViewController {
         // Fetch all needed parameters from the current canvas.
         guard let canvasColorArray = self.canvasView?.canvas.getPixelColorArray(),
             let canvasWidth = self.canvasView?.canvas.getAmountOfPixelsForWidth(),
-            let canvasHeight = self.canvasView?.canvas.getAmountofPixelsForHeight() else {
+            let canvasHeight = self.canvasView?.canvas.getAmountOfPixelsForHeight() else {
                 return
         }
         

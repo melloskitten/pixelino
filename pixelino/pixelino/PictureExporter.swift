@@ -50,32 +50,43 @@ class PictureExporter: NSObject {
                 return nil }
         
         // Create CGImage version.
-        guard let exportedCGImage = CGImage.init(width: canvasWidth, height: canvasHeight, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: canvasWidth * (MemoryLayout<RawPixel>.size), space: rgbColorSpace, bitmapInfo: bitmapInfo, provider: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) else {
+        guard let cgImage = CGImage.init(width: canvasWidth, height: canvasHeight, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: canvasWidth * (MemoryLayout<RawPixel>.size), space: rgbColorSpace, bitmapInfo: bitmapInfo, provider: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) else {
             print("CGImage could not be created.")
             return nil
         }
         
         // Convert to UIImage for later use in UIImageView.
-        let exportedUIImage = UIImage(cgImage: exportedCGImage)
-        return exportedUIImage
+        let uiImage = UIImage(cgImage: cgImage)
+        
+        return uiImage
     }
     
     public func exportImage(exportedWidth: Int, exportedHeight: Int) {
-        guard let exportedUIImage = generateUIImage() else {
+        guard let uiImage = generateUIImage() else {
             return
         }
         
         // Generate Image View for saving image by taking a screenshort.
-        let imageView = UIImageView(image: exportedUIImage)
+        let imageView = UIImageView(image: uiImage)
         imageView.layer.magnificationFilter = kCAFilterNearest
         imageView.frame = CGRect(x: 0, y: 0, width: exportedWidth, height: exportedHeight)
+        
+        // Take actual screenshot from Image View context.
         UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, imageView.isOpaque, 0.0)
+        imageView.transform = imageView.transform.rotated(by: CGFloat.pi/2)
         imageView.drawHierarchy(in: imageView.bounds, afterScreenUpdates: true)
-        let snapshotImage = UIGraphicsGetImageFromCurrentImageContext()
+        guard let snapshotImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            return
+        }
         UIGraphicsEndImageContext()
         
+        // Transform picture to correct rotation.
+        guard let rotatedSnapshotImage = snapshotImage.rotate(radians: -CGFloat.pi/2) else {
+            return
+        }
+        
         // Write back to Photos Album and show success/failure message to user from sender.
-        UIImageWriteToSavedPhotosAlbum(snapshotImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        UIImageWriteToSavedPhotosAlbum(rotatedSnapshotImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     // Taken from: https://stackoverflow.com/questions/40854886/swift-take-a-photo-and-save-to-photo-library
