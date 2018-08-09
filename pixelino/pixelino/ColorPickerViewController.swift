@@ -121,7 +121,7 @@ class ColorPickerViewController: UIViewController {
     // Saves current color history to CoreData.
     private func saveColorInColorHistory(color: UIColor) {
         
-        // Check whether the color is already part of the
+        // Check whether the color is already part of the color history.
         // Grab Core Data context.
         guard let managedContext = getCoreDataContext() else {
             return
@@ -143,13 +143,13 @@ class ColorPickerViewController: UIViewController {
     // Saves current color history to CoreData while respecting the number of occurences. (max. 1)
     private func saveColorInColorHistoryOnce(color: UIColor) {
         // Check whether the saved color is in our current color history.
-        if !colorHistory.contains(color) {
-            saveColorInColorHistory(color: color)
-        } else {
+        if colorHistory.contains(color) {
             // Delete the last occurence of the color.
             deleteColorInColorHistory(color: color)
             
             // Save the current color.
+            saveColorInColorHistory(color: color)
+        } else {
             saveColorInColorHistory(color: color)
         }
     }
