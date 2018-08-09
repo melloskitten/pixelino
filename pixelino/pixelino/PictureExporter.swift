@@ -51,6 +51,7 @@ class PictureExporter: NSObject {
         
         // Convert to UIImage for later use in UIImageView.
         let exportedUIImage = UIImage(cgImage: exportedCGImage)
+        
         return exportedUIImage
     }
     
@@ -63,13 +64,21 @@ class PictureExporter: NSObject {
         let imageView = UIImageView(image: exportedUIImage)
         imageView.layer.magnificationFilter = kCAFilterNearest
         imageView.frame = CGRect(x: 0, y: 0, width: exportedWidth, height: exportedHeight)
+        
+        // Take actual screenshot from Image View context.
         UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, imageView.isOpaque, 0.0)
+        imageView.transform = imageView.transform.rotated(by: CGFloat.pi/2)
         imageView.drawHierarchy(in: imageView.bounds, afterScreenUpdates: true)
-        let snapshotImage = UIGraphicsGetImageFromCurrentImageContext()
+        guard let snapshotImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            return
+        }
         UIGraphicsEndImageContext()
         
+        // Transform picture to correct rotation.
+        let rotatedSnapshotImage = snapshotImage.rotate(radians: -CGFloat.pi/2)
+        
         // Write back to Photos Album and show success/failure message to user from sender.
-        UIImageWriteToSavedPhotosAlbum(snapshotImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        UIImageWriteToSavedPhotosAlbum(rotatedSnapshotImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     // https://stackoverflow.com/questions/40854886/swift-take-a-photo-and-save-to-photo-library
