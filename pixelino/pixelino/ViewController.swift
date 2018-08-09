@@ -19,12 +19,15 @@ let PIXEL_SIZE = 300
 let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 // Maximum amount of pixels shown on screen when zooming in.
-let MAX_AMOUNT_PIXEL_PER_SCREEN : CGFloat = 4.0
-let MAX_ZOOM_OUT : CGFloat = 0.75
+let MAX_AMOUNT_PIXEL_PER_SCREEN: CGFloat = 4.0
+let MAX_ZOOM_OUT: CGFloat = 0.75
 // Tolerance for checking equality of UIColors.
-let COLOR_EQUALITY_TOLERANCE : CGFloat = 0.1
+let COLOR_EQUALITY_TOLERANCE: CGFloat = 0.1
 
 let animationDuration: TimeInterval = 0.4
+
+let CANVAS_WIDTH = 20
+let CANVAS_HEIGHT = 20
 
 
 
@@ -55,6 +58,7 @@ class Canvas : SKSpriteNode {
 
     private var width: Int = 0
     private var height: Int = 0
+    private var pixelArray = [Pixel]()
     
     init(width: Int, height: Int) {
         // TODO: Refactor this method ASAP
@@ -69,12 +73,20 @@ class Canvas : SKSpriteNode {
         
     }
     
-    func getWidth() -> Int {
+    func getCanvasWidth() -> Int {
         return width * PIXEL_SIZE
     }
     
-    func getHeight() -> Int {
+    func getCanvasHeight() -> Int {
         return height * PIXEL_SIZE
+    }
+    
+    func getAmountOfPixelsForWidth() -> Int {
+        return width
+    }
+    
+    func getAmountofPixelsForHeight() -> Int {
+        return height
     }
     
     func getPixelWidth() -> Int {
@@ -83,6 +95,12 @@ class Canvas : SKSpriteNode {
     
     func getPixelHeight() -> Int {
         return PIXEL_SIZE
+    }
+    
+    func getPixelColorArray() -> [UIColor] {
+        return pixelArray.map({ (currentPixel) -> UIColor in
+            return currentPixel.fillColor
+        })
     }
     
     private func setUpPixelGrid(width: Int, height: Int) {
@@ -96,6 +114,7 @@ class Canvas : SKSpriteNode {
                 
                 pixel.position.x = CGFloat(xPos)
                 pixel.position.y = CGFloat(yPos)
+                pixelArray.append(pixel)
                 
                 self.addChild(pixel)
             }
@@ -117,7 +136,7 @@ class CanvasView : SKView {
         canvasScene = SKScene(size: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
         canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
         canvasScene.isUserInteractionEnabled = true
-        canvas = Canvas(width: 10, height: 10)
+        canvas = Canvas(width: CANVAS_WIDTH, height: CANVAS_HEIGHT)
         
         super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
     
@@ -187,11 +206,21 @@ class ViewController: UIViewController {
         registerGestureRecognizer()
         registerToolbar()
         setUpColorPickerButton()
+        setUpExportButton()
     }
     
-    private func setUpColorPickerButton() {
+    fileprivate func setUpExportButton() {
+        let exportButton = UIButton()
+        exportButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50)
+        exportButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        exportButton.setImage(UIImage(named: "Export"), for: .normal)
+        exportButton.addTarget(self, action: #selector(exportButtonPressed(sender:)), for: .touchUpInside)
+        self.view.addSubview(exportButton)
+    }
+    
+    fileprivate func setUpColorPickerButton() {
         let colorPickerButton = UIButton()
-        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50)
+        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-170, y: SCREEN_HEIGHT-80, width: 50, height: 50)
         colorPickerButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         colorPickerButton.setImage(UIImage(named: "ColorPicker"), for: .normal)
         colorPickerButton.addTarget(self, action: #selector(colorPickerButtonPressed(sender:)), for: .touchUpInside)
@@ -204,6 +233,19 @@ class ViewController: UIViewController {
         colorPickerVC.transitioningDelegate = self
         colorPickerVC.modalPresentationStyle = .custom
         self.present(colorPickerVC, animated: true, completion: nil)
+    }
+    
+    @objc func exportButtonPressed(sender: UIButton!) {
+        // Fetch all needed parameters from the current canvas.
+        guard let canvasColorArray = self.canvasView?.canvas.getPixelColorArray(),
+            let canvasWidth = self.canvasView?.canvas.getAmountOfPixelsForWidth(),
+            let canvasHeight = self.canvasView?.canvas.getAmountofPixelsForHeight() else {
+                return
+        }
+        
+        let pictureExporter = PictureExporter(colorArray: canvasColorArray, canvasWidth: canvasWidth, canvasHeight: canvasHeight, self)
+        // FIXME: Currently hardcoded pixel size of exported image.
+        pictureExporter.exportImage(exportedWidth: 300, exportedHeight: 300)
     }
 
     private func setupOrientationObserver() {
@@ -254,7 +296,7 @@ class ViewController: UIViewController {
         
         let canvasXScale = canvasView?.canvas.xScale
     
-        let canvasWidth = CGFloat((canvasView?.canvas.getWidth())!)
+        let canvasWidth = CGFloat((canvasView?.canvas.getCanvasWidth())!)
         let augmentedCanvasWidth = canvasWidth * canvasXScale!
         let pixelWidth = CGFloat((canvasView?.canvas.getPixelWidth())!)
         let augmentedPixelWidth = pixelWidth * canvasXScale!
@@ -355,4 +397,5 @@ extension ViewController: ColorChoiceDelegate {
         self.currentDrawingColor = color
     }
 }
+
 
