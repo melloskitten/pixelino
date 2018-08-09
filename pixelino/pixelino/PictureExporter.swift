@@ -30,9 +30,15 @@ class PictureExporter: NSObject {
     }
     
     private func setUpRawPixelArray(colorArray: [UIColor]) {
+        
         colorArray.forEach { (color) in
-            let rawPixel = RawPixel(inputColor: color)
-            rawPixelArray.append(rawPixel)
+            do {
+                let rawPixel = try RawPixel(inputColor: color)
+                rawPixelArray.append(rawPixel)
+            } catch {
+                print("RawPixel conversion failed. \(error.localizedDescription)")
+                return
+            }
         }
     }
     
@@ -72,17 +78,16 @@ class PictureExporter: NSObject {
         UIImageWriteToSavedPhotosAlbum(snapshotImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
-    // https://stackoverflow.com/questions/40854886/swift-take-a-photo-and-save-to-photo-library
+    // Taken from: https://stackoverflow.com/questions/40854886/swift-take-a-photo-and-save-to-photo-library
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        var ac = UIAlertController()
         if error != nil {
-            // we got back an error!
-            let ac = UIAlertController(title: "Export Error", message: "Your drawing could not be exported to Photos. Please try again.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            sender.present(ac, animated: true)
+            ac = UIAlertController(title: "Export Error", message: "Your drawing could not be exported to Photos. Please try again.", preferredStyle: .alert)
         } else {
-            let ac = UIAlertController(title: "Saved!", message: "Your drawing has been successfully saved to Photos.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            sender.present(ac, animated: true)
+            ac = UIAlertController(title: "Saved!", message: "Your drawing has been successfully saved to Photos.", preferredStyle: .alert)
         }
+        
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        sender.present(ac, animated: true)
     }
 }

@@ -34,7 +34,7 @@ public extension UIColor {
             fabs(a1 - a2) <= tolerance
     }
     
-    func rgb() -> (Int?, Int?, Int?, Int?) {
+    func rgb() -> (Int, Int, Int, Int)? {
         var fRed : CGFloat = 0
         var fGreen : CGFloat = 0
         var fBlue : CGFloat = 0
@@ -47,8 +47,7 @@ public extension UIColor {
 
             return (iRed, iGreen, iBlue, iAlpha)
         } else {
-            // Could not extract RGBA components:
-            return (nil, nil, nil, nil)
+            return nil
         }
     }
 
