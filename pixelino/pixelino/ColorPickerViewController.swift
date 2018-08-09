@@ -69,7 +69,7 @@ class ColorPickerViewController: UIViewController {
     
     // User has selected a color, dismiss screen and write back to delegate, as well as save to color history.
     private func colorWasSelected(color: UIColor) {
-        saveColorInColorHistory(color: color)
+        saveColorInColorHistoryOnce(color: color)
         colorChoiceDelegate?.colorChoicePicked(color)
         dismiss(animated: true, completion: nil)
     }
@@ -97,8 +97,31 @@ class ColorPickerViewController: UIViewController {
         }
     }
     
+    // Removes one particular color from color history.
+    private func deleteColorInColorHistory(color: UIColor) {
+        // Grab Core Data context.
+        guard let managedContext = getCoreDataContext() else {
+            return
+        }
+        
+        // Perform actual deletion request.
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ColorHistory")
+        deleteFetch.predicate = NSPredicate(format: "color == %@", color)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        
+        do {
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
+        } catch let error as NSError {
+            // FIXME: Implement proper error handling.
+            print("Could not delete. \(error), \(error.userInfo)")
+        }
+    }
+    
     // Saves current color history to CoreData.
     private func saveColorInColorHistory(color: UIColor) {
+        
+        // Check whether the color is already part of the color history.
         // Grab Core Data context.
         guard let managedContext = getCoreDataContext() else {
             return
@@ -114,6 +137,20 @@ class ColorPickerViewController: UIViewController {
         } catch let error as NSError {
             // FIXME: Implement proper error handling.
             print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    // Saves current color history to CoreData while respecting the number of occurences. (max. 1)
+    private func saveColorInColorHistoryOnce(color: UIColor) {
+        // Check whether the saved color is in our current color history.
+        if colorHistory.contains(color) {
+            // Delete the last occurence of the color.
+            deleteColorInColorHistory(color: color)
+            
+            // Save the current color.
+            saveColorInColorHistory(color: color)
+        } else {
+            saveColorInColorHistory(color: color)
         }
     }
     
