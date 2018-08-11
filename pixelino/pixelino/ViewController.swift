@@ -25,131 +25,9 @@ let MAX_ZOOM_OUT: CGFloat = 0.75
 let COLOR_EQUALITY_TOLERANCE: CGFloat = 0.1
 
 let animationDuration: TimeInterval = 0.4
-
 let CANVAS_WIDTH = 20
 let CANVAS_HEIGHT = 20
 
-
-
-
-class Pixel : SKShapeNode {
-    
-    override init() {
-        super.init()
-
-        self.fillColor = .white
-        self.strokeColor = UIColor.gray
-        
-        // FIXME: Adjust line width to scroll rate
-        self.lineWidth = 10
-        
-        let rect = UIBezierPath(rect: CGRect(x: 0, y: 0, width: PIXEL_SIZE, height: PIXEL_SIZE))
-        self.path = rect.cgPath
-        self.isUserInteractionEnabled = true
-        self.isAntialiased = false
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class Canvas : SKSpriteNode {
-
-    private var width: Int = 0
-    private var height: Int = 0
-    private var pixelArray = [Pixel]()
-    
-    init(width: Int, height: Int) {
-        // TODO: Refactor this method ASAP
-        
-        self.width = width
-        self.height = height
-        
-        super.init(texture: nil, color: .cyan, size: CGSize(width: width * PIXEL_SIZE, height: height * PIXEL_SIZE))
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
-        setUpPixelGrid(width: width, height: height)
-        
-    }
-    
-    func getCanvasWidth() -> Int {
-        return width * PIXEL_SIZE
-    }
-    
-    func getCanvasHeight() -> Int {
-        return height * PIXEL_SIZE
-    }
-    
-    func getAmountOfPixelsForWidth() -> Int {
-        return width
-    }
-    
-    func getAmountOfPixelsForHeight() -> Int {
-        return height
-    }
-    
-    func getPixelWidth() -> Int {
-        return PIXEL_SIZE
-    }
-    
-    func getPixelHeight() -> Int {
-        return PIXEL_SIZE
-    }
-    
-    func getPixelColorArray() -> [UIColor] {
-        return pixelArray.map({ (currentPixel) -> UIColor in
-            return currentPixel.fillColor
-        })
-    }
-    
-    private func setUpPixelGrid(width: Int, height: Int) {
-        for x in 0..<width {
-            for y in 0..<height {
-                
-                let xPos = Int(-self.size.width / 2) + x * Int(PIXEL_SIZE)
-                let yPos = Int(-self.size.height / 2) + y * Int(PIXEL_SIZE)
-                
-                let pixel = Pixel()
-                
-                pixel.position.x = CGFloat(xPos)
-                pixel.position.y = CGFloat(yPos)
-                pixelArray.append(pixel)
-                
-                self.addChild(pixel)
-            }
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class CanvasView : SKView {
-    
-    var canvasScene : SKScene
-    var canvas : Canvas
-    
-    init() {
-        
-        canvasScene = SKScene(size: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
-        canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
-        canvasScene.isUserInteractionEnabled = true
-        canvas = Canvas(width: CANVAS_WIDTH, height: CANVAS_HEIGHT)
-        
-        super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
-    
-        // Add canvas properties to view & show.
-        canvasScene.addChild(canvas)
-        canvasScene.scaleMode = .aspectFill
-        presentScene(canvasScene)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
 
 
 class ViewController: UIViewController {
@@ -169,7 +47,6 @@ class ViewController: UIViewController {
             return true
         }
     }
-    
 
     func orientationChanged (_ notification: Notification) {
         let orientation = UIDevice.current.orientation
@@ -341,7 +218,9 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = isEqual(firstColor: pixel.fillColor, secondColor: currentDrawingColor) ? UIColor.white : currentDrawingColor
+                // pixel.fillColor = isEqual(firstColor: pixel.fillColor, secondColor: currentDrawingColor) ? UIColor.white : currentDrawingColor
+                var drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
+                drawCommand.execute()
             }
         })
     }
