@@ -83,26 +83,33 @@ class ViewController: UIViewController {
     
         registerGestureRecognizer()
         registerToolbar()
-        setUpColorPickerButton()
-        setUpExportButton()
+        
+        setUpTabBarItems()
+        
+        //setUpColorPickerButton()
+        //setUpExportButton()
     }
     
-    fileprivate func setUpExportButton() {
-        let exportButton = UIButton()
-        exportButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50)
-        exportButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        exportButton.setImage(UIImage(named: "Export"), for: .normal)
-        exportButton.addTarget(self, action: #selector(exportButtonPressed(sender:)), for: .touchUpInside)
-        self.view.addSubview(exportButton)
+    fileprivate func setUpTabBarIcon(frame: CGRect, imageEdgeInsets: UIEdgeInsets, imageName: String, action: Selector) {
+        let tabBarIcon = UIButton()
+        tabBarIcon.frame = frame
+        tabBarIcon.imageEdgeInsets = imageEdgeInsets
+        tabBarIcon.setImage(UIImage(named: imageName), for: .normal)
+        tabBarIcon.addTarget(self, action: action, for: .touchUpInside)
+        self.view.addSubview(tabBarIcon)
     }
     
-    fileprivate func setUpColorPickerButton() {
-        let colorPickerButton = UIButton()
-        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-170, y: SCREEN_HEIGHT-80, width: 50, height: 50)
-        colorPickerButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        colorPickerButton.setImage(UIImage(named: "ColorPicker"), for: .normal)
-        colorPickerButton.addTarget(self, action: #selector(colorPickerButtonPressed(sender:)), for: .touchUpInside)
-        self.view.addSubview(colorPickerButton)
+    fileprivate func setUpTabBarItems() {
+        let standardImageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        // Export button.
+        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Export", action: #selector(exportButtonPressed(sender:)))
+        
+        // Color Picker button.
+        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-170, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "ColorPicker", action: #selector(colorPickerButtonPressed(sender:)))
+        
+        // Undo button.
+        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-370, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Undo", action: #selector(undoButtonPressed(sender:)))
     }
     
     @objc func colorPickerButtonPressed(sender: UIButton!) {
@@ -124,6 +131,18 @@ class ViewController: UIViewController {
         let pictureExporter = PictureExporter(colorArray: canvasColorArray, canvasWidth: canvasWidth, canvasHeight: canvasHeight, self)
         // FIXME: Currently hardcoded pixel size of exported image.
         pictureExporter.exportImage(exportedWidth: 300, exportedHeight: 300)
+    }
+    
+    @objc func redoButtonPressed(sender: UIButton!) {
+        
+    }
+    
+    @objc func undoButtonPressed(sender: UIButton!) {
+        guard let command = commandStack.popLast() else {
+            return
+        }
+        
+        command.undo()
     }
 
     private func setupOrientationObserver() {
