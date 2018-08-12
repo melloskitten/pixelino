@@ -32,10 +32,11 @@ let CANVAS_HEIGHT = 20
 
 class ViewController: UIViewController {
     
-    var canvasView : CanvasView? = nil
-    var toolbarView : UIView? = nil
-    var observer : AnyObject?
-    var currentDrawingColor : UIColor = .black
+    var commandStack = [Command]()
+    var canvasView: CanvasView? = nil
+    var toolbarView: UIView? = nil
+    var observer: AnyObject?
+    var currentDrawingColor: UIColor = .black
     
     override var shouldAutorotate: Bool {
         return false
@@ -220,6 +221,7 @@ class ViewController: UIViewController {
             if let pixel = node as? Pixel {
                 // pixel.fillColor = isEqual(firstColor: pixel.fillColor, secondColor: currentDrawingColor) ? UIColor.white : currentDrawingColor
                 var drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
+                commandStack.append(drawCommand)
                 drawCommand.execute()
             }
         })
