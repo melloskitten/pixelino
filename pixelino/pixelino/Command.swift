@@ -21,6 +21,10 @@ extension Command {
     }
 }
 
+protocol MultiCommand {
+    func append(command: Command)
+}
+
 class DrawCommand: Command {
     let oldColor: UIColor
     let newColor: UIColor
@@ -39,7 +43,44 @@ class DrawCommand: Command {
     func undo() {
         Canvas.draw(pixel: pixel, color: oldColor)
     }
+}
+
+extension DrawCommand: Hashable {
+    var hashValue: Int {
+        return pixel.hashValue
+    }
     
+    static func == (lhs: DrawCommand, rhs: DrawCommand) -> Bool {
+        return lhs.pixel == rhs.pixel
+    }
+}
+
+class GroupDrawCommand: Command {
+    var drawCommands: Set<DrawCommand>
     
+    init(drawCommands: Set<DrawCommand>) {
+        self.drawCommands = drawCommands
+    }
+    
+    init() {
+        self.drawCommands = []
+    }
+
+    func execute() {
+        _ = drawCommands.map { $0.execute() }
+    }
+    
+    func undo() {
+        _ = drawCommands.map { $0.undo() }
+    }
+}
+
+extension GroupDrawCommand: MultiCommand {
+    func append(command: Command) {
+        guard let drawCommand = command as? DrawCommand else {
+            return
+        }
+        drawCommands.insert(drawCommand)
+    }
 }
 

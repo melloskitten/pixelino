@@ -37,6 +37,7 @@ class ViewController: UIViewController {
     var toolbarView: UIView? = nil
     var observer: AnyObject?
     var currentDrawingColor: UIColor = .black
+    var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     
     override var shouldAutorotate: Bool {
         return false
@@ -85,9 +86,6 @@ class ViewController: UIViewController {
         registerToolbar()
         
         setUpTabBarItems()
-        
-        //setUpColorPickerButton()
-        //setUpExportButton()
     }
     
     fileprivate func setUpTabBarIcon(frame: CGRect, imageEdgeInsets: UIEdgeInsets, imageName: String, action: Selector) {
@@ -134,7 +132,7 @@ class ViewController: UIViewController {
     }
     
     @objc func redoButtonPressed(sender: UIButton!) {
-        
+        // TODO: Implement me ;)
     }
     
     @objc func undoButtonPressed(sender: UIButton!) {
@@ -190,7 +188,6 @@ class ViewController: UIViewController {
         let scale = sender.scale
         sender.scale = 1.0
         
-        
         let canvasXScale = canvasView?.canvas.xScale
     
         let canvasWidth = CGFloat((canvasView?.canvas.getCanvasWidth())!)
@@ -214,8 +211,18 @@ class ViewController: UIViewController {
     }
     
     @objc func handleDrawFrom(_ sender: UIPanGestureRecognizer) {
-        let canvasScene = canvasView?.canvasScene
         
+        // Initialise group draw command and tear down when needed.
+        switch sender.state {
+        case .began:
+            groupDrawCommand = GroupDrawCommand()
+        case .ended:
+            commandStack.append(groupDrawCommand)
+        default:
+            break
+        }
+
+        let canvasScene = canvasView?.canvasScene
         let touchLocation = sender.location(in: sender.view)
         let touchLocationInScene = canvasView?.convert(touchLocation, to: canvasScene!)
         
@@ -223,7 +230,9 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = currentDrawingColor
+                let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
+                groupDrawCommand.append(command: drawCommand)
+                drawCommand.execute()
             }
         })
     }
@@ -238,8 +247,7 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                // pixel.fillColor = isEqual(firstColor: pixel.fillColor, secondColor: currentDrawingColor) ? UIColor.white : currentDrawingColor
-                var drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
+                let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
                 commandStack.append(drawCommand)
                 drawCommand.execute()
             }
