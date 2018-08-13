@@ -32,7 +32,8 @@ let CANVAS_HEIGHT = 20
 
 class ViewController: UIViewController {
     
-    var commandStack = [Command]()
+    var commandStack = CommandStack()
+    var commmandIndex = 0
     var canvasView: CanvasView? = nil
     var toolbarView: UIView? = nil
     var observer: AnyObject?
@@ -108,6 +109,9 @@ class ViewController: UIViewController {
         
         // Undo button.
         setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-370, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Undo", action: #selector(undoButtonPressed(sender:)))
+        
+        // Redo button.
+        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-270, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Redo", action: #selector(redoButtonPressed(sender:)))
     }
     
     @objc func colorPickerButtonPressed(sender: UIButton!) {
@@ -132,14 +136,16 @@ class ViewController: UIViewController {
     }
     
     @objc func redoButtonPressed(sender: UIButton!) {
-        // TODO: Implement me ;)
+        guard let command = commandStack.redo() else {
+            return
+        }
+        command.redo()
     }
     
     @objc func undoButtonPressed(sender: UIButton!) {
-        guard let command = commandStack.popLast() else {
+        guard let command = commandStack.undo() else {
             return
         }
-        
         command.undo()
     }
 
