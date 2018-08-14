@@ -25,139 +25,19 @@ let MAX_ZOOM_OUT: CGFloat = 0.75
 let COLOR_EQUALITY_TOLERANCE: CGFloat = 0.1
 
 let animationDuration: TimeInterval = 0.4
-
 let CANVAS_WIDTH = 20
 let CANVAS_HEIGHT = 20
 
 
 
-
-class Pixel : SKShapeNode {
-    
-    override init() {
-        super.init()
-
-        self.fillColor = .white
-        self.strokeColor = UIColor.gray
-        
-        // FIXME: Adjust line width to scroll rate
-        self.lineWidth = 10
-        
-        let rect = UIBezierPath(rect: CGRect(x: 0, y: 0, width: PIXEL_SIZE, height: PIXEL_SIZE))
-        self.path = rect.cgPath
-        self.isUserInteractionEnabled = true
-        self.isAntialiased = false
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class Canvas : SKSpriteNode {
-
-    private var width: Int = 0
-    private var height: Int = 0
-    private var pixelArray = [Pixel]()
-    
-    init(width: Int, height: Int) {
-        // TODO: Refactor this method ASAP
-        
-        self.width = width
-        self.height = height
-        
-        super.init(texture: nil, color: .cyan, size: CGSize(width: width * PIXEL_SIZE, height: height * PIXEL_SIZE))
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
-        setUpPixelGrid(width: width, height: height)
-        
-    }
-    
-    func getCanvasWidth() -> Int {
-        return width * PIXEL_SIZE
-    }
-    
-    func getCanvasHeight() -> Int {
-        return height * PIXEL_SIZE
-    }
-    
-    func getAmountOfPixelsForWidth() -> Int {
-        return width
-    }
-    
-    func getAmountOfPixelsForHeight() -> Int {
-        return height
-    }
-    
-    func getPixelWidth() -> Int {
-        return PIXEL_SIZE
-    }
-    
-    func getPixelHeight() -> Int {
-        return PIXEL_SIZE
-    }
-    
-    func getPixelColorArray() -> [UIColor] {
-        return pixelArray.map({ (currentPixel) -> UIColor in
-            return currentPixel.fillColor
-        })
-    }
-    
-    private func setUpPixelGrid(width: Int, height: Int) {
-        for x in 0..<width {
-            for y in 0..<height {
-                
-                let xPos = Int(-self.size.width / 2) + x * Int(PIXEL_SIZE)
-                let yPos = Int(-self.size.height / 2) + y * Int(PIXEL_SIZE)
-                
-                let pixel = Pixel()
-                
-                pixel.position.x = CGFloat(xPos)
-                pixel.position.y = CGFloat(yPos)
-                pixelArray.append(pixel)
-                
-                self.addChild(pixel)
-            }
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class CanvasView : SKView {
-    
-    var canvasScene : SKScene
-    var canvas : Canvas
-    
-    init() {
-        
-        canvasScene = SKScene(size: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
-        canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
-        canvasScene.isUserInteractionEnabled = true
-        canvas = Canvas(width: CANVAS_WIDTH, height: CANVAS_HEIGHT)
-        
-        super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
-    
-        // Add canvas properties to view & show.
-        canvasScene.addChild(canvas)
-        canvasScene.scaleMode = .aspectFill
-        presentScene(canvasScene)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
 class ViewController: UIViewController {
     
-    var canvasView : CanvasView? = nil
-    var toolbarView : UIView? = nil
-    var observer : AnyObject?
-    var currentDrawingColor : UIColor = .black
+    var commandManager = CommandManager()
+    var canvasView: CanvasView? = nil
+    var toolbarView: UIView? = nil
+    var observer: AnyObject?
+    var currentDrawingColor: UIColor = .black
+    var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     
     override var shouldAutorotate: Bool {
         return false
@@ -169,7 +49,6 @@ class ViewController: UIViewController {
             return true
         }
     }
-    
 
     func orientationChanged (_ notification: Notification) {
         let orientation = UIDevice.current.orientation
@@ -205,26 +84,33 @@ class ViewController: UIViewController {
     
         registerGestureRecognizer()
         registerToolbar()
-        setUpColorPickerButton()
-        setUpExportButton()
+        
+        setUpTabBarItems()
     }
     
-    fileprivate func setUpExportButton() {
-        let exportButton = UIButton()
-        exportButton.frame = CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50)
-        exportButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        exportButton.setImage(UIImage(named: "Export"), for: .normal)
-        exportButton.addTarget(self, action: #selector(exportButtonPressed(sender:)), for: .touchUpInside)
-        self.view.addSubview(exportButton)
+    fileprivate func setUpTabBarIcon(frame: CGRect, imageEdgeInsets: UIEdgeInsets, imageName: String, action: Selector) {
+        let tabBarIcon = UIButton()
+        tabBarIcon.frame = frame
+        tabBarIcon.imageEdgeInsets = imageEdgeInsets
+        tabBarIcon.setImage(UIImage(named: imageName), for: .normal)
+        tabBarIcon.addTarget(self, action: action, for: .touchUpInside)
+        self.view.addSubview(tabBarIcon)
     }
     
-    fileprivate func setUpColorPickerButton() {
-        let colorPickerButton = UIButton()
-        colorPickerButton.frame = CGRect(x: SCREEN_WIDTH-170, y: SCREEN_HEIGHT-80, width: 50, height: 50)
-        colorPickerButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        colorPickerButton.setImage(UIImage(named: "ColorPicker"), for: .normal)
-        colorPickerButton.addTarget(self, action: #selector(colorPickerButtonPressed(sender:)), for: .touchUpInside)
-        self.view.addSubview(colorPickerButton)
+    fileprivate func setUpTabBarItems() {
+        let standardImageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        // Export button.
+        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Export", action: #selector(exportButtonPressed(sender:)))
+        
+        // Color Picker button.
+        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-170, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "ColorPicker", action: #selector(colorPickerButtonPressed(sender:)))
+        
+        // Undo button.
+        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-370, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Undo", action: #selector(undoButtonPressed(sender:)))
+        
+        // Redo button.
+        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-270, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Redo", action: #selector(redoButtonPressed(sender:)))
     }
     
     @objc func colorPickerButtonPressed(sender: UIButton!) {
@@ -246,6 +132,14 @@ class ViewController: UIViewController {
         let pictureExporter = PictureExporter(colorArray: canvasColorArray, canvasWidth: canvasWidth, canvasHeight: canvasHeight, self)
         // FIXME: Currently hardcoded pixel size of exported image.
         pictureExporter.exportImage(exportedWidth: 300, exportedHeight: 300)
+    }
+    
+    @objc func redoButtonPressed(sender: UIButton!) {
+        commandManager.redo()
+    }
+    
+    @objc func undoButtonPressed(sender: UIButton!) {
+        commandManager.undo()
     }
 
     private func setupOrientationObserver() {
@@ -293,7 +187,6 @@ class ViewController: UIViewController {
         let scale = sender.scale
         sender.scale = 1.0
         
-        
         let canvasXScale = canvasView?.canvas.xScale
     
         let canvasWidth = CGFloat((canvasView?.canvas.getCanvasWidth())!)
@@ -317,8 +210,17 @@ class ViewController: UIViewController {
     }
     
     @objc func handleDrawFrom(_ sender: UIPanGestureRecognizer) {
+        // Initialise group draw command and tear down when needed.
+        switch sender.state {
+        case .began:
+            groupDrawCommand = GroupDrawCommand()
+        case .ended:
+            commandManager.execute(groupDrawCommand)
+        default:
+            break
+        }
+
         let canvasScene = canvasView?.canvasScene
-        
         let touchLocation = sender.location(in: sender.view)
         let touchLocationInScene = canvasView?.convert(touchLocation, to: canvasScene!)
         
@@ -326,7 +228,9 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = currentDrawingColor
+                let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
+                // FIXME: Figure out a better name.
+                groupDrawCommand.appendAndExecuteSingle(drawCommand)
             }
         })
     }
@@ -341,7 +245,8 @@ class ViewController: UIViewController {
         
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
-                pixel.fillColor = isEqual(firstColor: pixel.fillColor, secondColor: currentDrawingColor) ? UIColor.white : currentDrawingColor
+                let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
+                commandManager.execute(drawCommand)
             }
         })
     }
