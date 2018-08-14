@@ -15,18 +15,27 @@ class ColorPickerViewController: UIViewController {
     
     var colorChoiceDelegate : ColorChoiceDelegate?
     var colorHistoryCollectionView : UICollectionView!
+    var neatColorPicker : ChromaColorPicker!
     var colorHistory = [UIColor]()
     
     fileprivate func setUpColorPicker() {
         // TODO: Adjust the position of the color picker dynamically.
-        let neatColorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+        neatColorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
         neatColorPicker.delegate = self
         neatColorPicker.padding = 10
         neatColorPicker.stroke = 10
         neatColorPicker.hexLabel.textColor = UIColor.white
         neatColorPicker.center.x = view.center.x
+        setCurrentColorOnColorPicker()
         
         view.addSubview(neatColorPicker)
+    }
+    
+    fileprivate func setCurrentColorOnColorPicker() {
+        guard let mostRecentColor = self.colorHistory.first else {
+            return
+        }
+        neatColorPicker.adjustToColor(mostRecentColor)
     }
     
     fileprivate func setUpGestureRecognizer() {
@@ -55,12 +64,14 @@ class ColorPickerViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        // Set up all data for the view.
+        loadColorHistory()
+        
+        // Set up all visuals.
         self.view.backgroundColor = LIGHT_GREY
         setUpColorPicker()
         setUpColorHistoryCollectionView()
         setUpGestureRecognizer()
-        
-        loadColorHistory()
     }
     
     @objc func dismissView(_ sender: UISwipeGestureRecognizer) {
@@ -179,7 +190,6 @@ class ColorPickerViewController: UIViewController {
             }
             
             self.colorHistory = fetchedColorHistory
-            self.colorHistoryCollectionView.reloadData()
             
         } catch let error as NSError {
             print("Could not load any color history. \(error), \(error.userInfo)")
