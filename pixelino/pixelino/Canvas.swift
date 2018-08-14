@@ -17,15 +17,10 @@ class Canvas : SKSpriteNode {
     
     init(width: Int, height: Int) {
         // TODO: Refactor this method ASAP
-        
         self.width = width
         self.height = height
-        
         super.init(texture: nil, color: .cyan, size: CGSize(width: width * PIXEL_SIZE, height: height * PIXEL_SIZE))
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
         setUpPixelGrid(width: width, height: height)
-        
     }
     
     func getCanvasWidth() -> Int {
@@ -62,6 +57,7 @@ class Canvas : SKSpriteNode {
         for x in 0..<width {
             for y in 0..<height {
                 
+                // This is nasty, but SpriteKit has a stupid bug...
                 let xPos = Int(-self.size.width / 2) + x * Int(PIXEL_SIZE)
                 let yPos = Int(-self.size.height / 2) + y * Int(PIXEL_SIZE)
                 

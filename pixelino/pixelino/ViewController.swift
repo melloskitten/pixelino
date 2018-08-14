@@ -32,8 +32,7 @@ let CANVAS_HEIGHT = 20
 
 class ViewController: UIViewController {
     
-    var commandStack = CommandStack()
-    var commmandIndex = 0
+    var commandManager = CommandManager()
     var canvasView: CanvasView? = nil
     var toolbarView: UIView? = nil
     var observer: AnyObject?
@@ -136,17 +135,11 @@ class ViewController: UIViewController {
     }
     
     @objc func redoButtonPressed(sender: UIButton!) {
-        guard let command = commandStack.redo() else {
-            return
-        }
-        command.redo()
+        commandManager.redo()
     }
     
     @objc func undoButtonPressed(sender: UIButton!) {
-        guard let command = commandStack.undo() else {
-            return
-        }
-        command.undo()
+        commandManager.undo()
     }
 
     private func setupOrientationObserver() {
@@ -217,13 +210,12 @@ class ViewController: UIViewController {
     }
     
     @objc func handleDrawFrom(_ sender: UIPanGestureRecognizer) {
-        
         // Initialise group draw command and tear down when needed.
         switch sender.state {
         case .began:
             groupDrawCommand = GroupDrawCommand()
         case .ended:
-            commandStack.append(groupDrawCommand)
+            commandManager.execute(groupDrawCommand)
         default:
             break
         }
@@ -237,8 +229,8 @@ class ViewController: UIViewController {
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
                 let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
-                groupDrawCommand.append(command: drawCommand)
-                drawCommand.execute()
+                // FIXME: Figure out a better name.
+                groupDrawCommand.appendAndExecuteSingle(drawCommand)
             }
         })
     }
@@ -254,8 +246,7 @@ class ViewController: UIViewController {
         nodes?.forEach({ (node) in
             if let pixel = node as? Pixel {
                 let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
-                commandStack.append(drawCommand)
-                drawCommand.execute()
+                commandManager.execute(drawCommand)
             }
         })
     }

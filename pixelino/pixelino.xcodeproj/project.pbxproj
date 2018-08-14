@@ -15,7 +15,10 @@
 		BC6959BC211F201600770249 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959BB211F201600770249 /* CanvasView.swift */; };
 		BC6959C0211F213400770249 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC6959BE211F213400770249 /* Main.storyboard */; };
 		BC6959C5211F494600770249 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959C4211F494600770249 /* Command.swift */; };
-		BC89D9362121C42B00003C68 /* CommandStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D9352121C42B00003C68 /* CommandStack.swift */; };
+		BC89D9362121C42B00003C68 /* CommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D9352121C42B00003C68 /* CommandManager.swift */; };
+		BC89D93C2123746000003C68 /* MultiCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93B2123746000003C68 /* MultiCommand.swift */; };
+		BC89D93E2123748100003C68 /* DrawCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93D2123748100003C68 /* DrawCommand.swift */; };
+		BC89D940212374C300003C68 /* GroupDrawCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93F212374C300003C68 /* GroupDrawCommand.swift */; };
 		BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */; };
 		BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */; };
 		BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B82111F43900384785 /* SplitPresentationController.swift */; };
@@ -39,7 +42,10 @@
 		BC6959BB211F201600770249 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		BC6959BF211F213400770249 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BC6959C4211F494600770249 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
-		BC89D9352121C42B00003C68 /* CommandStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandStack.swift; sourceTree = "<group>"; };
+		BC89D9352121C42B00003C68 /* CommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandManager.swift; sourceTree = "<group>"; };
+		BC89D93B2123746000003C68 /* MultiCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCommand.swift; sourceTree = "<group>"; };
+		BC89D93D2123748100003C68 /* DrawCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawCommand.swift; sourceTree = "<group>"; };
+		BC89D93F212374C300003C68 /* GroupDrawCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDrawCommand.swift; sourceTree = "<group>"; };
 		BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceDelegate.swift; sourceTree = "<group>"; };
 		BCF6B4B82111F43900384785 /* SplitPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPresentationController.swift; sourceTree = "<group>"; };
@@ -100,6 +106,18 @@
 			path = Auxiliary;
 			sourceTree = "<group>";
 		};
+		BC89D941212374DB00003C68 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				BC6959C4211F494600770249 /* Command.swift */,
+				BC89D93B2123746000003C68 /* MultiCommand.swift */,
+				BC89D9352121C42B00003C68 /* CommandManager.swift */,
+				BC89D93D2123748100003C68 /* DrawCommand.swift */,
+				BC89D93F212374C300003C68 /* GroupDrawCommand.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 		BCF7BCCD20AA159F005C5468 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +139,7 @@
 		BCF7BCD820AA159F005C5468 /* pixelino */ = {
 			isa = PBXGroup;
 			children = (
+				BC89D941212374DB00003C68 /* Commands */,
 				BC6959C2211F215A00770249 /* Auxiliary */,
 				BC6959C1211F213C00770249 /* View */,
 				BC6959BD211F20ED00770249 /* Data */,
@@ -137,8 +156,6 @@
 				BC6959B5211B808000770249 /* RawPixel.swift */,
 				BC6959B7211F1FBD00770249 /* Canvas.swift */,
 				BC6959B9211F1FE200770249 /* Pixel.swift */,
-				BC6959C4211F494600770249 /* Command.swift */,
-				BC89D9352121C42B00003C68 /* CommandStack.swift */,
 			);
 			path = pixelino;
 			sourceTree = "<group>";
@@ -267,12 +284,15 @@
 				BC6959B8211F1FBD00770249 /* Canvas.swift in Sources */,
 				BC6959BC211F201600770249 /* CanvasView.swift in Sources */,
 				BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */,
+				BC89D93E2123748100003C68 /* DrawCommand.swift in Sources */,
 				BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */,
 				BC6959BA211F1FE200770249 /* Pixel.swift in Sources */,
 				BC6959B6211B808000770249 /* RawPixel.swift in Sources */,
+				BC89D93C2123746000003C68 /* MultiCommand.swift in Sources */,
+				BC89D940212374C300003C68 /* GroupDrawCommand.swift in Sources */,
 				BCF6B4E1211777C900384785 /* Extensions.swift in Sources */,
 				BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */,
-				BC89D9362121C42B00003C68 /* CommandStack.swift in Sources */,
+				BC89D9362121C42B00003C68 /* CommandManager.swift in Sources */,
 				BCF6B4BB2112061600384785 /* ColorHistoryCollectionViewCell.swift in Sources */,
 				BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */,
 				BC6959C5211F494600770249 /* Command.swift in Sources */,

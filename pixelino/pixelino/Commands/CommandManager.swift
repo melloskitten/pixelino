@@ -9,28 +9,29 @@
 import Foundation
 
 // Manages all commands for the canvas.
-class CommandStack {
+class CommandManager {
     var commandStack = [Command]()
     var undoStack = [Command]()
     
-    func append(_ command: Command) {
+    func execute(_ command: Command) {
         commandStack.append(command)
+        command.execute()
         undoStack = []
-        }
-    
-    func undo() -> Command? {
-        guard let command = commandStack.popLast() else {
-            return nil
-        }
-        undoStack.append(command)
-        return command
     }
     
-    func redo() -> Command? {
+    func undo() {
+        guard let command = commandStack.popLast() else {
+            return
+        }
+        undoStack.append(command)
+        command.undo()
+    }
+    
+    func redo() {
         guard let command = undoStack.popLast() else {
-            return nil
+            return
         }
         commandStack.append(command)
-        return command
+        command.redo()
     }
 }
