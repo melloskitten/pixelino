@@ -2,7 +2,7 @@
 //  MainMenuTableViewController.swift
 //  pixelino
 //
-//  Created by Sandra Grujovic on 14.08.18.
+//  Created by Sandra Grujovic on 25.08.18.
 //  Copyright © 2018 Sandra Grujovic. All rights reserved.
 //
 
@@ -12,40 +12,34 @@ class MainMenuTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        // Set up navigation bar and button.
+        self.navigationItem.title = "Main Menu"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        
+        // Set up table view controller
+        self.tableView.register(MainMenuDrawingTableViewCell.self, forCellReuseIdentifier: "mainMenuDrawingTableViewCell")
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 1
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mainMenuDrawingTableViewCell", for: indexPath)
+        cell.textLabel?.text = "derp"
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

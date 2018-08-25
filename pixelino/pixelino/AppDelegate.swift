@@ -16,10 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let startViewController = ViewController()
-        window?.rootViewController = startViewController
-        window?.makeKeyAndVisible()
+        setUpStart()
         return true
     }
 
@@ -89,7 +86,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
-
+    
+    // MARK: - Startup Screen Setup
+    func setUpStart() {
+        UIApplication.shared.isStatusBarHidden = true
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let mainMenuTableViewController = MainMenuTableViewController()
+        let navigationController = UINavigationController(rootViewController: mainMenuTableViewController)
+        navigationController.navigationBar.tintColor = .red
+        navigationController.navigationBar.barStyle = .black
+        
+        /*navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.barTintColor = LIGHT_GREY
+        
+        
+        navigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont(name: "Roboto-Light", size: 20)]
+        */
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+    }
 }
 
