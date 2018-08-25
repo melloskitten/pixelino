@@ -9,7 +9,17 @@
 import UIKit
 
 class MainMenuDrawingTableViewCell: UITableViewCell {
-
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUpView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -17,8 +27,12 @@ class MainMenuDrawingTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    fileprivate func setUpView() {
+        contentView.backgroundColor = DARK_GREY
+        textLabel?.textColor = .white
+        separatorInset = UIEdgeInsets.zero
     }
 
 }
