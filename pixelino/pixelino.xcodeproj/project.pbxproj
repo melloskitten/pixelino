@@ -12,6 +12,7 @@
 		BC11DADE2131DC4B00ABF196 /* MainMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */; };
 		BC11DAE02131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */; };
 		BC11DAE42131DE6F00ABF196 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC11DAE22131DD6700ABF196 /* Roboto-Regular.ttf */; };
+		BC11DAE62131E22F00ABF196 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DAE52131E22F00ABF196 /* CustomNavigationController.swift */; };
 		BC6959B6211B808000770249 /* RawPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B5211B808000770249 /* RawPixel.swift */; };
 		BC6959B8211F1FBD00770249 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B7211F1FBD00770249 /* Canvas.swift */; };
 		BC6959BA211F1FE200770249 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B9211F1FE200770249 /* Pixel.swift */; };
@@ -41,6 +42,7 @@
 		BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTableViewController.swift; sourceTree = "<group>"; };
 		BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuDrawingTableViewCell.swift; sourceTree = "<group>"; };
 		BC11DAE22131DD6700ABF196 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		BC11DAE52131E22F00ABF196 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		BC6959B5211B808000770249 /* RawPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPixel.swift; sourceTree = "<group>"; };
 		BC6959B7211F1FBD00770249 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		BC6959B9211F1FE200770249 /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				BC6959B7211F1FBD00770249 /* Canvas.swift */,
 				BC6959B9211F1FE200770249 /* Pixel.swift */,
 				BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */,
+				BC11DAE52131E22F00ABF196 /* CustomNavigationController.swift */,
 				BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */,
 			);
 			path = pixelino;
@@ -300,6 +303,7 @@
 				BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */,
 				BC89D93E2123748100003C68 /* DrawCommand.swift in Sources */,
 				BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */,
+				BC11DAE62131E22F00ABF196 /* CustomNavigationController.swift in Sources */,
 				BC6959BA211F1FE200770249 /* Pixel.swift in Sources */,
 				BC6959B6211B808000770249 /* RawPixel.swift in Sources */,
 				BC89D93C2123746000003C68 /* MultiCommand.swift in Sources */,

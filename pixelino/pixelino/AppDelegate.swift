@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        setUpStart()
+        setUpStartScreen()
         return true
     }
 
@@ -87,20 +87,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    // MARK: - Startup Screen Setup
-    func setUpStart() {
+    // MARK: - Startup Setup.
+    fileprivate func setUpStartScreen() {
         // Make status bar dissapear.
         UIApplication.shared.isStatusBarHidden = true
     
         // Set up nav-controller and start screen.
         window = UIWindow(frame: UIScreen.main.bounds)
         let mainMenuTableViewController = MainMenuTableViewController()
-        let navigationController = UINavigationController(rootViewController: mainMenuTableViewController)
-        navigationController.navigationBar.tintColor = .white
-        navigationController.navigationBar.barStyle = .black
-        navigationController.navigationBar.isTranslucent = false
-        navigationController.navigationBar.barTintColor = LIGHT_GREY
-        navigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont(name: "Roboto-Regular", size: UIFont.labelFontSize) ?? "Helvetica"]
+        let navigationController = CustomNavigationController(rootViewController: mainMenuTableViewController)
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
