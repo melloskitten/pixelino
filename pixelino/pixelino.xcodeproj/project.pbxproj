@@ -13,7 +13,6 @@
 		BC6959B8211F1FBD00770249 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B7211F1FBD00770249 /* Canvas.swift */; };
 		BC6959BA211F1FE200770249 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B9211F1FE200770249 /* Pixel.swift */; };
 		BC6959BC211F201600770249 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959BB211F201600770249 /* CanvasView.swift */; };
-		BC6959C0211F213400770249 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC6959BE211F213400770249 /* Main.storyboard */; };
 		BC6959C5211F494600770249 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959C4211F494600770249 /* Command.swift */; };
 		BC89D9362121C42B00003C68 /* CommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D9352121C42B00003C68 /* CommandManager.swift */; };
 		BC89D93C2123746000003C68 /* MultiCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93B2123746000003C68 /* MultiCommand.swift */; };
@@ -40,7 +39,6 @@
 		BC6959B7211F1FBD00770249 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		BC6959B9211F1FE200770249 /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
 		BC6959BB211F201600770249 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
-		BC6959BF211F213400770249 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BC6959C4211F494600770249 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		BC89D9352121C42B00003C68 /* CommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandManager.swift; sourceTree = "<group>"; };
 		BC89D93B2123746000003C68 /* MultiCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCommand.swift; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 		BC6959C1211F213C00770249 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BC6959BE211F213400770249 /* Main.storyboard */,
 				BCF7BCE220AA15A0005C5468 /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -228,7 +225,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC6959C0211F213400770249 /* Main.storyboard in Resources */,
 				BCF7BCE420AA15A0005C5468 /* LaunchScreen.storyboard in Resources */,
 				BCF7BCE120AA15A0005C5468 /* Assets.xcassets in Resources */,
 			);
@@ -304,14 +300,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BC6959BE211F213400770249 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BC6959BF211F213400770249 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BCF7BCE220AA15A0005C5468 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
