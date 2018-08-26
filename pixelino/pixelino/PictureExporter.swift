@@ -17,13 +17,11 @@ class PictureExporter: NSObject {
     private var canvasHeight: Int
     private let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
     private let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
-    private let sender: UIViewController
     
-    init(colorArray: [UIColor], canvasWidth: Int, canvasHeight: Int, _ sender: UIViewController) {
+    init(colorArray: [UIColor], canvasWidth: Int, canvasHeight: Int) {
         self.rawPixelArray = [RawPixel]()
         self.canvasWidth = canvasWidth
         self.canvasHeight = canvasHeight
-        self.sender = sender
         super.init()
         // Convert given UIColor array into RawPixel array.
         setUpRawPixelArray(colorArray: colorArray)
@@ -42,7 +40,7 @@ class PictureExporter: NSObject {
         }
     }
     
-    private func generateUIImage() -> UIImage? {
+    public func generateUIImageFromCanvas(width: Int, height: Int) -> UIImage? {
         // Build the bitmap input for the CGImage conversion.
         guard let dataProvider = CGDataProvider(data: NSData(bytes: &rawPixelArray, length: rawPixelArray.count * MemoryLayout<RawPixel>.size)
             ) else {
@@ -58,47 +56,26 @@ class PictureExporter: NSObject {
         // Convert to UIImage for later use in UIImageView.
         let uiImage = UIImage(cgImage: cgImage)
         
-        return uiImage
-    }
-    
-    public func exportImage(exportedWidth: Int, exportedHeight: Int) {
-        guard let uiImage = generateUIImage() else {
-            return
-        }
-        
         // Generate Image View for saving image by taking a screenshort.
         let imageView = UIImageView(image: uiImage)
         imageView.layer.magnificationFilter = kCAFilterNearest
-        imageView.frame = CGRect(x: 0, y: 0, width: exportedWidth, height: exportedHeight)
+        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         // Take actual screenshot from Image View context.
         UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, imageView.isOpaque, 0.0)
         imageView.transform = imageView.transform.rotated(by: CGFloat.pi/2)
         imageView.drawHierarchy(in: imageView.bounds, afterScreenUpdates: true)
         guard let snapshotImage = UIGraphicsGetImageFromCurrentImageContext() else {
-            return
+            return nil
         }
+        
         UIGraphicsEndImageContext()
         
         // Transform picture to correct rotation.
         guard let rotatedSnapshotImage = snapshotImage.rotate(radians: -CGFloat.pi/2) else {
-            return
+            return nil
         }
         
-        // Write back to Photos Album and show success/failure message to user from sender.
-        UIImageWriteToSavedPhotosAlbum(rotatedSnapshotImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-    }
-    
-    // Taken from: https://stackoverflow.com/questions/40854886/swift-take-a-photo-and-save-to-photo-library
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        var ac = UIAlertController()
-        if error != nil {
-            ac = UIAlertController(title: "Export Error", message: "Your drawing could not be exported to Photos. Please try again.", preferredStyle: .alert)
-        } else {
-            ac = UIAlertController(title: "Saved!", message: "Your drawing has been successfully saved to Photos.", preferredStyle: .alert)
-        }
-        
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        sender.present(ac, animated: true)
+        return rotatedSnapshotImage
     }
 }

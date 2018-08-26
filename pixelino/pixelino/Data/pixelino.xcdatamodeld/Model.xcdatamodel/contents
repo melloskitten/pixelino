@@ -3,12 +3,12 @@
     <entity name="ColorHistory" representedClassName="ColorHistory" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
-    <entity name="DrawingThumbnail" representedClassName="DrawingThumbnail" syncable="YES" codeGenerationType="class">
+    <entity name="DrawingThumb" representedClassName="DrawingThumb" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
     </entity>
     <elements>
         <element name="ColorHistory" positionX="-63" positionY="-18" width="128" height="60"/>
-        <element name="DrawingThumbnail" positionX="-63" positionY="-9" width="128" height="75"/>
+        <element name="DrawingThumb" positionX="-63" positionY="-9" width="128" height="75"/>
     </elements>
 </model>

@@ -129,9 +129,12 @@ class DrawingViewController: UIViewController {
                 return
         }
         
-        let pictureExporter = PictureExporter(colorArray: canvasColorArray, canvasWidth: canvasWidth, canvasHeight: canvasHeight, self)
+        // Pass them to the picture exporter and move to the new screen.
         // FIXME: Currently hardcoded pixel size of exported image.
-        pictureExporter.exportImage(exportedWidth: 300, exportedHeight: 300)
+        let pictureExporter = PictureExporter(colorArray: canvasColorArray, canvasWidth: canvasWidth, canvasHeight: canvasHeight)
+        let shareVC = ShareViewController()
+        shareVC.pictureExporter = pictureExporter
+        self.present(shareVC, animated: true, completion: nil)
     }
     
     @objc func redoButtonPressed(sender: UIButton!) {
@@ -249,17 +252,6 @@ class DrawingViewController: UIViewController {
                 commandManager.execute(drawCommand)
             }
         })
-    }
-    
-    // Custom method to check for equality for UIColors.
-    // FIXME: chosen tolerance value more sophisticatedly.
-    private func isEqual(firstColor: UIColor, secondColor: UIColor) -> Bool {
-        if firstColor == secondColor {
-            return true
-        } else if firstColor.isEqualToColor(color: secondColor, withTolerance: COLOR_EQUALITY_TOLERANCE) {
-            return true
-        }
-        return false
     }
     
     @objc func handlePanFrom(_ sender: UIPanGestureRecognizer) {
