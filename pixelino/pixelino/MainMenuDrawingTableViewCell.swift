@@ -10,6 +10,15 @@ import UIKit
 
 class MainMenuDrawingTableViewCell: UITableViewCell {
     
+    convenience init(drawingThumbnail: DrawingThumbnail) {
+        self.init(style: .subtitle, reuseIdentifier: nil)
+        
+        textLabel?.text = drawingThumbnail.fileName
+        // FIXME: This most likely will be changed since the thumbnails will be generated and not part of the assets.
+        imageView?.image = UIImage(named: drawingThumbnail.imageReference)
+        detailTextLabel?.text = "\(drawingThumbnail.dateLastChanged)"
+    }
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpView()
@@ -19,10 +28,8 @@ class MainMenuDrawingTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,7 +39,7 @@ class MainMenuDrawingTableViewCell: UITableViewCell {
     fileprivate func setUpView() {
         contentView.backgroundColor = DARK_GREY
         textLabel?.textColor = .white
+        detailTextLabel?.textColor = .gray
         separatorInset = UIEdgeInsets.zero
     }
-
 }
