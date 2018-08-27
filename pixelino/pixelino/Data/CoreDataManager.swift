@@ -13,7 +13,7 @@ import UIKit
 class CoreDataManager {
     
     // Fetches core data context needed for all loading/storing requests.
-    private class func getCoreDataContext() -> NSManagedObjectContext? {
+    public class func getCoreDataContext() -> NSManagedObjectContext? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         return appDelegate.persistentContainer.viewContext
     }
@@ -72,7 +72,7 @@ class CoreDataManager {
         let colorHistoryEntity = NSEntityDescription.entity(forEntityName: "ColorHistory", in: managedContext)!
         let colorHistoryObject = NSManagedObject(entity: colorHistoryEntity, insertInto: managedContext)
         
-        // Perform actual saving request
+        // Perform actual saving request.
         colorHistoryObject.setValue(color, forKey: "color")
         
         do {
@@ -108,4 +108,27 @@ class CoreDataManager {
         }
     }
     
+    // MARK: Drawing Load/Save - this is used when user saves image to app.
+    
+    // Save the current state of the canvas to Core Data, as well as its width and height (both in 'amount of pixels').
+    public static func saveDrawing(colorArray: [UIColor], width: Int, height: Int) {
+        // Grab Core Data context.
+        guard let managedContext = getCoreDataContext() else {
+            return
+        }
+        
+        let drawingEntity = NSEntityDescription.entity(forEntityName: "DrawingModel", in: managedContext)
+        let drawingObject = NSManagedObject(entity: drawingEntity!, insertInto: managedContext)
+        
+        // Perform actual saving request.
+        drawingObject.setValuesForKeys(["width": width, "height": height, "colorArray": colorArray])
+        
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            // FIXME: Implement proper error handling.
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
 }
+

@@ -9,7 +9,7 @@ import UIKit
 
 class ShareViewController: UIViewController {
     
-    var pictureExporter: PictureExporter?
+    var drawing: Drawing?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +20,8 @@ class ShareViewController: UIViewController {
         view.backgroundColor = DARK_GREY
         
         setUpButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50), title: "Share With...", action: #selector(shareButtonPressed(_:)))
-        setUpButton(frame: CGRect(x: 100, y: 200, width: 200, height: 50), title: "Return", action: #selector(returnButtonPressed(_:)))
-        setUpButton(frame: CGRect(x: 100, y: 300, width: 200, height: 50), title: "Save to App", action: #selector(saveButtonPressed(_:)))
-        
+        setUpButton(frame: CGRect(x: 100, y: 200, width: 200, height: 50), title: "Save to App", action: #selector(saveButtonPressed(_:)))
+        setUpButton(frame: CGRect(x: 100, y: 300, width: 200, height: 50), title: "Return", action: #selector(returnButtonPressed(_:)))
     }
     
     fileprivate func setUpButton(frame: CGRect, title: String, action: Selector) {
@@ -35,10 +34,14 @@ class ShareViewController: UIViewController {
     }
     
     @objc func shareButtonPressed(_ sender: UIButton) {
-        guard let pictureExporter = pictureExporter,
-            let sharedImage = pictureExporter.generateUIImageFromCanvas(width: 300, height: 300) else {
+        guard let exportedDrawing = drawing else {
             return
         }
+        
+        let pictureExporter = PictureExporter(colorArray: exportedDrawing.colorArray, canvasWidth: Int(exportedDrawing.width), canvasHeight: Int(exportedDrawing.height))
+        
+        // FIXME: Hardcoded values!
+        let sharedImage = pictureExporter.generateUIImageFromCanvas(width: 300, height: 300)
         
         let objectsToShare = [sharedImage]
         
@@ -55,7 +58,12 @@ class ShareViewController: UIViewController {
     }
     
     @objc func saveButtonPressed(_ sender: UIButton) {
+        guard let saveDrawing = drawing else {
+            // FIXME: Show some error message here.
+            return
+        }
         // Save Color array to Core Data.
+        CoreDataManager.saveDrawing(colorArray: saveDrawing.colorArray, width: saveDrawing.width, height: saveDrawing.height)
     }
     
 }

@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import CoreGraphics
+import CoreData
 
 // FIXME: Move constants to appropriate file
 let DARK_GREY = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
@@ -129,11 +130,9 @@ class DrawingViewController: UIViewController {
                 return
         }
         
-        // Pass them to the picture exporter and move to the new screen.
-        // FIXME: Currently hardcoded pixel size of exported image.
-        let pictureExporter = PictureExporter(colorArray: canvasColorArray, canvasWidth: canvasWidth, canvasHeight: canvasHeight)
+        // Pass them to the new view controller.
         let shareVC = ShareViewController()
-        shareVC.pictureExporter = pictureExporter
+        shareVC.drawing = Drawing(canvasColorArray, canvasWidth, canvasHeight)
         self.present(shareVC, animated: true, completion: nil)
     }
     

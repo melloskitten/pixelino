@@ -25,6 +25,7 @@
 		BC89D93E2123748100003C68 /* DrawCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93D2123748100003C68 /* DrawCommand.swift */; };
 		BC89D940212374C300003C68 /* GroupDrawCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93F212374C300003C68 /* GroupDrawCommand.swift */; };
 		BCD4A689213415BA0060327B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4A688213415BA0060327B /* CoreDataManager.swift */; };
+		BCD4A6A72134354D0060327B /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4A6A62134354D0060327B /* Drawing.swift */; };
 		BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */; };
 		BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */; };
 		BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B82111F43900384785 /* SplitPresentationController.swift */; };
@@ -58,6 +59,7 @@
 		BC89D93D2123748100003C68 /* DrawCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawCommand.swift; sourceTree = "<group>"; };
 		BC89D93F212374C300003C68 /* GroupDrawCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDrawCommand.swift; sourceTree = "<group>"; };
 		BCD4A688213415BA0060327B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		BCD4A6A62134354D0060327B /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
 		BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceDelegate.swift; sourceTree = "<group>"; };
 		BCF6B4B82111F43900384785 /* SplitPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPresentationController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				BCF6B4E52118664200384785 /* pixelino.xcdatamodeld */,
 				BCD4A688213415BA0060327B /* CoreDataManager.swift */,
+				BCD4A6A62134354D0060327B /* Drawing.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */,
 				BC89D9362121C42B00003C68 /* CommandManager.swift in Sources */,
 				BCF6B4BB2112061600384785 /* ColorHistoryCollectionViewCell.swift in Sources */,
+				BCD4A6A72134354D0060327B /* Drawing.swift in Sources */,
 				BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */,
 				BC6959C5211F494600770249 /* Command.swift in Sources */,
 				BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */,
