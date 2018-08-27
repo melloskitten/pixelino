@@ -78,77 +78,12 @@ class ColorPickerViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    // User has selected a color, dismiss screen and write back to delegate, as well as save to color history.
-    private func colorWasSelected(color: UIColor) {
-        saveColorInColorHistoryOnce(color: color)
-        colorChoiceDelegate?.colorChoicePicked(color)
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: Core Data Saving/Loading.
-    // (Potential) FIXME: Reduce max. amount of saved units in ColorHistory entity to 20.
-    
-    // Removes entire color history.
-    private func deleteColorHistory() {
-        // Grab Core Data context.
-        guard let managedContext = getCoreDataContext() else {
+    // Fetch the color history from core data.
+    private func loadColorHistory() {
+        guard let loadedColorHistory = CoreDataManager.loadColorHistory() else {
             return
         }
-        
-        // Perform actual deletion request.
-        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ColorHistory")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-        
-        do {
-            try managedContext.execute(deleteRequest)
-            try managedContext.save()
-        } catch let error as NSError {
-            // FIXME: Implement proper error handling.
-            print("Could not delete. \(error), \(error.userInfo)")
-        }
-    }
-    
-    // Removes one particular color from color history.
-    private func deleteColorInColorHistory(color: UIColor) {
-        // Grab Core Data context.
-        guard let managedContext = getCoreDataContext() else {
-            return
-        }
-        
-        // Perform actual deletion request.
-        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ColorHistory")
-        deleteFetch.predicate = NSPredicate(format: "color == %@", color)
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-        
-        do {
-            try managedContext.execute(deleteRequest)
-            try managedContext.save()
-        } catch let error as NSError {
-            // FIXME: Implement proper error handling.
-            print("Could not delete. \(error), \(error.userInfo)")
-        }
-    }
-    
-    // Saves current color history to CoreData.
-    private func saveColorInColorHistory(color: UIColor) {
-        
-        // Check whether the color is already part of the color history.
-        // Grab Core Data context.
-        guard let managedContext = getCoreDataContext() else {
-            return
-        }
-        let colorHistoryEntity = NSEntityDescription.entity(forEntityName: "ColorHistory", in: managedContext)!
-        let colorHistoryObject = NSManagedObject(entity: colorHistoryEntity, insertInto: managedContext)
-    
-        // Perform actual saving request
-        colorHistoryObject.setValue(color, forKey: "color")
-    
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            // FIXME: Implement proper error handling.
-            print("Could not save. \(error), \(error.userInfo)")
-        }
+        self.colorHistory = loadedColorHistory
     }
     
     // Saves current color history to CoreData while respecting the number of occurences. (max. 1)
@@ -156,44 +91,20 @@ class ColorPickerViewController: UIViewController {
         // Check whether the saved color is in our current color history.
         if colorHistory.contains(color) {
             // Delete the last occurence of the color.
-            deleteColorInColorHistory(color: color)
+            CoreDataManager.deleteColorInColorHistory(color: color)
             
             // Save the current color.
-            saveColorInColorHistory(color: color)
+            CoreDataManager.saveColorInColorHistory(color: color)
         } else {
-            saveColorInColorHistory(color: color)
+            CoreDataManager.saveColorInColorHistory(color: color)
         }
     }
     
-    // Fetches core data context needed for all loading/storing requests.
-    private func getCoreDataContext() -> NSManagedObjectContext? {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
-        return appDelegate.persistentContainer.viewContext
-    }
-    
-    // Loads the currently available color history.
-    private func loadColorHistory() {
-        // Grab Core Data context.
-        guard let managedContext = getCoreDataContext() else {
-            return
-        }
-        
-        // Perform actual fetch request & save to local colorHistory array.
-        // Note: The color history is sorted by most recently used color first.
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ColorHistory")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try managedContext.fetch(request)
-            var fetchedColorHistory = [UIColor]()
-            for data in result as! [NSManagedObject] {
-                fetchedColorHistory.insert(data.value(forKey: "color") as! UIColor, at: 0)
-            }
-            
-            self.colorHistory = fetchedColorHistory
-            
-        } catch let error as NSError {
-            print("Could not load any color history. \(error), \(error.userInfo)")
-        }
+    // User has selected a color, dismiss screen and write back to delegate, as well as save to color history.
+    private func colorWasSelected(color: UIColor) {
+        saveColorInColorHistoryOnce(color: color)
+        colorChoiceDelegate?.colorChoicePicked(color)
+        dismiss(animated: true, completion: nil)
     }
 }
 
