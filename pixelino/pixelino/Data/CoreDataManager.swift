@@ -130,5 +130,28 @@ class CoreDataManager {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
+    public static func loadAllDrawings() -> [Drawing]? {
+        // Grab Core Data context.
+        guard let managedContext = getCoreDataContext() else {
+            return nil
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrawingModel")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try managedContext.fetch(request)
+            var drawings = [Drawing]()
+            for data in result as! [NSManagedObject] {
+                let drawing = Drawing(data.value(forKey: "colorArray") as! [UIColor], data.value(forKey: "width") as! Int, data.value(forKey: "height") as! Int)
+                drawings.append(drawing)
+            }
+            return drawings
+            
+        } catch let error as NSError {
+            print("Could not load any drawings. \(error), \(error.userInfo)")
+            return nil
+        }
+    }
 }
 
