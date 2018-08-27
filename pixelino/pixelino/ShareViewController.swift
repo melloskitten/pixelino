@@ -10,32 +10,31 @@ import UIKit
 class ShareViewController: UIViewController {
     
     var pictureExporter: PictureExporter?
-    var shareButton: UIButton!
-    var returnButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        // Set up the buttons.
-        shareButton = UIButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50))
-        shareButton.backgroundColor = .red
-        shareButton.setTitle("Share With...", for: .normal)
-        shareButton.addTarget(self, action: #selector(shareButtonPressed(_:)), for: .touchUpInside)
-        shareButton.titleLabel?.textColor = .black
+        setUpView()
+    }
     
-        returnButton = UIButton(frame: CGRect(x: 100, y: 300, width: 200, height: 50))
-        returnButton.backgroundColor = .blue
-        returnButton.setTitle("Return", for: .normal)
-        returnButton.addTarget(self, action: #selector(returnButtonPressed(_:)), for: .touchUpInside)
-        returnButton.titleLabel?.textColor = .black
+    fileprivate func setUpView(){
+        view.backgroundColor = DARK_GREY
         
-        self.view.addSubview(shareButton)
-        self.view.addSubview(returnButton)
+        setUpButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50), title: "Share With...", action: #selector(shareButtonPressed(_:)))
+        setUpButton(frame: CGRect(x: 100, y: 200, width: 200, height: 50), title: "Return", action: #selector(returnButtonPressed(_:)))
+        setUpButton(frame: CGRect(x: 100, y: 300, width: 200, height: 50), title: "Save to App", action: #selector(saveButtonPressed(_:)))
+        
+    }
+    
+    fileprivate func setUpButton(frame: CGRect, title: String, action: Selector) {
+        let button = UIButton(frame: frame)
+        button.backgroundColor = LIGHT_GREY
+        button.titleLabel?.textColor = .white
+        button.setTitle(title, for: .normal)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        view.addSubview(button)
     }
     
     @objc func shareButtonPressed(_ sender: UIButton) {
-        
         guard let pictureExporter = pictureExporter,
             let sharedImage = pictureExporter.generateUIImageFromCanvas(width: 300, height: 300) else {
             return
@@ -53,6 +52,10 @@ class ShareViewController: UIViewController {
     
     @objc func returnButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func saveButtonPressed(_ sender: UIButton) {
+        // Save Color array to Core Data.
     }
     
 }
