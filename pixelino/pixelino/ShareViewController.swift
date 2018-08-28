@@ -48,7 +48,7 @@ class ShareViewController: UIViewController {
             return
         }
 
-        // FIXME: Hardcoded values!
+        // FIXME: Hardcoded values - take them as input (through a prompt) from the user.
         let sharedImage = pictureExporter.generateUIImageFromCanvas(width: 300, height: 300)
         
         let objectsToShare = [sharedImage]
