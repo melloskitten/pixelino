@@ -27,6 +27,10 @@ class PictureExporter: NSObject {
         setUpRawPixelArray(colorArray: colorArray)
     }
     
+    convenience init(drawing: Drawing) {
+        self.init(colorArray: drawing.colorArray, canvasWidth: drawing.width, canvasHeight: drawing.height)
+    }
+    
     private func setUpRawPixelArray(colorArray: [UIColor]) {
         
         colorArray.forEach { (color) in
@@ -77,5 +81,13 @@ class PictureExporter: NSObject {
         }
         
         return rotatedSnapshotImage
+    }
+    
+    func generateThumbnailFromCanvas() -> UIImage? {
+        guard let image = generateUIImageFromCanvas(width: 150, height: 150) else {
+            return nil
+        }
+        
+        return image
     }
 }

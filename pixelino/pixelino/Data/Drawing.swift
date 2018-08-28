@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Drawing {
+struct Drawing {
     let colorArray: [UIColor]
     let width: Int
     let height: Int

@@ -9,7 +9,17 @@ import UIKit
 
 class ShareViewController: UIViewController {
     
-    var drawing: Drawing?
+    var drawing: Drawing? {
+        didSet {
+            guard let setDrawing = drawing else {
+                pictureExporter = nil
+                return
+            }
+            pictureExporter = PictureExporter(colorArray: setDrawing.colorArray, canvasWidth: setDrawing.width, canvasHeight: setDrawing.height)
+        }
+    }
+    
+    var pictureExporter: PictureExporter?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,20 +44,17 @@ class ShareViewController: UIViewController {
     }
     
     @objc func shareButtonPressed(_ sender: UIButton) {
-        guard let exportedDrawing = drawing else {
+        guard let pictureExporter = pictureExporter else {
             return
         }
-        
-        let pictureExporter = PictureExporter(colorArray: exportedDrawing.colorArray, canvasWidth: Int(exportedDrawing.width), canvasHeight: Int(exportedDrawing.height))
-        
+
         // FIXME: Hardcoded values!
         let sharedImage = pictureExporter.generateUIImageFromCanvas(width: 300, height: 300)
         
         let objectsToShare = [sharedImage]
         
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-        activityVC.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.assignToContact, UIActivityType.openInIBooks,
-                                            UIActivityType.copyToPasteboard, UIActivityType.openInIBooks]
+        activityVC.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.assignToContact, UIActivityType.openInIBooks, UIActivityType.copyToPasteboard, UIActivityType.openInIBooks]
         activityVC.popoverPresentationController?.sourceView = sender
         
         self.present(activityVC, animated: true, completion: nil)
@@ -58,12 +65,13 @@ class ShareViewController: UIViewController {
     }
     
     @objc func saveButtonPressed(_ sender: UIButton) {
-        guard let saveDrawing = drawing else {
+        guard let pictureExporter = pictureExporter,
+            let thumbnail = pictureExporter.generateThumbnailFromCanvas() else {
             // FIXME: Show some error message here.
             return
         }
-        // Save Color array to Core Data.
-        CoreDataManager.saveDrawing(colorArray: saveDrawing.colorArray, width: saveDrawing.width, height: saveDrawing.height)
+        
+        
     }
     
 }
