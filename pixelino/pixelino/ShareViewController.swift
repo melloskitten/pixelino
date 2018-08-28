@@ -71,6 +71,8 @@ class ShareViewController: UIViewController {
             return
         }
         
+        let imageData = UIImagePNGRepresentation(thumbnail)
+        
         
     }
     

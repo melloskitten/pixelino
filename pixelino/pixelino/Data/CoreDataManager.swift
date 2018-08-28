@@ -111,7 +111,7 @@ class CoreDataManager {
     // MARK: Drawing Load/Save - this is used when user saves image to app.
     
     // Save the current state of the canvas to Core Data, as well as its width and height (both in 'amount of pixels').
-    public static func saveDrawing(colorArray: [UIColor], width: Int, height: Int) {
+    public static func saveDrawing(drawing: Drawing) {
         // Grab Core Data context.
         guard let managedContext = getCoreDataContext() else {
             return
@@ -121,7 +121,7 @@ class CoreDataManager {
         let drawingObject = NSManagedObject(entity: drawingEntity!, insertInto: managedContext)
         
         // Perform actual saving request.
-        drawingObject.setValuesForKeys(["width": width, "height": height, "colorArray": colorArray])
+        drawingObject.setValuesForKeys(["width": drawing.width, "height": drawing.height, "colorArray": drawing.colorArray])
         
         do {
             try managedContext.save()
@@ -150,6 +150,59 @@ class CoreDataManager {
             
         } catch let error as NSError {
             print("Could not load any drawings. \(error), \(error.userInfo)")
+            return nil
+        }
+    }
+    
+    public static func saveThumbnail(thumbnail: DrawingThumbnail) {
+        // Grab Core Data context.
+        guard let managedContext = getCoreDataContext() else {
+            return
+        }
+        
+        let thumbnailEntity = NSEntityDescription.entity(forEntityName: "DrawingThumbnailModel", in: managedContext)
+        let thumbnailObject = NSManagedObject(entity: thumbnailEntity!, insertInto: managedContext)
+        
+        // Perform transfer to PNG representation for more efficient saving.
+        guard let imageData = UIImagePNGRepresentation(thumbnail.image) else {
+            return
+        }
+        
+        // Perform actual saving request.
+        thumbnailObject.setValuesForKeys(["imageData": imageData, "fileName": thumbnail.fileName])
+        
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            // FIXME: Implement proper error handling.
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    public static func loadAllThumbnails() -> [DrawingThumbnail]? {
+        // Grab Core Data context.
+        guard let managedContext = getCoreDataContext() else {
+            return nil
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrawingThumbnailModel")
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let result = try managedContext.fetch(request)
+            var thumbnails = [DrawingThumbnail]()
+            for data in result as! [NSManagedObject] {
+                guard let imageData = data.value(forKey: "imageData"),
+                let image = UIImage(data: imageData as! Data) else {
+                    return nil
+                }
+                let thumbnail = DrawingThumbnail(fileName: "Test", image: image)
+                thumbnails.append(thumbnail)
+            }
+            return thumbnails
+            
+        } catch let error as NSError {
+            print("Could not load any thumbnails. \(error), \(error.userInfo)")
             return nil
         }
     }
