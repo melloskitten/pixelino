@@ -66,14 +66,14 @@ class ShareViewController: UIViewController {
     
     @objc func saveButtonPressed(_ sender: UIButton) {
         guard let pictureExporter = pictureExporter,
-            let thumbnail = pictureExporter.generateThumbnailFromCanvas() else {
+            let thumbnailImage = pictureExporter.generateThumbnailFromCanvas() else {
             // FIXME: Show some error message here.
             return
         }
         
-        let imageData = UIImagePNGRepresentation(thumbnail)
-        
-        
+        // FIXME: Gather all other data needed for creation of thumbnail, e.g. through prompts.
+        let thumbnail = Thumbnail(fileName: "derp", image: thumbnailImage)
+        CoreDataManager.saveThumbnail(thumbnail: thumbnail)
     }
     
 }

@@ -11,7 +11,7 @@ import UIKit
 
 // Data class for handling all saved canvas items in the main menu.
 // FIXME: Is the capitalisation ok?
-class DrawingThumbnail {
+class Thumbnail {
     let imageReference: String
     let fileName: String
     let dateLastChanged: Date

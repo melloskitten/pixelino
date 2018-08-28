@@ -10,7 +10,7 @@ import UIKit
 
 class MainMenuTableViewController: UITableViewController {
     
-    var drawingThumbnailArray: [DrawingThumbnail] = []
+    var thumbnailArray: [Thumbnail] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,11 @@ class MainMenuTableViewController: UITableViewController {
     
     fileprivate func setUpThumbnailArray() {
         // Load the actual image from core data.
-        self.drawingThumbnailArray = [DrawingThumbnail(), DrawingThumbnail(), DrawingThumbnail()]
+        guard let thumbnails = CoreDataManager.loadAllThumbnails() else {
+            thumbnailArray = []
+            return
+        }
+        self.thumbnailArray = thumbnails
     }
     
     fileprivate func setUpViews() {
@@ -43,11 +47,11 @@ class MainMenuTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return drawingThumbnailArray.count
+        return thumbnailArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = MainMenuDrawingTableViewCell(drawingThumbnail: drawingThumbnailArray[indexPath.row])
+        let cell = MainMenuDrawingTableViewCell(thumbnail: thumbnailArray[indexPath.row])
         return cell
     }
     

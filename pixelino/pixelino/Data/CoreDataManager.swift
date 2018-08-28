@@ -154,7 +154,7 @@ class CoreDataManager {
         }
     }
     
-    public static func saveThumbnail(thumbnail: DrawingThumbnail) {
+    public static func saveThumbnail(thumbnail: Thumbnail) {
         // Grab Core Data context.
         guard let managedContext = getCoreDataContext() else {
             return
@@ -179,7 +179,7 @@ class CoreDataManager {
         }
     }
     
-    public static func loadAllThumbnails() -> [DrawingThumbnail]? {
+    public static func loadAllThumbnails() -> [Thumbnail]? {
         // Grab Core Data context.
         guard let managedContext = getCoreDataContext() else {
             return nil
@@ -190,13 +190,14 @@ class CoreDataManager {
         
         do {
             let result = try managedContext.fetch(request)
-            var thumbnails = [DrawingThumbnail]()
+            var thumbnails = [Thumbnail]()
             for data in result as! [NSManagedObject] {
-                guard let imageData = data.value(forKey: "imageData"),
-                let image = UIImage(data: imageData as! Data) else {
+                let fileName = data.value(forKey: "fileName") as! String
+                let imageData = data.value(forKey: "imageData") as! Data
+                guard let image = UIImage(data: imageData) else {
                     return nil
                 }
-                let thumbnail = DrawingThumbnail(fileName: "Test", image: image)
+                let thumbnail = Thumbnail(fileName: fileName, image: image)
                 thumbnails.append(thumbnail)
             }
             return thumbnails

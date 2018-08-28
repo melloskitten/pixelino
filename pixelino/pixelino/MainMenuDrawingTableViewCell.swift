@@ -10,13 +10,12 @@ import UIKit
 
 class MainMenuDrawingTableViewCell: UITableViewCell {
     
-    convenience init(drawingThumbnail: DrawingThumbnail) {
+    convenience init(thumbnail: Thumbnail) {
         self.init(style: .subtitle, reuseIdentifier: nil)
         
-        textLabel?.text = drawingThumbnail.fileName
-        // FIXME: This most likely will be changed since the thumbnails will be generated and not part of the assets.
-        imageView?.image = UIImage(named: drawingThumbnail.imageReference)
-        detailTextLabel?.text = "\(drawingThumbnail.dateLastChanged)"
+        textLabel?.text = thumbnail.fileName
+        imageView?.image = thumbnail.image
+        detailTextLabel?.text = "\(thumbnail.dateLastChanged)"
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
