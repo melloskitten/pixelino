@@ -12,10 +12,9 @@ class MainMenuDrawingTableViewCell: UITableViewCell {
     
     convenience init(thumbnail: Thumbnail) {
         self.init(style: .subtitle, reuseIdentifier: nil)
-        
         textLabel?.text = thumbnail.fileName
-        imageView?.image = thumbnail.image
-        detailTextLabel?.text = "\(thumbnail.dateLastChanged)"
+        imageView?.image = UIImage(data: thumbnail.imageData as Data)
+        detailTextLabel?.text = thumbnail.date
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

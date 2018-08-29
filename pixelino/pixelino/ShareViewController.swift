@@ -15,7 +15,7 @@ class ShareViewController: UIViewController {
                 pictureExporter = nil
                 return
             }
-            pictureExporter = PictureExporter(colorArray: setDrawing.colorArray, canvasWidth: setDrawing.width, canvasHeight: setDrawing.height)
+            pictureExporter = PictureExporter(colorArray: setDrawing.colorArray, canvasWidth: Int(setDrawing.width), canvasHeight: Int(setDrawing.height))
         }
     }
     
@@ -66,14 +66,22 @@ class ShareViewController: UIViewController {
     
     @objc func saveButtonPressed(_ sender: UIButton) {
         guard let pictureExporter = pictureExporter,
-            let thumbnailImage = pictureExporter.generateThumbnailFromCanvas() else {
+            let thumbnailImage = pictureExporter.generateThumbnailFromCanvas(),
+            let imageData = UIImagePNGRepresentation(thumbnailImage) else {
             // FIXME: Show some error message here.
             return
         }
         
         // FIXME: Gather all other data needed for creation of thumbnail, e.g. through prompts.
-        let thumbnail = Thumbnail(fileName: "derp", image: thumbnailImage)
+        let thumbnail = Thumbnail(fileName: "derp", date: "\(Date.init())", imageData: imageData)
+        
+        // Establish the relationships.
+        drawing?.thumbnail = thumbnail
+        thumbnail.drawing = drawing!
+        
+        // Save both.
         CoreDataManager.saveThumbnail(thumbnail: thumbnail)
+        CoreDataManager.saveDrawing(drawing: drawing!)
     }
     
 }

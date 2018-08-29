@@ -113,15 +113,9 @@ class CoreDataManager {
     // Save the current state of the canvas to Core Data, as well as its width and height (both in 'amount of pixels').
     public static func saveDrawing(drawing: Drawing) {
         // Grab Core Data context.
-        guard let managedContext = getCoreDataContext() else {
+        guard let managedContext = drawing.managedObjectContext else {
             return
         }
-        
-        let drawingEntity = NSEntityDescription.entity(forEntityName: "DrawingModel", in: managedContext)
-        let drawingObject = NSManagedObject(entity: drawingEntity!, insertInto: managedContext)
-        
-        // Perform actual saving request.
-        drawingObject.setValuesForKeys(["width": drawing.width, "height": drawing.height, "colorArray": drawing.colorArray])
         
         do {
             try managedContext.save()
@@ -142,9 +136,8 @@ class CoreDataManager {
         do {
             let result = try managedContext.fetch(request)
             var drawings = [Drawing]()
-            for data in result as! [NSManagedObject] {
-                let drawing = Drawing(data.value(forKey: "colorArray") as! [UIColor], data.value(forKey: "width") as! Int, data.value(forKey: "height") as! Int)
-                drawings.append(drawing)
+            for data in result as! [Drawing] {
+                drawings.append(data)
             }
             return drawings
             
@@ -156,21 +149,9 @@ class CoreDataManager {
     
     public static func saveThumbnail(thumbnail: Thumbnail) {
         // Grab Core Data context.
-        guard let managedContext = getCoreDataContext() else {
+        guard let managedContext = thumbnail.managedObjectContext else {
             return
         }
-        
-        let thumbnailEntity = NSEntityDescription.entity(forEntityName: "DrawingThumbnailModel", in: managedContext)
-        let thumbnailObject = NSManagedObject(entity: thumbnailEntity!, insertInto: managedContext)
-        
-        // Perform transfer to PNG representation for more efficient saving.
-        guard let imageData = UIImagePNGRepresentation(thumbnail.image) else {
-            return
-        }
-        
-        // Perform actual saving request.
-        thumbnailObject.setValuesForKeys(["imageData": imageData, "fileName": thumbnail.fileName])
-        
         do {
             try managedContext.save()
         } catch let error as NSError {
@@ -185,20 +166,14 @@ class CoreDataManager {
             return nil
         }
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrawingThumbnailModel")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Thumbnail")
         request.returnsObjectsAsFaults = false
         
         do {
             let result = try managedContext.fetch(request)
             var thumbnails = [Thumbnail]()
-            for data in result as! [NSManagedObject] {
-                let fileName = data.value(forKey: "fileName") as! String
-                let imageData = data.value(forKey: "imageData") as! Data
-                guard let image = UIImage(data: imageData) else {
-                    return nil
-                }
-                let thumbnail = Thumbnail(fileName: fileName, image: image)
-                thumbnails.append(thumbnail)
+            for data in result as! [Thumbnail] {
+                thumbnails.append(data)
             }
             return thumbnails
             

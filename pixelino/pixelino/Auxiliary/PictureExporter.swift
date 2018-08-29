@@ -28,7 +28,7 @@ class PictureExporter: NSObject {
     }
     
     convenience init(drawing: Drawing) {
-        self.init(colorArray: drawing.colorArray, canvasWidth: drawing.width, canvasHeight: drawing.height)
+        self.init(colorArray: drawing.colorArray, canvasWidth: Int(drawing.width), canvasHeight: Int(drawing.height))
     }
     
     private func setUpRawPixelArray(colorArray: [UIColor]) {

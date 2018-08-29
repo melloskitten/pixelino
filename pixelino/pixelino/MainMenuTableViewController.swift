@@ -55,6 +55,9 @@ class MainMenuTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
+    
     @objc func addButtonPressed(_ sender: UIButton) {
         // FIXME: Perhaps a different segue animation is more fitting? Need feedback.
         let drawingViewController = DrawingViewController()

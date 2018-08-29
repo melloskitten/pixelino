@@ -112,7 +112,7 @@ class DrawingViewController: UIViewController {
         
         // Pass them to the new view controller.
         let shareVC = ShareViewController()
-        shareVC.drawing = Drawing(canvasColorArray, canvasWidth, canvasHeight)
+        shareVC.drawing = Drawing(colorArray: canvasColorArray, width: canvasWidth, height: canvasHeight)
         self.present(shareVC, animated: true, completion: nil)
     }
     
