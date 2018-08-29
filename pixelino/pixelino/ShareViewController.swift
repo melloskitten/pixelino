@@ -28,7 +28,10 @@ class ShareViewController: UIViewController {
     
     fileprivate func setUpView(){
         view.backgroundColor = DARK_GREY
-        
+        setUpButtons()
+    }
+    
+    fileprivate func setUpButtons() {
         setUpButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50), title: "Share With...", action: #selector(shareButtonPressed(_:)))
         setUpButton(frame: CGRect(x: 100, y: 200, width: 200, height: 50), title: "Save to App", action: #selector(saveButtonPressed(_:)))
         setUpButton(frame: CGRect(x: 100, y: 300, width: 200, height: 50), title: "Return", action: #selector(returnButtonPressed(_:)))
@@ -44,6 +47,18 @@ class ShareViewController: UIViewController {
         view.addSubview(button)
     }
     
+    fileprivate func saveToApp(_ imageData: Data) {
+        // FIXME: Gather all other data needed for creation of thumbnail, e.g. through prompts.
+        let thumbnail = Thumbnail(fileName: "derp", date: "\(Date.init())", imageData: imageData)
+        
+        // Establish the relationships and save them in CoreData.
+        drawing?.thumbnail = thumbnail
+        thumbnail.drawing = drawing!
+        
+        CoreDataManager.saveThumbnail(thumbnail: thumbnail)
+        CoreDataManager.saveDrawing(drawing: drawing!)
+    }
+    
     @objc func shareButtonPressed(_ sender: UIButton) {
         guard let pictureExporter = pictureExporter else {
             return
@@ -51,7 +66,6 @@ class ShareViewController: UIViewController {
 
         // FIXME: Hardcoded values - take them as input (through a prompt) from the user.
         let sharedImage = pictureExporter.generateUIImageFromCanvas(width: 300, height: 300)
-        
         let objectsToShare = [sharedImage]
         
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
@@ -73,16 +87,7 @@ class ShareViewController: UIViewController {
             return
         }
         
-        // FIXME: Gather all other data needed for creation of thumbnail, e.g. through prompts.
-        let thumbnail = Thumbnail(fileName: "derp", date: "\(Date.init())", imageData: imageData)
-        
-        // Establish the relationships.
-        drawing?.thumbnail = thumbnail
-        thumbnail.drawing = drawing!
-        
-        // Save both.
-        CoreDataManager.saveThumbnail(thumbnail: thumbnail)
-        CoreDataManager.saveDrawing(drawing: drawing!)
+        saveToApp(imageData)
     }
     
     @objc func menuButtonPressed(_ sender: UIButton) {

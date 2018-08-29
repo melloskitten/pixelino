@@ -16,7 +16,6 @@ class MainMenuTableViewController: UITableViewController {
         super.viewDidLoad()
         // Load all saved images.
         setUpThumbnailArray()
-        
         setUpViews()
     }
     
@@ -26,7 +25,7 @@ class MainMenuTableViewController: UITableViewController {
     }
     
     fileprivate func setUpThumbnailArray() {
-        // Load the actual image from core data.
+        // Load thumbnails for preview.
         guard let thumbnails = CoreDataManager.loadAllThumbnails() else {
             thumbnailArray = []
             return

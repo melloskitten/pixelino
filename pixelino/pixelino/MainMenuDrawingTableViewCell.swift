@@ -10,16 +10,16 @@ import UIKit
 
 class MainMenuDrawingTableViewCell: UITableViewCell {
     
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUpView()
+    }
+    
     convenience init(thumbnail: Thumbnail) {
         self.init(style: .subtitle, reuseIdentifier: nil)
         textLabel?.text = thumbnail.fileName
         imageView?.image = UIImage(data: thumbnail.imageData as Data)
         detailTextLabel?.text = thumbnail.date
-    }
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setUpView()
     }
     
     required init?(coder aDecoder: NSCoder) {

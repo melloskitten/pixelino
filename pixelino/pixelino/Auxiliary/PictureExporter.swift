@@ -32,7 +32,6 @@ class PictureExporter: NSObject {
     }
     
     private func setUpRawPixelArray(colorArray: [UIColor]) {
-        
         colorArray.forEach { (color) in
             do {
                 let rawPixel = try RawPixel(inputColor: color)
