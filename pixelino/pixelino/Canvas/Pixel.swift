@@ -26,11 +26,6 @@ class Pixel : SKShapeNode {
         self.isAntialiased = false
     }
     
-    convenience init(color: UIColor) {
-        self.init()
-        self.fillColor = color
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
