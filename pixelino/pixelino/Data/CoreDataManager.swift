@@ -178,6 +178,7 @@ class CoreDataManager {
             return thumbnails
             
         } catch let error as NSError {
+            // FIXME: Implement proper error handling.
             print("Could not load any thumbnails. \(error), \(error.userInfo)")
             return nil
         }

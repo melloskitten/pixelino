@@ -56,6 +56,9 @@ class MainMenuTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let drawingVC = DrawingViewController()
+        drawingVC.drawing = thumbnailArray[indexPath.row].drawing
+        self.present(drawingVC, animated: true, completion: nil)
     }
     
     @objc func addButtonPressed(_ sender: UIButton) {

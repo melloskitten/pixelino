@@ -20,7 +20,14 @@ class Canvas : SKSpriteNode {
         self.width = width
         self.height = height
         super.init(texture: nil, color: .cyan, size: CGSize(width: width * PIXEL_SIZE, height: height * PIXEL_SIZE))
-        setUpPixelGrid(width: width, height: height)
+        setUpPixelGrid()
+    }
+    
+    init(colorArray: [UIColor], width: Int, height: Int) {
+        self.width = width
+        self.height = height
+        super.init(texture: nil, color: .white, size: CGSize(width: width * PIXEL_SIZE, height: height * PIXEL_SIZE))
+        setUpPixelGrid(colorArray: colorArray)
     }
     
     func getCanvasWidth() -> Int {
@@ -53,23 +60,34 @@ class Canvas : SKSpriteNode {
         })
     }
     
-    private func setUpPixelGrid(width: Int, height: Int) {
+    private func setUpPixelGrid() {
         for x in 0..<width {
             for y in 0..<height {
-                
-                // This is nasty, but SpriteKit has a stupid bug...
-                let xPos = Int(-self.size.width / 2) + x * Int(PIXEL_SIZE)
-                let yPos = Int(-self.size.height / 2) + y * Int(PIXEL_SIZE)
-                
-                let pixel = Pixel()
-                
-                pixel.position.x = CGFloat(xPos)
-                pixel.position.y = CGFloat(yPos)
-                pixelArray.append(pixel)
-                
-                self.addChild(pixel)
+                addPixel(x, y, .white)
             }
         }
+    }
+    
+    private func setUpPixelGrid(colorArray: [UIColor]) {
+        for x in 0..<width {
+            for y in 0..<height {
+                addPixel(x, y, colorArray[x + width * y])
+            }
+        }
+    }
+    
+    fileprivate func addPixel(_ x: Int, _ y: Int, _ color: UIColor) {
+        // This is nasty, but SpriteKit has a stupid bug...
+        let xPos = Int(-self.size.height / 2) + y * Int(PIXEL_SIZE)
+        let yPos = Int(-self.size.width / 2) + x * Int(PIXEL_SIZE)
+        
+        let pixel = Pixel(color: color)
+        
+        pixel.position.x = CGFloat(xPos)
+        pixel.position.y = CGFloat(yPos)
+        pixelArray.append(pixel)
+        
+        self.addChild(pixel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,6 +97,5 @@ class Canvas : SKSpriteNode {
     static func draw(pixel: Pixel, color: UIColor) {
         pixel.fillColor = color
     }
-    
     
 }
