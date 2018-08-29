@@ -19,6 +19,7 @@ class DrawingViewController: UIViewController {
     var observer: AnyObject?
     var currentDrawingColor: UIColor = .black
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
+    var drawing: Drawing?
     
     override var shouldAutorotate: Bool {
         return false
@@ -60,13 +61,20 @@ class DrawingViewController: UIViewController {
         super.viewDidLoad()
         
         setupOrientationObserver()
-        self.canvasView = CanvasView()
-        self.view.addSubview(canvasView!)
-    
+        setUpCanvasView()
         registerGestureRecognizer()
         registerToolbar()
-        
         setUpTabBarItems()
+    }
+    
+    fileprivate func setUpCanvasView() {
+        if let colorArray = drawing?.colorArray {
+            self.canvasView = CanvasView(colorArray: colorArray, sceneSize: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT), canvasSize: CGSize(width: CANVAS_WIDTH, height: CANVAS_HEIGHT))
+            self.view.addSubview(canvasView!)
+        } else {
+            self.canvasView = CanvasView()
+            self.view.addSubview(canvasView!)
+        }
     }
     
     fileprivate func setUpTabBarIcon(frame: CGRect, imageEdgeInsets: UIEdgeInsets, imageName: String, action: Selector) {

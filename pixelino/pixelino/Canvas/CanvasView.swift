@@ -15,21 +15,36 @@ class CanvasView : SKView {
     var canvas : Canvas
     
     init() {
-        
+        // This part cannot be refactored because of its position in init.
         canvasScene = SKScene(size: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
-        canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
-        canvasScene.isUserInteractionEnabled = true
         canvas = Canvas(width: CANVAS_WIDTH, height: CANVAS_HEIGHT)
-        
         super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
         
-        // Add canvas properties to view & show.
-        canvasScene.addChild(canvas)
-        canvasScene.scaleMode = .aspectFill
-        presentScene(canvasScene)
+        setSceneProperties()
+        presentCanvasScene()
+    }
+    
+    init(colorArray: [UIColor], sceneSize: CGSize, canvasSize: CGSize) {
+        canvasScene = SKScene(size: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
+        canvas = Canvas(width: CANVAS_WIDTH, height: CANVAS_HEIGHT)
+        super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
+        
+        canvas = Canvas(width: Int(canvasSize.width), height: Int(canvasSize.height), colorArray: colorArray)
+        presentCanvasScene()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func setSceneProperties() {
+        canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
+        canvasScene.isUserInteractionEnabled = true
+    }
+    
+    fileprivate func presentCanvasScene() {
+        canvasScene.addChild(canvas)
+        canvasScene.scaleMode = .aspectFill
+        presentScene(canvasScene)
     }
 }

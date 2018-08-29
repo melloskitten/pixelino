@@ -32,6 +32,7 @@ class ShareViewController: UIViewController {
         setUpButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50), title: "Share With...", action: #selector(shareButtonPressed(_:)))
         setUpButton(frame: CGRect(x: 100, y: 200, width: 200, height: 50), title: "Save to App", action: #selector(saveButtonPressed(_:)))
         setUpButton(frame: CGRect(x: 100, y: 300, width: 200, height: 50), title: "Return", action: #selector(returnButtonPressed(_:)))
+        setUpButton(frame: CGRect(x: 100, y: 400, width: 200, height: 50), title: "Return to Menu", action: #selector(menuButtonPressed(_:)))
     }
     
     fileprivate func setUpButton(frame: CGRect, title: String, action: Selector) {
@@ -82,6 +83,10 @@ class ShareViewController: UIViewController {
         // Save both.
         CoreDataManager.saveThumbnail(thumbnail: thumbnail)
         CoreDataManager.saveDrawing(drawing: drawing!)
+    }
+    
+    @objc func menuButtonPressed(_ sender: UIButton) {
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
 }

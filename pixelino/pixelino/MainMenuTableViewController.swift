@@ -20,6 +20,11 @@ class MainMenuTableViewController: UITableViewController {
         setUpViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        setUpThumbnailArray()
+        self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+    }
+    
     fileprivate func setUpThumbnailArray() {
         // Load the actual image from core data.
         guard let thumbnails = CoreDataManager.loadAllThumbnails() else {
@@ -56,6 +61,9 @@ class MainMenuTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let drawingVC = DrawingViewController()
+        drawingVC.drawing = thumbnailArray[indexPath.row].drawing
+        present(drawingVC, animated: true, completion: nil)
     }
     
     @objc func addButtonPressed(_ sender: UIButton) {
