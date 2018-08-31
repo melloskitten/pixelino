@@ -22,6 +22,6 @@ let MAX_ZOOM_OUT: CGFloat = 0.75
 // Tolerance for checking equality of UIColors.
 let COLOR_EQUALITY_TOLERANCE: CGFloat = 0.1
 
-let animationDuration: TimeInterval = 0.4
+let ANIMATION_DURATION: TimeInterval = 0.4
 let CANVAS_WIDTH = 20
 let CANVAS_HEIGHT = 20

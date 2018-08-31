@@ -43,7 +43,7 @@ class PictureExporter: NSObject {
         }
     }
     
-    public func generateUIImageFromCanvas(width: Int, height: Int) -> UIImage? {
+    public func generateUIImagefromDrawing(width: Int, height: Int) -> UIImage? {
         // Build the bitmap input for the CGImage conversion.
         guard let dataProvider = CGDataProvider(data: NSData(bytes: &rawPixelArray, length: rawPixelArray.count * MemoryLayout<RawPixel>.size)
             ) else {
@@ -82,8 +82,8 @@ class PictureExporter: NSObject {
         return rotatedSnapshotImage
     }
     
-    func generateThumbnailFromCanvas() -> UIImage? {
-        guard let image = generateUIImageFromCanvas(width: 150, height: 150) else {
+    func generateThumbnailFromDrawing() -> UIImage? {
+        guard let image = generateUIImagefromDrawing(width: 150, height: 150) else {
             return nil
         }
         

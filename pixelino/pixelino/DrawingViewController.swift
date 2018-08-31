@@ -53,7 +53,7 @@ class DrawingViewController: UIViewController {
             break
         }
         
-        let rotation = SKAction.rotate(toAngle: rotationAngle, duration: animationDuration, shortestUnitArc: true)
+        let rotation = SKAction.rotate(toAngle: rotationAngle, duration: ANIMATION_DURATION, shortestUnitArc: true)
         canvasView?.canvas.run(rotation)
     }
     

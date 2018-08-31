@@ -65,7 +65,7 @@ class ShareViewController: UIViewController {
         }
 
         // FIXME: Hardcoded values - take them as input (through a prompt) from the user.
-        let sharedImage = pictureExporter.generateUIImageFromCanvas(width: 300, height: 300)
+        let sharedImage = pictureExporter.generateUIImagefromDrawing(width: 300, height: 300)
         let objectsToShare = [sharedImage]
         
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
@@ -81,7 +81,7 @@ class ShareViewController: UIViewController {
     
     @objc func saveButtonPressed(_ sender: UIButton) {
         guard let pictureExporter = pictureExporter,
-            let thumbnailImage = pictureExporter.generateThumbnailFromCanvas(),
+            let thumbnailImage = pictureExporter.generateThumbnailFromDrawing(),
             let imageData = UIImagePNGRepresentation(thumbnailImage) else {
             // FIXME: Show some error message here.
             return

@@ -22,9 +22,11 @@ class Canvas : SKSpriteNode {
         setUpPixelGrid(colorArray: nil)
     }
     
-    convenience init(width: Int, height: Int, colorArray: [UIColor]) {
-        self.init(width: width, height: height)
-        self.pixelArray = []
+    init(width: Int, height: Int, colorArray: [UIColor]) {
+        self.width = width
+        self.height = height
+        self.height = height
+        super.init(texture: nil, color: .cyan, size: CGSize(width: width * PIXEL_SIZE, height: height * PIXEL_SIZE))
         setUpPixelGrid(colorArray: colorArray)
     }
     

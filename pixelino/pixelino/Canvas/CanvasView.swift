@@ -30,6 +30,7 @@ class CanvasView : SKView {
         super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
         
         canvas = Canvas(width: Int(canvasSize.width), height: Int(canvasSize.height), colorArray: colorArray)
+        setSceneProperties()
         presentCanvasScene()
     }
     
@@ -38,7 +39,7 @@ class CanvasView : SKView {
     }
     
     fileprivate func setSceneProperties() {
-        canvasScene.backgroundColor = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
+        canvasScene.backgroundColor = DARK_GREY
         canvasScene.isUserInteractionEnabled = true
     }
     
