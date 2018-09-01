@@ -15,9 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        setUpStartScreen()
         return true
     }
 
@@ -87,7 +86,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
-
+    
+    // MARK: - Startup Setup.
+    fileprivate func setUpStartScreen() {
+        // Make status bar dissapear.
+        UIApplication.shared.isStatusBarHidden = true
+    
+        // Set up nav-controller and start screen.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let mainMenuTableViewController = MainMenuTableViewController()
+        let navigationController = CustomNavigationController(rootViewController: mainMenuTableViewController)
+        
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+    }
 }
 

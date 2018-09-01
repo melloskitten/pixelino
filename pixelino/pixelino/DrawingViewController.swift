@@ -9,28 +9,9 @@
 import UIKit
 import SpriteKit
 import CoreGraphics
+import CoreData
 
-// FIXME: Move constants to appropriate file
-let DARK_GREY = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
-let LIGHT_GREY = UIColor(red:0.19, green:0.19, blue:0.19, alpha:1.0)
-let PIXEL_SIZE = 300
-
-// FIXME: Make this dynamic
-let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
-let SCREEN_WIDTH = UIScreen.main.bounds.size.width
-// Maximum amount of pixels shown on screen when zooming in.
-let MAX_AMOUNT_PIXEL_PER_SCREEN: CGFloat = 4.0
-let MAX_ZOOM_OUT: CGFloat = 0.75
-// Tolerance for checking equality of UIColors.
-let COLOR_EQUALITY_TOLERANCE: CGFloat = 0.1
-
-let animationDuration: TimeInterval = 0.4
-let CANVAS_WIDTH = 20
-let CANVAS_HEIGHT = 20
-
-
-
-class ViewController: UIViewController {
+class DrawingViewController: UIViewController {
     
     var commandManager = CommandManager()
     var canvasView: CanvasView? = nil
@@ -38,6 +19,7 @@ class ViewController: UIViewController {
     var observer: AnyObject?
     var currentDrawingColor: UIColor = .black
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
+    var drawing: Drawing?
     
     override var shouldAutorotate: Bool {
         return false
@@ -71,7 +53,7 @@ class ViewController: UIViewController {
             break
         }
         
-        let rotation = SKAction.rotate(toAngle: rotationAngle, duration: animationDuration, shortestUnitArc: true)
+        let rotation = SKAction.rotate(toAngle: rotationAngle, duration: ANIMATION_DURATION, shortestUnitArc: true)
         canvasView?.canvas.run(rotation)
     }
     
@@ -79,13 +61,20 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setupOrientationObserver()
-        self.canvasView = CanvasView()
-        self.view.addSubview(canvasView!)
-    
+        setUpCanvasView()
         registerGestureRecognizer()
         registerToolbar()
-        
         setUpTabBarItems()
+    }
+    
+    fileprivate func setUpCanvasView() {
+        if let colorArray = drawing?.colorArray {
+            self.canvasView = CanvasView(colorArray: colorArray, sceneSize: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT), canvasSize: CGSize(width: CANVAS_WIDTH, height: CANVAS_HEIGHT))
+            self.view.addSubview(canvasView!)
+        } else {
+            self.canvasView = CanvasView()
+            self.view.addSubview(canvasView!)
+        }
     }
     
     fileprivate func setUpTabBarIcon(frame: CGRect, imageEdgeInsets: UIEdgeInsets, imageName: String, action: Selector) {
@@ -129,9 +118,10 @@ class ViewController: UIViewController {
                 return
         }
         
-        let pictureExporter = PictureExporter(colorArray: canvasColorArray, canvasWidth: canvasWidth, canvasHeight: canvasHeight, self)
-        // FIXME: Currently hardcoded pixel size of exported image.
-        pictureExporter.exportImage(exportedWidth: 300, exportedHeight: 300)
+        // Pass them to the new view controller.
+        let shareVC = ShareViewController()
+        shareVC.drawing = Drawing(colorArray: canvasColorArray, width: canvasWidth, height: canvasHeight)
+        self.present(shareVC, animated: true, completion: nil)
     }
     
     @objc func redoButtonPressed(sender: UIButton!) {
@@ -251,17 +241,6 @@ class ViewController: UIViewController {
         })
     }
     
-    // Custom method to check for equality for UIColors.
-    // FIXME: chosen tolerance value more sophisticatedly.
-    private func isEqual(firstColor: UIColor, secondColor: UIColor) -> Bool {
-        if firstColor == secondColor {
-            return true
-        } else if firstColor.isEqualToColor(color: secondColor, withTolerance: COLOR_EQUALITY_TOLERANCE) {
-            return true
-        }
-        return false
-    }
-    
     @objc func handlePanFrom(_ sender: UIPanGestureRecognizer) {
         let canvasScene = canvasView?.canvasScene
         
@@ -283,21 +262,21 @@ class ViewController: UIViewController {
 }
 
 // Extension for handling half-views such as for the color picker tool.
-extension ViewController: UIViewControllerTransitioningDelegate {
+extension DrawingViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return SplitPresentationController(presentedViewController: presented, presenting: presenting)
     }
     
 }
 
-extension ViewController: UIGestureRecognizerDelegate {
+extension DrawingViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
 
 // Extension for writing back colors from the color picker view.
-extension ViewController: ColorChoiceDelegate {
+extension DrawingViewController: ColorChoiceDelegate {
     func colorChoicePicked(_ color: UIColor) {
         self.currentDrawingColor = color
     }
