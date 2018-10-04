@@ -8,10 +8,6 @@
 	</array>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
-	<key>CFBundleDisplayName</key>
-	<array>
-		<string></string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

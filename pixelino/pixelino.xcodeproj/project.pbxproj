@@ -227,6 +227,7 @@
 				BCF7BCD420AA159F005C5468 /* Resources */,
 				AB3DAB40F28E39EBB9728EAB /* [CP] Embed Pods Frameworks */,
 				2AD6D09421663CE500BCBBC1 /* ShellScript */,
+				2A8CBE5C21665CFF00F6E61B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -284,6 +285,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2A8CBE5C21665CFF00F6E61B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run swiftlint\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		2AD6D09421663CE500BCBBC1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -299,7 +317,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "# autocorrect wherever possible\n\"${PODS_ROOT}/SwiftLint/swiftlint\" autocorrect\n";
 		};
 		6A65F1677B882625A83CC3C7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -510,7 +528,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 45E39Y8V9N;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = pixelino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -531,7 +549,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 45E39Y8V9N;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = pixelino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

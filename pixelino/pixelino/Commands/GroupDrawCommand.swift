@@ -10,19 +10,19 @@ import Foundation
 
 class GroupDrawCommand: Command {
     var drawCommands: Set<DrawCommand>
-    
+
     init(drawCommands: Set<DrawCommand>) {
         self.drawCommands = drawCommands
     }
-    
+
     init() {
         self.drawCommands = []
     }
-    
+
     func execute() {
         drawCommands.forEach { $0.execute() }
     }
-    
+
     func undo() {
         drawCommands.forEach { $0.undo() }
     }
