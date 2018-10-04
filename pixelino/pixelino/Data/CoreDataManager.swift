@@ -97,7 +97,9 @@ class CoreDataManager {
         do {
             let result = try managedContext.fetch(request)
             var fetchedColorHistory = [UIColor]()
+            //swiftlint:disable:next force_cast
             for data in result as! [NSManagedObject] {
+                //swiftlint:disable:next force_cast
                 fetchedColorHistory.insert(data.value(forKey: "color") as! UIColor, at: 0)
             }
             return fetchedColorHistory
@@ -136,6 +138,8 @@ class CoreDataManager {
         do {
             let result = try managedContext.fetch(request)
             var drawings = [Drawing]()
+
+            //swiftlint:disable:next force_cast
             for data in result as! [Drawing] {
                 drawings.append(data)
             }
@@ -172,6 +176,8 @@ class CoreDataManager {
         do {
             let result = try managedContext.fetch(request)
             var thumbnails = [Thumbnail]()
+
+            //swiftlint:disable:next force_cast
             for data in result as! [Thumbnail] {
                 thumbnails.append(data)
             }

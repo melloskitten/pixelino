@@ -9,6 +9,6 @@
 import Foundation
 import UIKit
 
-protocol ColorChoiceDelegate {
+protocol ColorChoiceDelegate: class {
     func colorChoicePicked(_ color: UIColor)
 }

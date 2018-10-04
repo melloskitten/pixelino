@@ -13,7 +13,7 @@ import CoreData
 
 class ColorPickerViewController: UIViewController {
 
-    var colorChoiceDelegate: ColorChoiceDelegate?
+    weak var colorChoiceDelegate: ColorChoiceDelegate?
     var colorHistoryCollectionView: UICollectionView!
     var neatColorPicker: ChromaColorPicker!
     var colorHistory = [UIColor]()
@@ -125,6 +125,7 @@ extension ColorPickerViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //swiftlint:disable:next force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "colorHistoryCell", for: indexPath) as! ColorHistoryCollectionViewCell
 
         if indexPath.row >= colorHistory.count || colorHistory.isEmpty {

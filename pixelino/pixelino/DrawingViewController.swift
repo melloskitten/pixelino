@@ -26,9 +26,7 @@ class DrawingViewController: UIViewController {
     }
 
     override var prefersStatusBarHidden: Bool {
-        get {
-            return true
-        }
+        return true
     }
 
     func orientationChanged (_ notification: Notification) {
