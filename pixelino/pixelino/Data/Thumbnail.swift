@@ -12,14 +12,14 @@ import CoreData
 
 @objc(Thumbnail)
 public class Thumbnail: NSManagedObject {
-    
+
     convenience init(fileName: String, date: String, imageData: Data) {
         self.init(context: CoreDataManager.getCoreDataContext()!)
         self.fileName = fileName
         self.date = date
         self.imageData = NSData(data: imageData)
     }
-    
+
     convenience init(fileName: String, date: String, imageData: Data, drawing: Drawing) {
         self.init(fileName: fileName, date: date, imageData: imageData)
         self.drawing = drawing

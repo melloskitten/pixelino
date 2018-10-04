@@ -9,12 +9,12 @@
 import UIKit
 
 class CustomNavigationController: UINavigationController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomViewParams()
     }
-    
+
     fileprivate func setCustomViewParams() {
         self.navigationBar.tintColor = .white
         self.navigationBar.barStyle = .black

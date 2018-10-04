@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SplitPresentationController : UIPresentationController {
+class SplitPresentationController: UIPresentationController {
     override var frameOfPresentedViewInContainerView: CGRect {
         get {
             guard let theView = containerView else {

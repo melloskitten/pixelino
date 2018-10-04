@@ -11,7 +11,6 @@ import Foundation
 import CoreData
 import UIKit
 
-
 extension Drawing {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Drawing> {

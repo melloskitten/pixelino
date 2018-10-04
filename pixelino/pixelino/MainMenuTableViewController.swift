@@ -9,21 +9,21 @@
 import UIKit
 
 class MainMenuTableViewController: UITableViewController {
-    
+
     var thumbnailArray: [Thumbnail] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Load all saved images.
         setUpThumbnailArray()
         setUpViews()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         setUpThumbnailArray()
         self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
-    
+
     fileprivate func setUpThumbnailArray() {
         // Load thumbnails for preview.
         guard let thumbnails = CoreDataManager.loadAllThumbnails() else {
@@ -32,12 +32,12 @@ class MainMenuTableViewController: UITableViewController {
         }
         self.thumbnailArray = thumbnails
     }
-    
+
     fileprivate func setUpViews() {
         // Set up navigation bar and button.
         navigationItem.title = "Main Menu"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed(_:)))
-        
+
         // Set up table view controller.
         tableView.backgroundColor = DARK_GREY
         tableView.separatorColor = LIGHT_GREY
@@ -53,22 +53,22 @@ class MainMenuTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return thumbnailArray.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MainMenuDrawingTableViewCell(thumbnail: thumbnailArray[indexPath.row])
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let drawingVC = DrawingViewController()
         drawingVC.drawing = thumbnailArray[indexPath.row].drawing
         present(drawingVC, animated: true, completion: nil)
     }
-    
+
     @objc func addButtonPressed(_ sender: UIButton) {
         // FIXME: Perhaps a different segue animation is more fitting? Need feedback.
         let drawingViewController = DrawingViewController()
         self.present(drawingViewController, animated: true, completion: nil)
     }
-    
+
 }
