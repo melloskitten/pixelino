@@ -1,0 +1,10 @@
+disabled_rules:
+  - todo
+  - line_length
+  - identifier_name
+  - large_tuple
+
+force_cast: warning
+
+excluded:
+  - Pods

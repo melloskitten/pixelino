@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ColorHistory" representedClassName=".ColorHistory" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
+    <entity name="Drawing" representedClassName="Drawing" syncable="YES">
+        <attribute name="colorArray" optional="YES" attributeType="Transformable" customClassName="[UIColor]" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="thumbnail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thumbnail" inverseName="drawing" inverseEntity="Thumbnail" syncable="YES"/>
+    </entity>
+    <entity name="Thumbnail" representedClassName="Thumbnail" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Drawing" inverseName="thumbnail" inverseEntity="Drawing" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ColorHistory" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="Thumbnail" positionX="-54" positionY="27" width="128" height="105"/>
+        <element name="Drawing" positionX="-54" positionY="27" width="128" height="105"/>
+    </elements>
+</model>
