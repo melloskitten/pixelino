@@ -18,6 +18,7 @@ public class Thumbnail: NSManagedObject {
         self.fileName = fileName
         self.date = date
         self.imageData = NSData(data: imageData)
+        self.id = UUID.init()
     }
 
     convenience init(fileName: String, date: String, imageData: Data, drawing: Drawing) {

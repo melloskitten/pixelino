@@ -188,4 +188,25 @@ class CoreDataManager {
             return nil
         }
     }
+
+    /// Removes one particular drawing (based on the corresponding thumbnail).
+    public static func deleteDrawing(correspondingThumbnail: Thumbnail) {
+        // Grab Core Data context.
+        guard let managedContext = getCoreDataContext() else {
+            return
+        }
+
+        // Perform actual deletion request.
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Thumbnail")
+        deleteFetch.predicate = NSPredicate(format: "id == %@", correspondingThumbnail.id as CVarArg)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+
+        do {
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
+        } catch let error as NSError {
+            // FIXME: Implement proper error handling.
+            print("Could not delete. \(error), \(error.userInfo)")
+        }
+    }
 }

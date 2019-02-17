@@ -71,4 +71,14 @@ class MainMenuTableViewController: UITableViewController {
         self.present(drawingViewController, animated: true, completion: nil)
     }
 
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let deletedThumbnail = thumbnailArray.remove(at: indexPath.row)
+            // Delete corresponding Core Data entry.
+            CoreDataManager.deleteDrawing(correspondingThumbnail: deletedThumbnail)
+
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
+    }
+
 }

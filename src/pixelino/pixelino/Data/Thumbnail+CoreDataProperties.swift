@@ -20,5 +20,6 @@ extension Thumbnail {
     @NSManaged public var fileName: String
     @NSManaged public var imageData: NSData
     @NSManaged public var drawing: Drawing
+    @NSManaged public var id: UUID
 
 }
