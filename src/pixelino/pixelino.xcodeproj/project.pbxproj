@@ -1,0 +1,603 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7FEAE8C808A874161F2D5CA5 /* Pods_pixelino.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */; };
+		BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01F970211A2E8000D43A45 /* PictureExporter.swift */; };
+		BC11DADE2131DC4B00ABF196 /* MainMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */; };
+		BC11DAE02131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */; };
+		BC11DAE42131DE6F00ABF196 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC11DAE22131DD6700ABF196 /* Roboto-Regular.ttf */; };
+		BC11DAE62131E22F00ABF196 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DAE52131E22F00ABF196 /* CustomNavigationController.swift */; };
+		BC11DAEE21331FCC00ABF196 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DAED21331FCC00ABF196 /* ShareViewController.swift */; };
+		BC13221F2136B9F500CB18EF /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC13221B2136B9F500CB18EF /* Drawing.swift */; };
+		BC1322202136B9F500CB18EF /* Drawing+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC13221C2136B9F500CB18EF /* Drawing+CoreDataProperties.swift */; };
+		BC1322212136B9F500CB18EF /* Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC13221D2136B9F500CB18EF /* Thumbnail.swift */; };
+		BC1322222136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC13221E2136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift */; };
+		BC6959B6211B808000770249 /* RawPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B5211B808000770249 /* RawPixel.swift */; };
+		BC6959B8211F1FBD00770249 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B7211F1FBD00770249 /* Canvas.swift */; };
+		BC6959BA211F1FE200770249 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B9211F1FE200770249 /* Pixel.swift */; };
+		BC6959BC211F201600770249 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959BB211F201600770249 /* CanvasView.swift */; };
+		BC6959C5211F494600770249 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959C4211F494600770249 /* Command.swift */; };
+		BC89D9362121C42B00003C68 /* CommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D9352121C42B00003C68 /* CommandManager.swift */; };
+		BC89D93C2123746000003C68 /* MultiCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93B2123746000003C68 /* MultiCommand.swift */; };
+		BC89D93E2123748100003C68 /* DrawCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93D2123748100003C68 /* DrawCommand.swift */; };
+		BC89D940212374C300003C68 /* GroupDrawCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93F212374C300003C68 /* GroupDrawCommand.swift */; };
+		BC93B4422135B1EF00B4EABE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC93B4412135B1EF00B4EABE /* Constants.swift */; };
+		BCA7AD392136B68F00B1B463 /* pixelino.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BCA7AD372136B68F00B1B463 /* pixelino.xcdatamodeld */; };
+		BCD4A689213415BA0060327B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4A688213415BA0060327B /* CoreDataManager.swift */; };
+		BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */; };
+		BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */; };
+		BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B82111F43900384785 /* SplitPresentationController.swift */; };
+		BCF6B4BB2112061600384785 /* ColorHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4BA2112061600384785 /* ColorHistoryCollectionViewCell.swift */; };
+		BCF6B4E1211777C900384785 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4E0211777C900384785 /* Extensions.swift */; };
+		BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7BCD920AA159F005C5468 /* AppDelegate.swift */; };
+		BCF7BCDC20AA159F005C5468 /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7BCDB20AA159F005C5468 /* DrawingViewController.swift */; };
+		BCF7BCE120AA15A0005C5468 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCF7BCE020AA15A0005C5468 /* Assets.xcassets */; };
+		BCF7BCE420AA15A0005C5468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCF7BCE220AA15A0005C5468 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1A3DE91FA43F7E53A6552444 /* Pods-pixelino.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.debug.xcconfig"; sourceTree = "<group>"; };
+		88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixelino.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2492726C00F6C59E27C46F2 /* Pods-pixelino.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.release.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.release.xcconfig"; sourceTree = "<group>"; };
+		BC01F970211A2E8000D43A45 /* PictureExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureExporter.swift; sourceTree = "<group>"; };
+		BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTableViewController.swift; sourceTree = "<group>"; };
+		BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuDrawingTableViewCell.swift; sourceTree = "<group>"; };
+		BC11DAE22131DD6700ABF196 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		BC11DAE52131E22F00ABF196 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		BC11DAED21331FCC00ABF196 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		BC13221B2136B9F500CB18EF /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
+		BC13221C2136B9F500CB18EF /* Drawing+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drawing+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BC13221D2136B9F500CB18EF /* Thumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thumbnail.swift; sourceTree = "<group>"; };
+		BC13221E2136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thumbnail+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BC6959B5211B808000770249 /* RawPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPixel.swift; sourceTree = "<group>"; };
+		BC6959B7211F1FBD00770249 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		BC6959B9211F1FE200770249 /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
+		BC6959BB211F201600770249 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		BC6959C4211F494600770249 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		BC89D9352121C42B00003C68 /* CommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandManager.swift; sourceTree = "<group>"; };
+		BC89D93B2123746000003C68 /* MultiCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCommand.swift; sourceTree = "<group>"; };
+		BC89D93D2123748100003C68 /* DrawCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawCommand.swift; sourceTree = "<group>"; };
+		BC89D93F212374C300003C68 /* GroupDrawCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDrawCommand.swift; sourceTree = "<group>"; };
+		BC93B4412135B1EF00B4EABE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BCA7AD382136B68F00B1B463 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		BCD4A688213415BA0060327B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
+		BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceDelegate.swift; sourceTree = "<group>"; };
+		BCF6B4B82111F43900384785 /* SplitPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPresentationController.swift; sourceTree = "<group>"; };
+		BCF6B4BA2112061600384785 /* ColorHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		BCF6B4E0211777C900384785 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BCF7BCD620AA159F005C5468 /* pixelino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pixelino.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCF7BCD920AA159F005C5468 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BCF7BCDB20AA159F005C5468 /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
+		BCF7BCE020AA15A0005C5468 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BCF7BCE320AA15A0005C5468 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BCF7BCE520AA15A0005C5468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BCF7BCD320AA159F005C5468 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FEAE8C808A874161F2D5CA5 /* Pods_pixelino.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1CE651E503F4809BC7A484AB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A3DE91FA43F7E53A6552444 /* Pods-pixelino.debug.xcconfig */,
+				A2492726C00F6C59E27C46F2 /* Pods-pixelino.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BC11DAE32131DD7C00ABF196 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BCF7BCE020AA15A0005C5468 /* Assets.xcassets */,
+				BC11DAE22131DD6700ABF196 /* Roboto-Regular.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BC6959BD211F20ED00770249 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BC13221B2136B9F500CB18EF /* Drawing.swift */,
+				BC13221C2136B9F500CB18EF /* Drawing+CoreDataProperties.swift */,
+				BC13221D2136B9F500CB18EF /* Thumbnail.swift */,
+				BC13221E2136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift */,
+				BCA7AD372136B68F00B1B463 /* pixelino.xcdatamodeld */,
+				BCD4A688213415BA0060327B /* CoreDataManager.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		BC6959C1211F213C00770249 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BCF7BCE220AA15A0005C5468 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BC6959C2211F215A00770249 /* Auxiliary */ = {
+			isa = PBXGroup;
+			children = (
+				BC01F970211A2E8000D43A45 /* PictureExporter.swift */,
+				BC6959B5211B808000770249 /* RawPixel.swift */,
+				BCF6B4E0211777C900384785 /* Extensions.swift */,
+				BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */,
+				BC93B4412135B1EF00B4EABE /* Constants.swift */,
+			);
+			path = Auxiliary;
+			sourceTree = "<group>";
+		};
+		BC89D941212374DB00003C68 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				BC6959C4211F494600770249 /* Command.swift */,
+				BC89D93B2123746000003C68 /* MultiCommand.swift */,
+				BC89D9352121C42B00003C68 /* CommandManager.swift */,
+				BC89D93D2123748100003C68 /* DrawCommand.swift */,
+				BC89D93F212374C300003C68 /* GroupDrawCommand.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
+		BCD4A687213415660060327B /* Canvas */ = {
+			isa = PBXGroup;
+			children = (
+				BC6959BB211F201600770249 /* CanvasView.swift */,
+				BC6959B9211F1FE200770249 /* Pixel.swift */,
+				BC6959B7211F1FBD00770249 /* Canvas.swift */,
+			);
+			path = Canvas;
+			sourceTree = "<group>";
+		};
+		BCF7BCCD20AA159F005C5468 = {
+			isa = PBXGroup;
+			children = (
+				BCF7BCD820AA159F005C5468 /* pixelino */,
+				BCF7BCD720AA159F005C5468 /* Products */,
+				1CE651E503F4809BC7A484AB /* Pods */,
+				D670A1C2F42E784392406920 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BCF7BCD720AA159F005C5468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BCF7BCD620AA159F005C5468 /* pixelino.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BCF7BCD820AA159F005C5468 /* pixelino */ = {
+			isa = PBXGroup;
+			children = (
+				BCD4A687213415660060327B /* Canvas */,
+				BC11DAE32131DD7C00ABF196 /* Resources */,
+				BC89D941212374DB00003C68 /* Commands */,
+				BC6959C2211F215A00770249 /* Auxiliary */,
+				BC6959C1211F213C00770249 /* View */,
+				BC6959BD211F20ED00770249 /* Data */,
+				BCF7BCD920AA159F005C5468 /* AppDelegate.swift */,
+				BC11DAE52131E22F00ABF196 /* CustomNavigationController.swift */,
+				BC11DAED21331FCC00ABF196 /* ShareViewController.swift */,
+				BCF7BCDB20AA159F005C5468 /* DrawingViewController.swift */,
+				BCF6B4BA2112061600384785 /* ColorHistoryCollectionViewCell.swift */,
+				BCF7BCE520AA15A0005C5468 /* Info.plist */,
+				BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */,
+				BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */,
+				BCF6B4B82111F43900384785 /* SplitPresentationController.swift */,
+				BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */,
+			);
+			path = pixelino;
+			sourceTree = "<group>";
+		};
+		D670A1C2F42E784392406920 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BCF7BCD520AA159F005C5468 /* pixelino */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCF7BCE820AA15A0005C5468 /* Build configuration list for PBXNativeTarget "pixelino" */;
+			buildPhases = (
+				6A65F1677B882625A83CC3C7 /* [CP] Check Pods Manifest.lock */,
+				BCF7BCD220AA159F005C5468 /* Sources */,
+				BCF7BCD320AA159F005C5468 /* Frameworks */,
+				BCF7BCD420AA159F005C5468 /* Resources */,
+				AB3DAB40F28E39EBB9728EAB /* [CP] Embed Pods Frameworks */,
+				2AD6D09421663CE500BCBBC1 /* ShellScript */,
+				2A8CBE5C21665CFF00F6E61B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pixelino;
+			productName = pixelino;
+			productReference = BCF7BCD620AA159F005C5468 /* pixelino.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BCF7BCCE20AA159F005C5468 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Sandra Grujovic";
+				TargetAttributes = {
+					BCF7BCD520AA159F005C5468 = {
+						CreatedOnToolsVersion = 9.3.1;
+					};
+				};
+			};
+			buildConfigurationList = BCF7BCD120AA159F005C5468 /* Build configuration list for PBXProject "pixelino" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BCF7BCCD20AA159F005C5468;
+			productRefGroup = BCF7BCD720AA159F005C5468 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BCF7BCD520AA159F005C5468 /* pixelino */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BCF7BCD420AA159F005C5468 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC11DAE42131DE6F00ABF196 /* Roboto-Regular.ttf in Resources */,
+				BCF7BCE420AA15A0005C5468 /* LaunchScreen.storyboard in Resources */,
+				BCF7BCE120AA15A0005C5468 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2A8CBE5C21665CFF00F6E61B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run swiftlint\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		2AD6D09421663CE500BCBBC1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# autocorrect wherever possible\n\"${PODS_ROOT}/SwiftLint/swiftlint\" autocorrect\n";
+		};
+		6A65F1677B882625A83CC3C7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pixelino-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB3DAB40F28E39EBB9728EAB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pixelino/Pods-pixelino-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChromaColorPicker/ChromaColorPicker.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChromaColorPicker.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pixelino/Pods-pixelino-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BCF7BCD220AA159F005C5468 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCF7BCDC20AA159F005C5468 /* DrawingViewController.swift in Sources */,
+				BC6959B8211F1FBD00770249 /* Canvas.swift in Sources */,
+				BC1322222136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift in Sources */,
+				BC6959BC211F201600770249 /* CanvasView.swift in Sources */,
+				BC13221F2136B9F500CB18EF /* Drawing.swift in Sources */,
+				BC1322202136B9F500CB18EF /* Drawing+CoreDataProperties.swift in Sources */,
+				BC1322212136B9F500CB18EF /* Thumbnail.swift in Sources */,
+				BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */,
+				BC89D93E2123748100003C68 /* DrawCommand.swift in Sources */,
+				BCD4A689213415BA0060327B /* CoreDataManager.swift in Sources */,
+				BC93B4422135B1EF00B4EABE /* Constants.swift in Sources */,
+				BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */,
+				BC11DAE62131E22F00ABF196 /* CustomNavigationController.swift in Sources */,
+				BC6959BA211F1FE200770249 /* Pixel.swift in Sources */,
+				BC6959B6211B808000770249 /* RawPixel.swift in Sources */,
+				BC89D93C2123746000003C68 /* MultiCommand.swift in Sources */,
+				BC89D940212374C300003C68 /* GroupDrawCommand.swift in Sources */,
+				BC11DAEE21331FCC00ABF196 /* ShareViewController.swift in Sources */,
+				BC11DAE02131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift in Sources */,
+				BCF6B4E1211777C900384785 /* Extensions.swift in Sources */,
+				BCA7AD392136B68F00B1B463 /* pixelino.xcdatamodeld in Sources */,
+				BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */,
+				BC89D9362121C42B00003C68 /* CommandManager.swift in Sources */,
+				BCF6B4BB2112061600384785 /* ColorHistoryCollectionViewCell.swift in Sources */,
+				BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */,
+				BC6959C5211F494600770249 /* Command.swift in Sources */,
+				BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */,
+				BC11DADE2131DC4B00ABF196 /* MainMenuTableViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BCF7BCE220AA15A0005C5468 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCF7BCE320AA15A0005C5468 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BCF7BCE620AA15A0005C5468 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BCF7BCE720AA15A0005C5468 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BCF7BCE920AA15A0005C5468 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A3DE91FA43F7E53A6552444 /* Pods-pixelino.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = pixelino/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = melloskitten.pixelino;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BCF7BCEA20AA15A0005C5468 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2492726C00F6C59E27C46F2 /* Pods-pixelino.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = pixelino/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = melloskitten.pixelino;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BCF7BCD120AA159F005C5468 /* Build configuration list for PBXProject "pixelino" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCF7BCE620AA15A0005C5468 /* Debug */,
+				BCF7BCE720AA15A0005C5468 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCF7BCE820AA15A0005C5468 /* Build configuration list for PBXNativeTarget "pixelino" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCF7BCE920AA15A0005C5468 /* Debug */,
+				BCF7BCEA20AA15A0005C5468 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BCA7AD372136B68F00B1B463 /* pixelino.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BCA7AD382136B68F00B1B463 /* Model.xcdatamodel */,
+			);
+			currentVersion = BCA7AD382136B68F00B1B463 /* Model.xcdatamodel */;
+			path = pixelino.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = BCF7BCCE20AA159F005C5468 /* Project object */;
+}

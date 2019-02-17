@@ -1,0 +1,20 @@
+PODS:
+  - ChromaColorPicker (1.7)
+  - SwiftLint (0.27.0)
+
+DEPENDENCIES:
+  - ChromaColorPicker
+  - SwiftLint
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ChromaColorPicker
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  ChromaColorPicker: 33efa67b17cca51dd253689d18b83ac7e05642c2
+  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+
+PODFILE CHECKSUM: d5a3d43f4a733709677bf136cb253de8932a553f
+
+COCOAPODS: 1.5.2
