@@ -19,6 +19,7 @@ public class Drawing: NSManagedObject {
         self.height = Int64(height)
         self.width = Int64(width)
         self.colorArray = colorArray
+        self.id = .init()
     }
 
     convenience init(colorArray: [UIColor], width: Int, height: Int, thumbnail: Thumbnail) {

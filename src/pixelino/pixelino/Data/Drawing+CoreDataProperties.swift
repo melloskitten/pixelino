@@ -21,5 +21,6 @@ extension Drawing {
     @NSManaged public var height: Int64
     @NSManaged public var colorArray: [UIColor]
     @NSManaged public var thumbnail: Thumbnail
+    @NSManaged public var id: UUID
 
 }

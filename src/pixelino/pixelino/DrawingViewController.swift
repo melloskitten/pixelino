@@ -19,7 +19,7 @@ class DrawingViewController: UIViewController {
     var observer: AnyObject?
     var currentDrawingColor: UIColor = .black
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
-    var drawing: Drawing?
+    var previousDrawing: Drawing?
 
     override var shouldAutorotate: Bool {
         return false
@@ -65,7 +65,7 @@ class DrawingViewController: UIViewController {
     }
 
     fileprivate func setUpCanvasView() {
-        if let colorArray = drawing?.colorArray {
+        if let colorArray = previousDrawing?.colorArray {
             self.canvasView = CanvasView(colorArray: colorArray, sceneSize: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT), canvasSize: CGSize(width: CANVAS_WIDTH, height: CANVAS_HEIGHT))
             self.view.addSubview(canvasView!)
         } else {
@@ -117,7 +117,17 @@ class DrawingViewController: UIViewController {
 
         // Pass them to the new view controller.
         let shareVC = ShareViewController()
-        shareVC.drawing = Drawing(colorArray: canvasColorArray, width: canvasWidth, height: canvasHeight)
+
+        // In case a drawing object already existed before, update and pass it, otherwise,
+        // create new drawing.
+        if let updatedDrawing = previousDrawing {
+            updatedDrawing.colorArray = canvasColorArray
+            shareVC.drawing = updatedDrawing
+        } else {
+            shareVC.drawing = Drawing(colorArray: canvasColorArray, width: canvasWidth, height: canvasHeight)
+        }
+
+        // Present new view controller.
         self.present(shareVC, animated: true, completion: nil)
     }
 
