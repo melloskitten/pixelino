@@ -97,7 +97,7 @@ class ShareViewController: UIViewController {
             // FIXME: Show some error message here.
             return
         }
-        
+
         // Show filename input prompt.
         showTextInputAlert(title: "Save File", message: "Please select a name for your file.", textFieldPlaceholder: "Unknown") { (fileName) in
             self.saveToApp(imageData, fileName)
@@ -108,13 +108,13 @@ class ShareViewController: UIViewController {
         self.presentingViewController?.presentingViewController?.dismiss(animated: true,
                                                                          completion: nil)
     }
-    
+
     // MARK: - Convenience methods for adjusting alert controller.
 
     /// Initialises a pixelino-styled UIAlertController.
     fileprivate func initPixelinoAlertController(_ title: String,
                                                  _ message: String) -> (UIAlertController) {
-        
+
         let alertController = UIAlertController(title: title, message: message,
                                                 preferredStyle: .alert)
         alertController.setBackgroundColor(color: LIGHT_GREY)
@@ -125,7 +125,7 @@ class ShareViewController: UIViewController {
         alertController.view.tintColor = UIColor.white
         return alertController
     }
-    
+
     /// Convenience method that creates an AlertViewController with a dark-grey background color,
     /// custom title and message, a textField as an input, as well as save and cancel buttons.
     /// actionOnSuccess denotes a callback handler for when the user has pressed on the
