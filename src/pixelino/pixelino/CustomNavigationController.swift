@@ -20,6 +20,10 @@ class CustomNavigationController: UINavigationController {
         self.navigationBar.barStyle = .black
         self.navigationBar.isTranslucent = false
         self.navigationBar.barTintColor = LIGHT_GREY
-        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont(name: "Roboto-Regular", size: UIFont.labelFontSize) ?? "Helvetica"]
+        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white,
+                                                  NSAttributedStringKey.font: UIFont(
+                                                    name: CustomFonts.roboto.rawValue,
+                                                    size: UIFont.labelFontSize
+                                                    ) ?? CustomFonts.helvetica.rawValue]
     }
 }

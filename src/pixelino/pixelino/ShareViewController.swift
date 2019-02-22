@@ -32,10 +32,14 @@ class ShareViewController: UIViewController {
     }
 
     fileprivate func setUpButtons() {
-        setUpButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50), title: "Share With...", action: #selector(shareButtonPressed(_:)))
-        setUpButton(frame: CGRect(x: 100, y: 200, width: 200, height: 50), title: "Save to App", action: #selector(saveButtonPressed(_:)))
-        setUpButton(frame: CGRect(x: 100, y: 300, width: 200, height: 50), title: "Return", action: #selector(returnButtonPressed(_:)))
-        setUpButton(frame: CGRect(x: 100, y: 400, width: 200, height: 50), title: "Return to Menu", action: #selector(menuButtonPressed(_:)))
+        setUpButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50),
+                    title: "Share With...", action: #selector(shareButtonPressed(_:)))
+        setUpButton(frame: CGRect(x: 100, y: 200, width: 200, height: 50),
+                    title: "Save to App", action: #selector(saveButtonPressed(_:)))
+        setUpButton(frame: CGRect(x: 100, y: 300, width: 200, height: 50),
+                    title: "Return", action: #selector(returnButtonPressed(_:)))
+        setUpButton(frame: CGRect(x: 100, y: 400, width: 200, height: 50),
+                    title: "Return to Menu", action: #selector(menuButtonPressed(_:)))
     }
 
     fileprivate func setUpButton(frame: CGRect, title: String, action: Selector) {
@@ -47,17 +51,18 @@ class ShareViewController: UIViewController {
         view.addSubview(button)
     }
 
-    fileprivate func saveToApp(_ imageData: Data) {
-        // FIXME: Gather all other data needed for creation of thumbnail, e.g. through prompts.
-        let thumbnail = Thumbnail(fileName: "derp", date: "\(Date.init())", imageData: imageData)
+    /// Saves a drawing and corresponding email based on imageData and fileName to the app.
+    fileprivate func saveToApp(_ imageData: Data, _ fileName: String) {
+        let thumbnail = Thumbnail(fileName: fileName, date: "\(Date.init())", imageData: imageData)
 
-        // Establish the relationships and save them in CoreData.
+        // Establish the object relationships and save them in CoreData.
         let oldThumbnail = drawing?.thumbnail
         drawing?.thumbnail = thumbnail
         thumbnail.drawing = drawing!
 
         // Save drawing.
         CoreDataManager.saveDrawing(drawing: drawing!, oldThumbnail: oldThumbnail)
+
     }
 
     @objc func shareButtonPressed(_ sender: UIButton) {
@@ -69,8 +74,13 @@ class ShareViewController: UIViewController {
         let sharedImage = pictureExporter.generateUIImagefromDrawing(width: 300, height: 300)
         let objectsToShare = [sharedImage]
 
-        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-        activityVC.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.assignToContact, UIActivityType.openInIBooks, UIActivityType.copyToPasteboard, UIActivityType.openInIBooks]
+        let activityVC = UIActivityViewController(activityItems: objectsToShare as [Any],
+                                                  applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivityType.addToReadingList,
+                                            UIActivityType.assignToContact,
+                                            UIActivityType.openInIBooks,
+                                            UIActivityType.copyToPasteboard,
+                                            UIActivityType.openInIBooks]
         activityVC.popoverPresentationController?.sourceView = sender
 
         self.present(activityVC, animated: true, completion: nil)
@@ -87,12 +97,66 @@ class ShareViewController: UIViewController {
             // FIXME: Show some error message here.
             return
         }
-
-        saveToApp(imageData)
+        
+        // Show filename input prompt.
+        showTextInputAlert(title: "Save File", message: "Please select a name for your file.", textFieldPlaceholder: "Unknown") { (fileName) in
+            self.saveToApp(imageData, fileName)
+        }
     }
 
     @objc func menuButtonPressed(_ sender: UIButton) {
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true,
+                                                                         completion: nil)
+    }
+    
+    // MARK: - Convenience methods for adjusting alert controller.
+
+    /// Initialises a pixelino-styled UIAlertController.
+    fileprivate func initPixelinoAlertController(_ title: String,
+                                                 _ message: String) -> (UIAlertController) {
+        
+        let alertController = UIAlertController(title: title, message: message,
+                                                preferredStyle: .alert)
+        alertController.setBackgroundColor(color: LIGHT_GREY)
+        alertController.setTitle(title, color: UIColor.white,
+                                 customFont: CustomFonts.roboto.rawValue)
+        alertController.setMessage(message, color: UIColor.init(white: 1, alpha: 0.9),
+                                   font: CustomFonts.roboto.rawValue)
+        alertController.view.tintColor = UIColor.white
+        return alertController
+    }
+    
+    /// Convenience method that creates an AlertViewController with a dark-grey background color,
+    /// custom title and message, a textField as an input, as well as save and cancel buttons.
+    /// actionOnSuccess denotes a callback handler for when the user has pressed on the
+    /// save button.
+    private func showTextInputAlert(title: String, message: String, textFieldPlaceholder: String,
+                                    actionOnSuccess: @escaping (String) -> Void) {
+
+        let alertController = initPixelinoAlertController(title, message)
+
+        // Add textfield.
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Untitled"
+        }
+        // Add save and cancel buttons.
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (_) in
+            if let textField = alertController.textFields?[0] {
+                if let text = textField.text, text.count > 0 {
+                    actionOnSuccess(text)
+                } else {
+                    // Write back unknown in case user didn't enter anything.
+                    actionOnSuccess("Unknown")
+                }
+            }
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+
+        self.present(alertController, animated: true, completion: nil)
+
     }
 
 }

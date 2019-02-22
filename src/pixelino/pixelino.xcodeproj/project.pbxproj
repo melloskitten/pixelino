@@ -19,6 +19,8 @@
 		BC1322212136B9F500CB18EF /* Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC13221D2136B9F500CB18EF /* Thumbnail.swift */; };
 		BC1322222136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC13221E2136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift */; };
 		BC1F12B2221EFDEC00598DBD /* pixelino.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BCA7AD372136B68F00B1B463 /* pixelino.xcdatamodeld */; };
+		BC1F12B4222032C700598DBD /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F12B3222032C700598DBD /* CustomFonts.swift */; };
+		BC1F12B722204F3200598DBD /* UIAlertViewController+Customisable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F12B622204F3200598DBD /* UIAlertViewController+Customisable.swift */; };
 		BC6959B6211B808000770249 /* RawPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B5211B808000770249 /* RawPixel.swift */; };
 		BC6959B8211F1FBD00770249 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B7211F1FBD00770249 /* Canvas.swift */; };
 		BC6959BA211F1FE200770249 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B9211F1FE200770249 /* Pixel.swift */; };
@@ -55,6 +57,8 @@
 		BC13221C2136B9F500CB18EF /* Drawing+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drawing+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BC13221D2136B9F500CB18EF /* Thumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thumbnail.swift; sourceTree = "<group>"; };
 		BC13221E2136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thumbnail+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BC1F12B3222032C700598DBD /* CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		BC1F12B622204F3200598DBD /* UIAlertViewController+Customisable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertViewController+Customisable.swift"; sourceTree = "<group>"; };
 		BC6959B5211B808000770249 /* RawPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPixel.swift; sourceTree = "<group>"; };
 		BC6959B7211F1FBD00770249 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		BC6959B9211F1FE200770249 /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
@@ -110,6 +114,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		BC1F12B522204EF700598DBD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BC1F12B622204F3200598DBD /* UIAlertViewController+Customisable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		BC6959BD211F20ED00770249 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +151,7 @@
 				BCF6B4E0211777C900384785 /* Extensions.swift */,
 				BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */,
 				BC93B4412135B1EF00B4EABE /* Constants.swift */,
+				BC1F12B3222032C700598DBD /* CustomFonts.swift */,
 			);
 			path = Auxiliary;
 			sourceTree = "<group>";
@@ -186,6 +199,7 @@
 		BCF7BCD820AA159F005C5468 /* pixelino */ = {
 			isa = PBXGroup;
 			children = (
+				BC1F12B522204EF700598DBD /* Extensions */,
 				BCD4A687213415660060327B /* Canvas */,
 				BC11DAE32131DD7C00ABF196 /* Resources */,
 				BC89D941212374DB00003C68 /* Commands */,
@@ -384,7 +398,9 @@
 				BCF6B4E1211777C900384785 /* Extensions.swift in Sources */,
 				BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */,
 				BC1F12B2221EFDEC00598DBD /* pixelino.xcdatamodeld in Sources */,
+				BC1F12B4222032C700598DBD /* CustomFonts.swift in Sources */,
 				BC89D9362121C42B00003C68 /* CommandManager.swift in Sources */,
+				BC1F12B722204F3200598DBD /* UIAlertViewController+Customisable.swift in Sources */,
 				BCF6B4BB2112061600384785 /* ColorHistoryCollectionViewCell.swift in Sources */,
 				BCF7BCDA20AA159F005C5468 /* AppDelegate.swift in Sources */,
 				BC6959C5211F494600770249 /* Command.swift in Sources */,
