@@ -16,7 +16,6 @@ extension UIAlertController {
     /// Set custom background color. Note: Removes "opaque look" from the standard
     /// UIAlertController background view.
     public func setBackgroundColor(color: UIColor, radius: CGFloat = 10.0) {
-        // Change background color.
         let backgroundView = (self.view.subviews.first?.subviews.first?.subviews.first!)! as UIView
         backgroundView.backgroundColor = color
         backgroundView.layer.cornerRadius = 10.0
