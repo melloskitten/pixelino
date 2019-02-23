@@ -50,6 +50,16 @@ class Canvas: SKSpriteNode {
         return PIXEL_SIZE
     }
 
+    /// Returns actual size of canvas width in screen (scale factor included).
+    func getScaledCanvasWidth() -> CGFloat {
+        return CGFloat(getCanvasWidth()) * xScale
+    }
+
+    /// Returns actual size of canvas height in screen (scale factor included).
+    func getScaledCanvasHeight() -> CGFloat {
+        return CGFloat(getCanvasHeight()) * yScale
+    }
+
     func getPixelHeight() -> Int {
         return PIXEL_SIZE
     }
