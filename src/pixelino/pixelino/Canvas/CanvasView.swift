@@ -23,7 +23,6 @@ class CanvasView: SKView {
         canvasScene = SKScene(size: CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
         canvas = Canvas(width: CANVAS_WIDTH, height: CANVAS_HEIGHT)
         super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
-
         setUpCanvas()
     }
 
@@ -32,7 +31,6 @@ class CanvasView: SKView {
         canvas = Canvas(width: CANVAS_WIDTH, height: CANVAS_HEIGHT)
         super.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
         canvas = Canvas(width: Int(canvasSize.width), height: Int(canvasSize.height), colorArray: colorArray)
-
         setUpCanvas()
     }
 
