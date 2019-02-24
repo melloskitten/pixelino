@@ -10,12 +10,12 @@ import Foundation
 import SpriteKit
 
 class CanvasView: SKView {
-    
+
     // MARK: - Attributes.
 
     var canvasScene: SKScene
     var canvas: Canvas
-    
+
     // MARK: Initialiser.
 
     init() {
@@ -37,7 +37,7 @@ class CanvasView: SKView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: Canvas setup and configuration methods.
 
     fileprivate func setUpCanvas() {
@@ -56,14 +56,14 @@ class CanvasView: SKView {
         canvasScene.scaleMode = .aspectFill
         presentScene(canvasScene)
     }
-    
+
     /// Zoom into canvas appropriately (so the width fits into the screen width).
     fileprivate func adjustCanvasZoom() {
-        
+
         // Calculate correct zoom factor.
         let adjustedScaleFactor: CGFloat = SCREEN_WIDTH / canvas.getScaledCanvasWidth()
         canvas.setScale(adjustedScaleFactor)
-        
+
         // Reposition canvas to the middle of the screen.
         if let skView = canvasScene.view {
             canvas.position = skView.center
