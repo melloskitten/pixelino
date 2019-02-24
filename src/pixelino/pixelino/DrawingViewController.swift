@@ -176,6 +176,8 @@ class DrawingViewController: UIViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
     }
 
+    // MARK: - GestureRecognizer methods.
+
     @objc func handlePinchFrom(_ sender: UIPinchGestureRecognizer) {
 
         let pinch = SKAction.scale(by: sender.scale, duration: 0.0)
@@ -249,22 +251,84 @@ class DrawingViewController: UIViewController {
 
     @objc func handlePanFrom(_ sender: UIPanGestureRecognizer) {
         let canvasScene = canvasView?.canvasScene
-
         let translation = sender.translation(in: canvasView)
+        moveCanvas(canvasScene, translation, sender)
+    }
+    
+    // MARK: - Canvas move / Pan gesture helper methods.
 
+    /// Moves the canvas based on the changes observed from the PanGestureRecognizer.
+    fileprivate func moveCanvas(_ canvasScene: SKScene?,
+                                _ translation: CGPoint,
+                                _ sender: UIPanGestureRecognizer) {
         let xScale = canvasScene?.xScale
         let yScale = canvasScene?.yScale
 
-        let pan = SKAction.moveBy(x: translation.x * xScale!, y: -1.0 * translation.y * yScale!, duration: 0)
+        let relativeXChange = translation.x * xScale!
+        let relativeYChange = -1.0 * translation.y * yScale!
+
+        // Calculate possible directions for the pan gesture and whether they are allowed.
+        let relativeChange = CGPoint(x: relativeXChange, y: relativeYChange)
+        let allowedPanGestures = getAllowedMoveDirections(relativeChange)
+
+        let pan: SKAction
+
+        // Both actions are allowed, move the canvas.
+        if allowedPanGestures.0 && allowedPanGestures.1 {
+            pan = SKAction.moveBy(x: relativeXChange, y: relativeYChange, duration: 0)
+        } else if allowedPanGestures.0 && !allowedPanGestures.1 {
+            // Only the X change is valid, do not move in the Y direction.
+            pan = SKAction.moveBy(x: relativeXChange, y: 0.0, duration: 0)
+        } else if !allowedPanGestures.0 && allowedPanGestures.1 {
+            // Only the Y change is valid, do not move in the X direction.
+            pan = SKAction.moveBy(x: 0.0, y: relativeYChange, duration: 0)
+        } else {
+            // No action is possible.
+            pan = SKAction.moveBy(x: 0.0, y: 0.0, duration: 0)
+        }
 
         canvasView?.canvas.run(pan)
         sender.setTranslation(CGPoint.zero, in: canvasView)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    /// Returns true if the relative change of a pan gesture is allowed, false if isn't.
+    /// This assumes that a relative change to our canvas is only possible if the resulting
+    /// position of the canvas is still in our screen boundary.
+    /// This stops the user from "scrolling away the canvas into infinity"
+    /// Important: it returns whether the relative change
+    /// was allowed in the (xDirection, yDirection.) This is needed in order to provide a more
+    /// user-friendly scrolling experience.
+    func getAllowedMoveDirections(_ relativeChange: CGPoint) -> (Bool, Bool) {
+
+        var allowedPanGestureDirection = (true, true)
+
+        if let canvasCenter = canvasView?.canvas.position,
+            let canvas = canvasView?.canvas,
+            let canvasView = canvasView {
+
+            // Calculate the barriers for each of the sides.
+            let maxLeft = canvasView.center.x - canvas.getScaledCanvasWidth() / 2
+            let maxRight = canvasView.center.x + canvas.getScaledCanvasWidth() / 2
+            let maxUp = canvasView.center.y - canvas.getScaledCanvasHeight() / 2
+            let maxDown = canvasView.center.y + canvas.getScaledCanvasHeight() / 2
+
+            // Check whether the change is valid.
+            // Always check from the center point of the canvas.
+            if canvasCenter.x + relativeChange.x < maxLeft ||
+                canvasCenter.x + relativeChange.x > maxRight {
+                allowedPanGestureDirection.0 = false
+            }
+
+            if canvasCenter.y + relativeChange.y < maxUp ||
+                canvasCenter.y + relativeChange.y > maxDown {
+                allowedPanGestureDirection.1 = false
+            }
+
+        }
+
+        return allowedPanGestureDirection
     }
+
 }
 
 // Extension for handling half-views such as for the color picker tool.
