@@ -9,20 +9,20 @@
 import UIKit
 
 class MainMenuTableViewController: UITableViewController {
-    
+
     // MARK: - Data Source.
 
     var thumbnailArray: [Thumbnail] = []
 
     // MARK: - ViewDidLoad.
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Load all saved images.
         setUpThumbnailArray()
         setUpViews()
     }
-    
+
     // MARK: - ViewDidAppear.
 
     override func viewDidAppear(_ animated: Bool) {
@@ -35,7 +35,7 @@ class MainMenuTableViewController: UITableViewController {
         }
 
     }
-    
+
     // MARK: - View and data source configuration and setup methods.
 
     fileprivate func setUpViews() {
@@ -48,7 +48,7 @@ class MainMenuTableViewController: UITableViewController {
         tableView.separatorColor = LIGHT_GREY
         tableView.rowHeight = 150
     }
-    
+
     /// Checks whether the thumbnailArray changed between the last and current load from
     /// Core Data.
     fileprivate func thumbnailArrayChanged() -> Bool {
@@ -56,12 +56,12 @@ class MainMenuTableViewController: UITableViewController {
         let newArray = loadThumbnails()
         return oldArray != newArray
     }
-    
+
     /// Populates the thumbnailArray with thumbnails.
     fileprivate func setUpThumbnailArray() {
         self.thumbnailArray = loadThumbnails()
     }
-    
+
     /// Loads thumbnails from Core Data.
     fileprivate func loadThumbnails() -> [Thumbnail] {
         guard let thumbnails = CoreDataManager.loadAllThumbnails() else {
@@ -69,9 +69,9 @@ class MainMenuTableViewController: UITableViewController {
         }
         return thumbnails
     }
-    
+
     // MARK: - Button handler methods.
-    
+
     @objc func addButtonPressed(_ sender: UIButton) {
         // FIXME: Perhaps a different segue animation is more fitting? Need feedback.
         let drawingViewController = DrawingViewController()

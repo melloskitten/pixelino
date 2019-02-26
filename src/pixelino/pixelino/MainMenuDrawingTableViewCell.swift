@@ -35,9 +35,20 @@ class MainMenuDrawingTableViewCell: UITableViewCell {
     }
 
     fileprivate func setUpView() {
+        self.backgroundColor = DARK_GREY
         contentView.backgroundColor = DARK_GREY
         textLabel?.textColor = .white
         detailTextLabel?.textColor = .gray
         separatorInset = UIEdgeInsets.zero
+        self.setSelectedColor(color: .black)
+    }
+}
+
+// TODO: Move me somewhere else.
+extension UITableViewCell {
+    func setSelectedColor(color: UIColor) {
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.black
+        self.selectedBackgroundView = selectedView
     }
 }

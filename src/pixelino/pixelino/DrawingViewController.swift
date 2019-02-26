@@ -254,7 +254,7 @@ class DrawingViewController: UIViewController {
         let translation = sender.translation(in: canvasView)
         moveCanvas(canvasScene, translation, sender)
     }
-    
+
     // MARK: - Canvas move / Pan gesture helper methods.
 
     /// Moves the canvas based on the changes observed from the PanGestureRecognizer.
