@@ -13,6 +13,8 @@ import CoreData
 
 class DrawingViewController: UIViewController {
 
+    // MARK: - Attributes
+    
     var commandManager = CommandManager()
     var canvasView: CanvasView?
     var toolbarView: UIView?
@@ -20,6 +22,10 @@ class DrawingViewController: UIViewController {
     var currentDrawingColor: UIColor = .black
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     var previousDrawing: Drawing?
+    
+    /// Attribute making sure that you cannot draw while you're pinching or panning
+    /// around the screen.
+    var canDraw = true
 
     override var shouldAutorotate: Bool {
         return false
@@ -208,29 +214,31 @@ class DrawingViewController: UIViewController {
     }
 
     @objc func handleDrawFrom(_ sender: UIPanGestureRecognizer) {
-        // Initialise group draw command and tear down when needed.
-        switch sender.state {
-        case .began:
-            groupDrawCommand = GroupDrawCommand()
-        case .ended:
-            commandManager.execute(groupDrawCommand)
-        default:
-            break
-        }
-
-        let canvasScene = canvasView?.canvasScene
-        let touchLocation = sender.location(in: sender.view)
-        let touchLocationInScene = canvasView?.convert(touchLocation, to: canvasScene!)
-
-        let nodes = canvasScene?.nodes(at: touchLocationInScene!)
-
-        nodes?.forEach({ (node) in
-            if let pixel = node as? Pixel {
-                let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
-                // FIXME: Figure out a better name.
-                groupDrawCommand.appendAndExecuteSingle(drawCommand)
+        if canDraw {
+            // Initialise group draw command and tear down when needed.
+            switch sender.state {
+            case .began:
+                groupDrawCommand = GroupDrawCommand()
+            case .ended:
+                commandManager.execute(groupDrawCommand)
+            default:
+                break
             }
-        })
+
+            let canvasScene = canvasView?.canvasScene
+            let touchLocation = sender.location(in: sender.view)
+            let touchLocationInScene = canvasView?.convert(touchLocation, to: canvasScene!)
+
+            let nodes = canvasScene?.nodes(at: touchLocationInScene!)
+
+            nodes?.forEach({ (node) in
+                if let pixel = node as? Pixel {
+                    let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
+                    // FIXME: Figure out a better name.
+                    groupDrawCommand.appendAndExecuteSingle(drawCommand)
+                }
+            })
+        }
     }
 
     @objc func handleTapFrom(_ sender: UITapGestureRecognizer) {
@@ -250,9 +258,14 @@ class DrawingViewController: UIViewController {
     }
 
     @objc func handlePanFrom(_ sender: UIPanGestureRecognizer) {
-        let canvasScene = canvasView?.canvasScene
-        let translation = sender.translation(in: canvasView)
-        moveCanvas(canvasScene, translation, sender)
+        if sender.state != .ended {
+            canDraw = false
+            let canvasScene = canvasView?.canvasScene
+            let translation = sender.translation(in: canvasView)
+            moveCanvas(canvasScene, translation, sender)
+            return
+        }
+        canDraw = true
     }
 
     // MARK: - Canvas move / Pan gesture helper methods.
