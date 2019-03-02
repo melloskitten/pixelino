@@ -22,6 +22,9 @@ class DrawingViewController: UIViewController {
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     var previousDrawing: Drawing?
 
+    var upperToolbar: UIView!
+    var lowerToolbar: UIView!
+
     /// Attribute making sure that you cannot draw while you're pinching or panning
     /// around the screen.
     var canDraw = true
@@ -66,7 +69,7 @@ class DrawingViewController: UIViewController {
         setUpCanvasView()
         registerGestureRecognizer()
         registerToolbars()
-        setUpTabBarItems()
+        setUpButtons()
     }
 
     fileprivate func setUpCanvasView() {
@@ -79,29 +82,72 @@ class DrawingViewController: UIViewController {
         }
     }
 
-    fileprivate func setUpTabBarIcon(frame: CGRect, imageEdgeInsets: UIEdgeInsets, imageName: String, action: Selector) {
-        let tabBarIcon = UIButton()
-        tabBarIcon.frame = frame
-        tabBarIcon.imageEdgeInsets = imageEdgeInsets
-        tabBarIcon.setImage(UIImage(named: imageName), for: .normal)
-        tabBarIcon.addTarget(self, action: action, for: .touchUpInside)
-        self.view.addSubview(tabBarIcon)
+    /// This method provides a convenience button creation method. Please note that this method
+    /// does __not__ add any autoconstraints to the buttons.
+    ///
+    /// - Parameters:
+    ///   - width: width of the button
+    ///   - height: height of the button
+    ///   - imageEdgeInsets: inset of icon image
+    ///   - imageName: name of icon image (from Assets.xcassets)
+    ///   - action: selector of action that should be performed when button is tapped.
+    /// - Returns: the set up button.
+    fileprivate func setUpTabBarButton(width: CGFloat,
+                                       height: CGFloat,
+                                       imageEdgeInsets: UIEdgeInsets,
+                                       imageName: String,
+                                       action: Selector) -> UIButton {
+        let button = UIButton()
+        button.imageEdgeInsets = imageEdgeInsets
+        button.setImage(UIImage(named: imageName), for: .normal)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        button.widthAnchor.constraint(equalToConstant: width).isActive = true
+        button.heightAnchor.constraint(equalToConstant: height).isActive = true
+        return button
     }
 
-    fileprivate func setUpTabBarItems() {
+    fileprivate func setUpButtons() {
         let standardImageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 
         // Export button.
-        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Export", action: #selector(exportButtonPressed(sender:)))
+        let exportButton = setUpTabBarButton(width: 50.0, height: 50.0,
+                              imageEdgeInsets: standardImageEdgeInsets,
+                              imageName: "Export",
+                              action: #selector(exportButtonPressed(sender:)))
 
         // Color Picker button.
-        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-170, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "ColorPicker", action: #selector(colorPickerButtonPressed(sender:)))
+        let colorPickerButton = setUpTabBarButton(width: 50.0, height: 50.0,
+                              imageEdgeInsets: standardImageEdgeInsets,
+                              imageName: "ColorPicker",
+                              action: #selector(colorPickerButtonPressed(sender:)))
 
         // Undo button.
-        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-370, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Undo", action: #selector(undoButtonPressed(sender:)))
+        let undoButton = setUpTabBarButton(width: 50.0, height: 50.0,
+                              imageEdgeInsets: standardImageEdgeInsets,
+                              imageName: "Undo",
+                              action: #selector(undoButtonPressed(sender:)))
 
         // Redo button.
-        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-270, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Redo", action: #selector(redoButtonPressed(sender:)))
+        let redoButton = setUpTabBarButton(width: 50.0, height: 50.0,
+                              imageEdgeInsets: standardImageEdgeInsets,
+                              imageName: "Redo",
+                              action: #selector(redoButtonPressed(sender:)))
+
+        // Calculate constraint constants.
+        let screenWidth = UIScreen.main.bounds.width
+        let relativeSpacing = screenWidth / 6
+
+        // Add constraints.
+        undoButton.centerXAnchor.constraint(equalTo: view.leftAnchor, constant: relativeSpacing).isActive = true
+        undoButton.centerYAnchor.constraint(equalTo: lowerToolbar.centerYAnchor).isActive = true
+        redoButton.centerXAnchor.constraint(equalTo: undoButton.rightAnchor, constant: relativeSpacing).isActive = true
+        redoButton.centerYAnchor.constraint(equalTo: lowerToolbar.centerYAnchor).isActive = true
+        colorPickerButton.centerXAnchor.constraint(equalTo: redoButton.rightAnchor, constant: relativeSpacing).isActive = true
+        colorPickerButton.centerYAnchor.constraint(equalTo: lowerToolbar.centerYAnchor).isActive = true
+        exportButton.centerXAnchor.constraint(equalTo: colorPickerButton.rightAnchor, constant: relativeSpacing).isActive = true
+        exportButton.centerYAnchor.constraint(equalTo: lowerToolbar.centerYAnchor).isActive = true
     }
 
     @objc func colorPickerButtonPressed(sender: UIButton!) {
@@ -148,14 +194,16 @@ class DrawingViewController: UIViewController {
         observer = NotificationCenter.default.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: nil, using: orientationChanged)
     }
 
+    /// Initialises toolbars, adds them to the view and applies position and width/height
+    /// constraints.
     private func registerToolbars() {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
 
         // Create upper and lower toolbar section.
-        let upperToolbar = UIView()
+        upperToolbar = UIView()
         upperToolbar.backgroundColor = LIGHT_GREY
-        let lowerToolbar = UIView()
+        lowerToolbar = UIView()
         lowerToolbar.backgroundColor = LIGHT_GREY
 
         // Add to drawing view.
