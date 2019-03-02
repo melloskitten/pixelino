@@ -112,19 +112,66 @@ class CoreDataManager {
 
     // MARK: Drawing Load/Save - this is used when user saves image to app.
 
-    // Save the current state of the canvas to Core Data, as well as its width and height (both in 'amount of pixels').
-    public static func saveDrawing(drawing: Drawing) {
+    /// Save the current state of the canvas to Core Data, as well as its width and height (both
+    /// in 'amount of pixels'). This saving function incorporates both the creation of a completely
+    /// new drawing, as well as updating a drawing that is already existing.
+    /// If a drawing is already existing, the a reference oldThumbnail has to be provided,
+    /// as it needs to be deleted from the database as well.
+    public static func saveDrawing(drawing: Drawing, oldThumbnail: Thumbnail? = nil) {
+            if updateDrawing(updatedDrawing: drawing) {
+                if let oldThumbnail = oldThumbnail {
+                    deleteThumbnail(thumbnail: oldThumbnail)
+                }
+                return
+            } else {
+            // Grab Core Data context.
+            guard let managedContext = drawing.managedObjectContext else {
+                return
+            }
+
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                // FIXME: Implement proper error handling.
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+        }
+    }
+
+    /// Updates an already existing drawing and returns true or false depending on whether
+    /// the update was successful or not. (It is also unsuccessful when the drawing is not
+    /// yet in the database, thus cannot be updated.)
+    public static func updateDrawing(updatedDrawing: Drawing) -> Bool {
         // Grab Core Data context.
-        guard let managedContext = drawing.managedObjectContext else {
-            return
+        guard let managedContext = updatedDrawing.managedObjectContext else {
+            return false
         }
 
+        let updateRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Drawing")
+        updateRequest.predicate = NSPredicate(format: "id == %@", updatedDrawing.id as CVarArg)
+
         do {
-            try managedContext.save()
+            let result = try managedContext.fetch(updateRequest)
+
+            if result.count > 0 {
+                if let fetchResults = result as? [NSManagedObject] {
+                    for fetchResult in fetchResults {
+                        fetchResult.setValue(updatedDrawing.colorArray, forKey: "colorArray")
+                        fetchResult.setValue(updatedDrawing.thumbnail, forKey: "thumbnail")
+                    }
+
+                    try managedContext.save()
+
+                    return true
+                }
+
+            }
+
         } catch let error as NSError {
-            // FIXME: Implement proper error handling.
-            print("Could not save. \(error), \(error.userInfo)")
+            print("Could not update any drawings. \(error), \(error.userInfo)")
         }
+
+        return false
     }
 
     public static func loadAllDrawings() -> [Drawing]? {
@@ -133,7 +180,7 @@ class CoreDataManager {
             return nil
         }
 
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrawingModel")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Drawing")
         request.returnsObjectsAsFaults = false
         do {
             let result = try managedContext.fetch(request)
@@ -151,16 +198,58 @@ class CoreDataManager {
         }
     }
 
-    public static func saveThumbnail(thumbnail: Thumbnail) {
+    public static func updateThumbnail(oldThumbnail: Thumbnail) -> Bool {
         // Grab Core Data context.
-        guard let managedContext = thumbnail.managedObjectContext else {
+        guard let managedContext = oldThumbnail.managedObjectContext else {
+            return false
+        }
+
+        let updateRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Thumbnail")
+        updateRequest.predicate = NSPredicate(format: "id == %@", oldThumbnail.id as CVarArg)
+
+        do {
+            let result = try managedContext.fetch(updateRequest)
+
+            if result.count > 0 {
+                if let fetchResults = result as? [NSManagedObject] {
+                    for fetchResult in fetchResults {
+                        fetchResult.setValue(oldThumbnail.date, forKey: "date")
+                        fetchResult.setValue(oldThumbnail.fileName, forKey: "fileName")
+                        fetchResult.setValue(oldThumbnail.imageData, forKey: "imageData")
+                        fetchResult.setValue(oldThumbnail.drawing, forKey: "drawing")
+                    }
+
+                    try managedContext.save()
+
+                    return true
+                }
+
+            }
+
+        } catch let error as NSError {
+            print("Could not update any drawings. \(error), \(error.userInfo)")
+        }
+
+        return false
+    }
+
+    public static func deleteThumbnail(thumbnail: Thumbnail) {
+        // Grab Core Data context.
+        guard let managedContext = getCoreDataContext() else {
             return
         }
+
+        // Perform actual deletion request.
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Thumbnail")
+        deleteFetch.predicate = NSPredicate(format: "id == %@", thumbnail.id as CVarArg)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+
         do {
+            try managedContext.execute(deleteRequest)
             try managedContext.save()
         } catch let error as NSError {
             // FIXME: Implement proper error handling.
-            print("Could not save. \(error), \(error.userInfo)")
+            print("Could not delete thumbnail. \(error), \(error.userInfo)")
         }
     }
 
@@ -189,6 +278,26 @@ class CoreDataManager {
         }
     }
 
+    /// Removes all existing thumbnails.
+    public static func deleteThumbnails() {
+        // Grab Core Data context.
+        guard let managedContext = getCoreDataContext() else {
+            return
+        }
+
+        // Perform actual deletion request.
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Thumbnail")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+
+        do {
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
+        } catch let error as NSError {
+            // FIXME: Implement proper error handling.
+            print("Could not delete. \(error), \(error.userInfo)")
+        }
+    }
+
     /// Removes one particular drawing (based on the corresponding thumbnail).
     public static func deleteDrawing(correspondingThumbnail: Thumbnail) {
         // Grab Core Data context.
@@ -199,6 +308,26 @@ class CoreDataManager {
         // Perform actual deletion request.
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Thumbnail")
         deleteFetch.predicate = NSPredicate(format: "id == %@", correspondingThumbnail.id as CVarArg)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+
+        do {
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
+        } catch let error as NSError {
+            // FIXME: Implement proper error handling.
+            print("Could not delete. \(error), \(error.userInfo)")
+        }
+    }
+
+    /// Removes all existing drawings.
+    public static func deleteDrawings() {
+        // Grab Core Data context.
+        guard let managedContext = getCoreDataContext() else {
+            return
+        }
+
+        // Perform actual deletion request.
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Drawing")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
 
         do {

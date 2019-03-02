@@ -52,11 +52,12 @@ class ShareViewController: UIViewController {
         let thumbnail = Thumbnail(fileName: "derp", date: "\(Date.init())", imageData: imageData)
 
         // Establish the relationships and save them in CoreData.
+        let oldThumbnail = drawing?.thumbnail
         drawing?.thumbnail = thumbnail
         thumbnail.drawing = drawing!
 
-        CoreDataManager.saveThumbnail(thumbnail: thumbnail)
-        CoreDataManager.saveDrawing(drawing: drawing!)
+        // Save drawing.
+        CoreDataManager.saveDrawing(drawing: drawing!, oldThumbnail: oldThumbnail)
     }
 
     @objc func shareButtonPressed(_ sender: UIButton) {

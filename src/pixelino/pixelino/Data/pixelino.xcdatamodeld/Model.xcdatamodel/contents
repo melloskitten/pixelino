@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18E174f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ColorHistory" representedClassName=".ColorHistory" syncable="YES">
         <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
     <entity name="Drawing" representedClassName="Drawing" syncable="YES">
         <attribute name="colorArray" optional="YES" attributeType="Transformable" customClassName="[UIColor]" syncable="YES"/>
         <attribute name="height" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="width" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="thumbnail" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Thumbnail" inverseName="drawing" inverseEntity="Thumbnail" syncable="YES"/>
     </entity>
@@ -18,7 +19,7 @@
     </entity>
     <elements>
         <element name="ColorHistory" positionX="-2637.88671875" positionY="-467.23828125" width="128" height="60"/>
-        <element name="Drawing" positionX="-2643.44140625" positionY="-250.78125" width="128" height="103"/>
-        <element name="Thumbnail" positionX="-2292.59765625" positionY="-254.2890625" width="128" height="118"/>
+        <element name="Drawing" positionX="-2643.44140625" positionY="-250.78125" width="128" height="120"/>
+        <element name="Thumbnail" positionX="-2292.59765625" positionY="-254.2890625" width="128" height="120"/>
     </elements>
 </model>

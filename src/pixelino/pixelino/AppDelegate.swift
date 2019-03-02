@@ -87,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Startup Setup.
+
     fileprivate func setUpStartScreen() {
         // Make status bar dissapear.
         UIApplication.shared.isStatusBarHidden = true

@@ -24,13 +24,15 @@ class MainMenuTableViewController: UITableViewController {
         self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
 
+    /// Load thumbnails for preview.
     fileprivate func setUpThumbnailArray() {
-        // Load thumbnails for preview.
         guard let thumbnails = CoreDataManager.loadAllThumbnails() else {
             thumbnailArray = []
             return
         }
+
         self.thumbnailArray = thumbnails
+
     }
 
     fileprivate func setUpViews() {
@@ -61,7 +63,7 @@ class MainMenuTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let drawingVC = DrawingViewController()
-        drawingVC.drawing = thumbnailArray[indexPath.row].drawing
+        drawingVC.previousDrawing = thumbnailArray[indexPath.row].drawing
         present(drawingVC, animated: true, completion: nil)
     }
 
