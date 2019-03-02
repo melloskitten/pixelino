@@ -35,7 +35,9 @@ extension UIAlertController {
     /// Sets custom message, its text, color and font.
     public func setMessage(_ message: String, color: UIColor, font: String) {
         var mutableMessage = NSMutableAttributedString()
-        mutableMessage = NSMutableAttributedString(string: message as String, attributes: [NSAttributedStringKey.font: UIFont(name: font, size: 16.0)!])
+        mutableMessage = NSMutableAttributedString(string: message as String,
+                                                   attributes: [NSAttributedStringKey.font:
+                                                    UIFont(name: font, size: 16.0)!])
         mutableMessage.addAttribute(NSAttributedStringKey.foregroundColor,
                                     value: color,
                                     range: NSRange(location: 0, length: message.count))
