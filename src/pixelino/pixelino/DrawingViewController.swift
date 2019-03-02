@@ -14,15 +14,14 @@ import CoreData
 class DrawingViewController: UIViewController {
 
     // MARK: - Attributes
-    
+
     var commandManager = CommandManager()
     var canvasView: CanvasView?
-    var toolbarView: UIView?
     var observer: AnyObject?
     var currentDrawingColor: UIColor = .black
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     var previousDrawing: Drawing?
-    
+
     /// Attribute making sure that you cannot draw while you're pinching or panning
     /// around the screen.
     var canDraw = true
@@ -66,7 +65,7 @@ class DrawingViewController: UIViewController {
         setupOrientationObserver()
         setUpCanvasView()
         registerGestureRecognizer()
-        registerToolbar()
+        registerToolbars()
         setUpTabBarItems()
     }
 
@@ -149,15 +148,35 @@ class DrawingViewController: UIViewController {
         observer = NotificationCenter.default.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: nil, using: orientationChanged)
     }
 
-    private func registerToolbar() {
-        let screenSize = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-        let screenHeight = screenSize.height
+    private func registerToolbars() {
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
 
-        toolbarView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: screenHeight-100), size: CGSize(width: screenWidth, height: 100 )))
-        toolbarView?.backgroundColor = LIGHT_GREY
+        // Create upper and lower toolbar section.
+        let upperToolbar = UIView()
+        upperToolbar.backgroundColor = LIGHT_GREY
+        let lowerToolbar = UIView()
+        lowerToolbar.backgroundColor = LIGHT_GREY
 
-        self.view.addSubview(toolbarView!)
+        // Add to drawing view.
+        self.view.addSubview(lowerToolbar)
+        self.view.addSubview(upperToolbar)
+
+        // Calculate correct height of bars according to screen ratio.
+        let toolBarHeight = screenHeight / 8.5
+
+        // Set autoconstraints.
+        upperToolbar.translatesAutoresizingMaskIntoConstraints = false
+        upperToolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        upperToolbar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        upperToolbar.heightAnchor.constraint(equalToConstant: toolBarHeight).isActive = true
+        upperToolbar.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
+
+        lowerToolbar.translatesAutoresizingMaskIntoConstraints = false
+        lowerToolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        lowerToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        lowerToolbar.heightAnchor.constraint(equalToConstant: toolBarHeight).isActive = true
+        lowerToolbar.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
     }
 
     private func registerGestureRecognizer() {
