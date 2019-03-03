@@ -12,6 +12,8 @@ import CoreGraphics
 import CoreData
 
 class DrawingViewController: UIViewController {
+    
+    // MARK: - Properties.
 
     // MARK: - Attributes
 
