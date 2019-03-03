@@ -99,7 +99,9 @@ class ShareViewController: UIViewController {
         }
 
         // Show filename input prompt.
-        showTextInputAlert(title: "Save File", message: "Please select a name for your file.", textFieldPlaceholder: "Unknown") { (fileName) in
+        showTextInputAlert(title: "Save File",
+                           message: "Please select a name for your file.",
+                           textFieldPlaceholder: "Untitled") { (fileName) in
             self.saveToApp(imageData, fileName)
         }
     }
@@ -137,7 +139,7 @@ class ShareViewController: UIViewController {
 
         // Add textfield.
         alertController.addTextField { (textField) in
-            textField.placeholder = "Untitled"
+            textField.placeholder = textFieldPlaceholder
         }
         // Add save and cancel buttons.
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
@@ -146,8 +148,10 @@ class ShareViewController: UIViewController {
                 if let text = textField.text, text.count > 0 {
                     actionOnSuccess(text)
                 } else {
-                    // Write back unknown in case user didn't enter anything.
-                    actionOnSuccess("Unknown")
+                    // Write back "Untitled" in case user didn't enter anything.
+                    // Note: This is because we don't want to have completely nameless
+                    // drawings. Therefore, we provide a placeholder name.
+                    actionOnSuccess("Untitled")
                 }
             }
         }
