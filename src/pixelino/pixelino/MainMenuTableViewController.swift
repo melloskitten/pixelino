@@ -9,31 +9,34 @@
 import UIKit
 
 class MainMenuTableViewController: UITableViewController {
+    
+    // MARK: - Data Source.
 
     var thumbnailArray: [Thumbnail] = []
 
+    // MARK: - ViewDidLoad.
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Load all saved images.
         setUpThumbnailArray()
         setUpViews()
     }
+    
+    // MARK: - ViewDidAppear.
 
     override func viewDidAppear(_ animated: Bool) {
-        setUpThumbnailArray()
-        self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
-    }
 
-    /// Load thumbnails for preview.
-    fileprivate func setUpThumbnailArray() {
-        guard let thumbnails = CoreDataManager.loadAllThumbnails() else {
-            thumbnailArray = []
-            return
+        // Only reload the TableView if there was an actual change in data, otherwise
+        // it looks very odd.
+        if thumbnailArrayChanged() {
+            setUpThumbnailArray()
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
         }
 
-        self.thumbnailArray = thumbnails
-
     }
+    
+    // MARK: - View and data source configuration and setup methods.
 
     fileprivate func setUpViews() {
         // Set up navigation bar and button.
@@ -45,8 +48,37 @@ class MainMenuTableViewController: UITableViewController {
         tableView.separatorColor = LIGHT_GREY
         tableView.rowHeight = 150
     }
+    
+    /// Checks whether the thumbnailArray changed between the last and current load from
+    /// Core Data.
+    fileprivate func thumbnailArrayChanged() -> Bool {
+        let oldArray = thumbnailArray
+        let newArray = loadThumbnails()
+        return oldArray != newArray
+    }
+    
+    /// Populates the thumbnailArray with thumbnails.
+    fileprivate func setUpThumbnailArray() {
+        self.thumbnailArray = loadThumbnails()
+    }
+    
+    /// Loads thumbnails from Core Data.
+    fileprivate func loadThumbnails() -> [Thumbnail] {
+        guard let thumbnails = CoreDataManager.loadAllThumbnails() else {
+            return []
+        }
+        return thumbnails
+    }
+    
+    // MARK: - Button handler methods.
+    
+    @objc func addButtonPressed(_ sender: UIButton) {
+        // FIXME: Perhaps a different segue animation is more fitting? Need feedback.
+        let drawingViewController = DrawingViewController()
+        self.present(drawingViewController, animated: true, completion: nil)
+    }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source.
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -65,12 +97,6 @@ class MainMenuTableViewController: UITableViewController {
         let drawingVC = DrawingViewController()
         drawingVC.previousDrawing = thumbnailArray[indexPath.row].drawing
         present(drawingVC, animated: true, completion: nil)
-    }
-
-    @objc func addButtonPressed(_ sender: UIButton) {
-        // FIXME: Perhaps a different segue animation is more fitting? Need feedback.
-        let drawingViewController = DrawingViewController()
-        self.present(drawingViewController, animated: true, completion: nil)
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
