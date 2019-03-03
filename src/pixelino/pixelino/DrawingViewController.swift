@@ -10,7 +10,6 @@ import UIKit
 import SpriteKit
 import CoreGraphics
 import CoreData
-import FanMenu
 
 class DrawingViewController: UIViewController {
 
@@ -70,20 +69,8 @@ class DrawingViewController: UIViewController {
         registerGestureRecognizer()
         registerToolbars()
         setUpButtons()
-        
-        // Set up drawing tool button.
-        let fanButtonView = FanMenu(frame: CGRect(x: 200, y: 200, width: 100, height: 100))
-        fanButtonView.button = FanMenuButton(id: "main", image: "Export", color: .red)
-        fanButtonView.items = [
-            FanMenuButton(id: "pinsel", image: "Export", color: .blue)
-        ]
-        
-        fanButtonView.onItemDidClick = { button in
-            print(button.id)
-        }
-        
-        
-        
+        setUpDrawingToolButton()
+
     }
 
     fileprivate func setUpCanvasView() {
@@ -108,7 +95,10 @@ class DrawingViewController: UIViewController {
     /// - Returns: the set up button.
     fileprivate func setUpTabBarButton(width: CGFloat,
                                        height: CGFloat,
-                                       imageEdgeInsets: UIEdgeInsets,
+                                       imageEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10,
+                                                                                    left: 10,
+                                                                                    bottom: 10,
+                                                                                    right: 10),
                                        imageName: String,
                                        action: Selector) -> UIButton {
         let button = UIButton()
@@ -123,32 +113,27 @@ class DrawingViewController: UIViewController {
     }
 
     fileprivate func setUpButtons() {
-        let standardImageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 
         let ICON_WIDTH: CGFloat = 40.0
         let ICON_HEIGHT: CGFloat = ICON_WIDTH
 
         // Export button.
         let exportButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
-                              imageEdgeInsets: standardImageEdgeInsets,
                               imageName: "Export",
                               action: #selector(exportButtonPressed(sender:)))
 
         // Color Picker button.
         let colorPickerButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
-                              imageEdgeInsets: standardImageEdgeInsets,
                               imageName: "ColorPicker",
                               action: #selector(colorPickerButtonPressed(sender:)))
 
         // Undo button.
         let undoButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
-                              imageEdgeInsets: standardImageEdgeInsets,
                               imageName: "Undo",
                               action: #selector(undoButtonPressed(sender:)))
 
         // Redo button.
         let redoButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
-                              imageEdgeInsets: standardImageEdgeInsets,
                               imageName: "Redo",
                               action: #selector(redoButtonPressed(sender:)))
 
@@ -177,6 +162,28 @@ class DrawingViewController: UIViewController {
                                               constant: -edgeSpacing).isActive = true
         exportButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
                                           constant: topBarSpacing).isActive = true
+    }
+
+    
+    /// Creates the brush tool selection icon in the toolbar.
+    ///
+    /// - TODO: Circular fan menu that builds out and shows the tools that the user can select.
+    fileprivate func setUpDrawingToolButton() {
+        let baseButton = setUpTabBarButton(width: 50.0, height: 50.0,
+                                           imageEdgeInsets: UIEdgeInsets(top: 13, left: 13,
+                                                                         bottom: 13, right: 13),
+                                           imageName: "PaintBrush",
+                                           action: #selector(colorPickerButtonPressed(sender:)))
+        baseButton.backgroundColor = .white
+        baseButton.layer.cornerRadius = 25.0
+        baseButton.layer.masksToBounds = true
+
+        self.view.addSubview(baseButton)
+
+        // Add constraints.
+        baseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        baseButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                            constant: 10.0).isActive = true
     }
 
     @objc func colorPickerButtonPressed(sender: UIButton!) {

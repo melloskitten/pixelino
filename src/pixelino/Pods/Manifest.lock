@@ -1,32 +1,20 @@
 PODS:
   - ChromaColorPicker (1.7)
-  - FanMenu (0.7.2):
-    - Macaw
-  - Macaw (0.9.4):
-    - SWXMLHash
   - SwiftLint (0.27.0)
-  - SWXMLHash (4.7.6)
 
 DEPENDENCIES:
   - ChromaColorPicker
-  - FanMenu
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ChromaColorPicker
-    - FanMenu
-    - Macaw
     - SwiftLint
-    - SWXMLHash
 
 SPEC CHECKSUMS:
   ChromaColorPicker: 33efa67b17cca51dd253689d18b83ac7e05642c2
-  FanMenu: b8bb2733ebb2457bf675b6290dfd5aa47a608c05
-  Macaw: f3c3051fb580484c221159f4cf340736bb2b166f
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
-  SWXMLHash: f6e0933ce74f2626669dc544851bc9fc1941670d
 
-PODFILE CHECKSUM: d785aa298278438f1a74170df9ca5f25719bc1c9
+PODFILE CHECKSUM: d5a3d43f4a733709677bf136cb253de8932a553f
 
 COCOAPODS: 1.5.3

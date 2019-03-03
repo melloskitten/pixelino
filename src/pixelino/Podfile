@@ -4,5 +4,4 @@ use_frameworks!
 target 'pixelino' do
     pod 'ChromaColorPicker'
     pod 'SwiftLint'
-    pod 'FanMenu'
 end
