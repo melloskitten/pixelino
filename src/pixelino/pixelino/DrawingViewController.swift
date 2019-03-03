@@ -12,7 +12,7 @@ import CoreGraphics
 import CoreData
 
 class DrawingViewController: UIViewController {
-    
+
     // MARK: - Properties.
 
     // MARK: - Attributes
@@ -114,11 +114,10 @@ class DrawingViewController: UIViewController {
         return button
     }
 
+    /// Sets up all regular toolbar icons (excluding the paint tool selection button, please look
+    /// at the ```setUpDrawingToolButton()``` method for further details) as well as their
+    /// constraints according to relative constants.
     fileprivate func setUpButtons() {
-
-        let ICON_WIDTH: CGFloat = 40.0
-        let ICON_HEIGHT: CGFloat = ICON_WIDTH
-
         // Export button.
         let exportButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
                               imageName: "Export",
@@ -166,7 +165,6 @@ class DrawingViewController: UIViewController {
                                           constant: topBarSpacing).isActive = true
     }
 
-    
     /// Creates the brush tool selection icon in the toolbar.
     ///
     /// - TODO: Circular fan menu that builds out and shows the tools that the user can select.
