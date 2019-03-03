@@ -16,7 +16,7 @@ class CanvasView: SKView {
     var canvasScene: SKScene
     var canvas: Canvas
 
-    // MARK: Initialiser.
+    // MARK: Initializer.
 
     init() {
         // This part cannot be refactored because of its position in init.
