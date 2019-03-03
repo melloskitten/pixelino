@@ -10,6 +10,7 @@ import UIKit
 import SpriteKit
 import CoreGraphics
 import CoreData
+import FanMenu
 
 class DrawingViewController: UIViewController {
 
@@ -69,6 +70,20 @@ class DrawingViewController: UIViewController {
         registerGestureRecognizer()
         registerToolbars()
         setUpButtons()
+        
+        // Set up drawing tool button.
+        let fanButtonView = FanMenu(frame: CGRect(x: 200, y: 200, width: 100, height: 100))
+        fanButtonView.button = FanMenuButton(id: "main", image: "Export", color: .red)
+        fanButtonView.items = [
+            FanMenuButton(id: "pinsel", image: "Export", color: .blue)
+        ]
+        
+        fanButtonView.onItemDidClick = { button in
+            print(button.id)
+        }
+        
+        
+        
     }
 
     fileprivate func setUpCanvasView() {
