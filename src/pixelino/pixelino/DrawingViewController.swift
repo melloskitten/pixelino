@@ -22,7 +22,6 @@ class DrawingViewController: UIViewController {
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     var previousDrawing: Drawing?
 
-    var upperToolbar: UIView!
     var lowerToolbar: UIView!
 
     /// Attribute making sure that you cannot draw while you're pinching or panning
@@ -111,26 +110,29 @@ class DrawingViewController: UIViewController {
     fileprivate func setUpButtons() {
         let standardImageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 
+        let ICON_WIDTH: CGFloat = 40.0
+        let ICON_HEIGHT: CGFloat = ICON_WIDTH
+
         // Export button.
-        let exportButton = setUpTabBarButton(width: 50.0, height: 50.0,
+        let exportButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
                               imageEdgeInsets: standardImageEdgeInsets,
                               imageName: "Export",
                               action: #selector(exportButtonPressed(sender:)))
 
         // Color Picker button.
-        let colorPickerButton = setUpTabBarButton(width: 50.0, height: 50.0,
+        let colorPickerButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
                               imageEdgeInsets: standardImageEdgeInsets,
                               imageName: "ColorPicker",
                               action: #selector(colorPickerButtonPressed(sender:)))
 
         // Undo button.
-        let undoButton = setUpTabBarButton(width: 50.0, height: 50.0,
+        let undoButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
                               imageEdgeInsets: standardImageEdgeInsets,
                               imageName: "Undo",
                               action: #selector(undoButtonPressed(sender:)))
 
         // Redo button.
-        let redoButton = setUpTabBarButton(width: 50.0, height: 50.0,
+        let redoButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
                               imageEdgeInsets: standardImageEdgeInsets,
                               imageName: "Redo",
                               action: #selector(redoButtonPressed(sender:)))
@@ -138,16 +140,28 @@ class DrawingViewController: UIViewController {
         // Calculate constraint constants.
         let screenWidth = UIScreen.main.bounds.width
         let relativeSpacing = screenWidth / 6
+        let edgeSpacing = relativeSpacing / 2
+        let topBarSpacing: CGFloat = 10.0
 
-        // Add constraints.
-        undoButton.centerXAnchor.constraint(equalTo: view.leftAnchor, constant: relativeSpacing).isActive = true
-        undoButton.centerYAnchor.constraint(equalTo: lowerToolbar.centerYAnchor).isActive = true
-        redoButton.centerXAnchor.constraint(equalTo: undoButton.rightAnchor, constant: relativeSpacing).isActive = true
-        redoButton.centerYAnchor.constraint(equalTo: lowerToolbar.centerYAnchor).isActive = true
-        colorPickerButton.centerXAnchor.constraint(equalTo: redoButton.rightAnchor, constant: relativeSpacing).isActive = true
-        colorPickerButton.centerYAnchor.constraint(equalTo: lowerToolbar.centerYAnchor).isActive = true
-        exportButton.centerXAnchor.constraint(equalTo: colorPickerButton.rightAnchor, constant: relativeSpacing).isActive = true
-        exportButton.centerYAnchor.constraint(equalTo: lowerToolbar.centerYAnchor).isActive = true
+        // Add constraints (from the left side).
+        undoButton.centerXAnchor.constraint(equalTo: view.leftAnchor,
+                                            constant: edgeSpacing).isActive = true
+        undoButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                        constant: topBarSpacing).isActive = true
+        redoButton.centerXAnchor.constraint(equalTo: undoButton.rightAnchor,
+                                            constant: relativeSpacing).isActive = true
+        redoButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                        constant: topBarSpacing).isActive = true
+
+        // Add constraints (from the right side).
+        colorPickerButton.centerXAnchor.constraint(equalTo: exportButton.leftAnchor,
+                                                   constant: -relativeSpacing).isActive = true
+        colorPickerButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                               constant: topBarSpacing).isActive = true
+        exportButton.centerXAnchor.constraint(equalTo: view.rightAnchor,
+                                              constant: -edgeSpacing).isActive = true
+        exportButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                          constant: topBarSpacing).isActive = true
     }
 
     @objc func colorPickerButtonPressed(sender: UIButton!) {
@@ -201,25 +215,16 @@ class DrawingViewController: UIViewController {
         let screenHeight = UIScreen.main.bounds.height
 
         // Create upper and lower toolbar section.
-        upperToolbar = UIView()
-        upperToolbar.backgroundColor = LIGHT_GREY
         lowerToolbar = UIView()
         lowerToolbar.backgroundColor = LIGHT_GREY
 
         // Add to drawing view.
         self.view.addSubview(lowerToolbar)
-        self.view.addSubview(upperToolbar)
 
         // Calculate correct height of bars according to screen ratio.
-        let toolBarHeight = screenHeight / 8.5
+        let toolBarHeight = screenHeight / 9
 
         // Set autoconstraints.
-        upperToolbar.translatesAutoresizingMaskIntoConstraints = false
-        upperToolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        upperToolbar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        upperToolbar.heightAnchor.constraint(equalToConstant: toolBarHeight).isActive = true
-        upperToolbar.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
-
         lowerToolbar.translatesAutoresizingMaskIntoConstraints = false
         lowerToolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         lowerToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
