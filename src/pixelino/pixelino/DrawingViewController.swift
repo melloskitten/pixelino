@@ -165,26 +165,44 @@ class DrawingViewController: UIViewController {
                                           constant: topBarSpacing).isActive = true
     }
 
-    /// Creates the brush tool selection icon in the toolbar.
+    /// Creates the brush and the fill bucket tool selection icon in the toolbar.
     ///
     /// - TODO: Circular fan menu that builds out and shows the tools that the user can select.
     fileprivate func setUpDrawingToolButton() {
-        let baseButton = setUpTabBarButton(width: 50.0, height: 50.0,
+        let paintBrushButton = setUpTabBarButton(width: 50.0, height: 50.0,
                                            imageEdgeInsets: UIEdgeInsets(top: 13, left: 13,
                                                                          bottom: 13, right: 13),
                                            imageName: "PaintBrush",
-                                           action: #selector(colorPickerButtonPressed(sender:)))
-        baseButton.backgroundColor = .white
-        baseButton.layer.cornerRadius = 25.0
-        baseButton.layer.masksToBounds = true
+                                           action: #selector(paintBrushButtonPressed(sender:)))
 
-        self.view.addSubview(baseButton)
+        let fillButton = setUpTabBarButton(width: 50.0, height: 50.0,
+                                           imageEdgeInsets: UIEdgeInsets(top: 13, left: 13,
+                                                                         bottom: 13, right: 13),
+                                           imageName: "PaintBucket",
+                                           action: #selector(fillButtonPressed(sender:)))
+        paintBrushButton.backgroundColor = .white
+        paintBrushButton.layer.cornerRadius = 25.0
+        paintBrushButton.layer.masksToBounds = true
+
+        fillButton.backgroundColor = .white
+        fillButton.layer.cornerRadius = 25.0
+        fillButton.layer.masksToBounds = true
+
+        self.view.addSubview(paintBrushButton)
+        self.view.addSubview(fillButton)
 
         // Add constraints.
-        baseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        baseButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
-                                            constant: 10.0).isActive = true
+        paintBrushButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        paintBrushButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                            constant: 20.0).isActive = true
+
+        fillButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        fillButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                            constant: 40.0).isActive = true
+
     }
+
+    /// MARK: - Button touch methods.
 
     @objc func colorPickerButtonPressed(sender: UIButton!) {
         let colorPickerVC = ColorPickerViewController()
@@ -224,6 +242,14 @@ class DrawingViewController: UIViewController {
 
     @objc func undoButtonPressed(sender: UIButton!) {
         commandManager.undo()
+    }
+
+    @objc func fillButtonPressed(sender: UIButton!) {
+        print("Fill button pressed")
+    }
+
+    @objc func paintBrushButtonPressed(sender: UIButton!) {
+        print("Paint button pressed")
     }
 
     private func setupOrientationObserver() {
