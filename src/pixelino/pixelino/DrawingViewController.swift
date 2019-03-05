@@ -69,7 +69,7 @@ class DrawingViewController: UIViewController {
         setupOrientationObserver()
         setUpCanvasView()
         registerGestureRecognizer()
-        registerToolbars()
+        registerToolbar()
         setUpButtons()
         setUpDrawingToolButton()
 
@@ -272,7 +272,7 @@ class DrawingViewController: UIViewController {
 
     /// Initialises toolbars, adds them to the view and applies position and width/height
     /// constraints.
-    private func registerToolbars() {
+    private func registerToolbar() {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
 
