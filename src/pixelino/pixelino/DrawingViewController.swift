@@ -86,7 +86,7 @@ class DrawingViewController: UIViewController {
     }
 
     /// This method provides a convenience button creation method. Please note that this method
-    /// does __not__ add any autoconstraints to the buttons.
+    /// does __not__ add any _positioning_ autoconstraints to the buttons.
     ///
     /// - Parameters:
     ///   - width: width of the button
@@ -121,7 +121,7 @@ class DrawingViewController: UIViewController {
     }
 
     /// Sets up all regular toolbar icons (excluding the paint tool selection button, please look
-    /// at the ```setUpDrawingToolButton()``` method for further details) as well as their
+    /// at the `setUpDrawingToolButton()` method for further details) as well as their
     /// constraints according to relative constants.
     fileprivate func setUpButtons() {
         // Export button.
