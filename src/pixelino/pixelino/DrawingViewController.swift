@@ -12,19 +12,20 @@ import CoreGraphics
 import CoreData
 
 class DrawingViewController: UIViewController {
-    
-    // MARK: - Properties.
 
-    // MARK: - Attributes
-    
+    // MARK: - General Attributes.
+
     var commandManager = CommandManager()
-    var canvasView: CanvasView?
-    var toolbarView: UIView?
     var observer: AnyObject?
     var currentDrawingColor: UIColor = .black
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     var previousDrawing: Drawing?
+
+    // MARK: - UIView-related Attributes.
     
+    var canvasView: CanvasView?
+    var lowerToolbar: UIView!
+
     /// Attribute making sure that you cannot draw while you're pinching or panning
     /// around the screen.
     var canDraw = true
@@ -69,7 +70,9 @@ class DrawingViewController: UIViewController {
         setUpCanvasView()
         registerGestureRecognizer()
         registerToolbar()
-        setUpTabBarItems()
+        setUpButtons()
+        setUpDrawingToolButton()
+
     }
 
     fileprivate func setUpCanvasView() {
@@ -82,30 +85,136 @@ class DrawingViewController: UIViewController {
         }
     }
 
-    fileprivate func setUpTabBarIcon(frame: CGRect, imageEdgeInsets: UIEdgeInsets, imageName: String, action: Selector) {
-        let tabBarIcon = UIButton()
-        tabBarIcon.frame = frame
-        tabBarIcon.imageEdgeInsets = imageEdgeInsets
-        tabBarIcon.setImage(UIImage(named: imageName), for: .normal)
-        tabBarIcon.addTarget(self, action: action, for: .touchUpInside)
-        self.view.addSubview(tabBarIcon)
+    /// This method provides a convenience button creation method. Please note that this method
+    /// does __not__ add any autoconstraints to the buttons.
+    ///
+    /// - Parameters:
+    ///   - width: width of the button
+    ///   - height: height of the button
+    ///   - imageEdgeInsets: inset of icon image
+    ///   - imageName: name of icon image (from Assets.xcassets)
+    ///   - action: selector of action that should be performed when button is tapped.
+    /// - Returns: the set up button.
+    fileprivate func setUpTabBarButton(width: CGFloat,
+                                       height: CGFloat,
+                                       imageEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10,
+                                                                                    left: 10,
+                                                                                    bottom: 10,
+                                                                                    right: 10),
+                                       imageName: String,
+                                       action: Selector,
+                                       backgroundColor: UIColor? = nil ) -> UIButton {
+        let button = UIButton()
+        button.imageEdgeInsets = imageEdgeInsets
+        button.setImage(UIImage(named: imageName), for: .normal)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        button.widthAnchor.constraint(equalToConstant: width).isActive = true
+        button.heightAnchor.constraint(equalToConstant: height).isActive = true
+        
+        if let backgroundColor = backgroundColor {
+            button.backgroundColor = backgroundColor
+        }
+        
+        return button
     }
 
-    fileprivate func setUpTabBarItems() {
-        let standardImageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-
+    /// Sets up all regular toolbar icons (excluding the paint tool selection button, please look
+    /// at the ```setUpDrawingToolButton()``` method for further details) as well as their
+    /// constraints according to relative constants.
+    fileprivate func setUpButtons() {
         // Export button.
-        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-70, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Export", action: #selector(exportButtonPressed(sender:)))
+        let exportButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
+                              imageName: "Export",
+                              action: #selector(exportButtonPressed(sender:)))
 
         // Color Picker button.
-        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-170, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "ColorPicker", action: #selector(colorPickerButtonPressed(sender:)))
+        let colorPickerButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
+                              imageName: "ColorPicker",
+                              action: #selector(colorPickerButtonPressed(sender:)))
 
         // Undo button.
-        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-370, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Undo", action: #selector(undoButtonPressed(sender:)))
+        let undoButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
+                              imageName: "Undo",
+                              action: #selector(undoButtonPressed(sender:)))
 
         // Redo button.
-        setUpTabBarIcon(frame: CGRect(x: SCREEN_WIDTH-270, y: SCREEN_HEIGHT-80, width: 50, height: 50), imageEdgeInsets: standardImageEdgeInsets, imageName: "Redo", action: #selector(redoButtonPressed(sender:)))
+        let redoButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
+                              imageName: "Redo",
+                              action: #selector(redoButtonPressed(sender:)))
+
+        // Calculate constraint constants.
+        let screenWidth = UIScreen.main.bounds.width
+        let relativeSpacing = screenWidth / 6
+        let edgeSpacing = relativeSpacing / 2
+        let topBarSpacing: CGFloat = 10.0
+
+        // Add constraints (from the left side).
+        undoButton.centerXAnchor.constraint(equalTo: view.leftAnchor,
+                                            constant: edgeSpacing).isActive = true
+        undoButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                        constant: topBarSpacing).isActive = true
+        redoButton.centerXAnchor.constraint(equalTo: undoButton.rightAnchor,
+                                            constant: relativeSpacing).isActive = true
+        redoButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                        constant: topBarSpacing).isActive = true
+
+        // Add constraints (from the right side).
+        colorPickerButton.centerXAnchor.constraint(equalTo: exportButton.leftAnchor,
+                                                   constant: -relativeSpacing).isActive = true
+        colorPickerButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                               constant: topBarSpacing).isActive = true
+        exportButton.centerXAnchor.constraint(equalTo: view.rightAnchor,
+                                              constant: -edgeSpacing).isActive = true
+        exportButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                          constant: topBarSpacing).isActive = true
     }
+
+    /// Creates the brush and the fill bucket tool selection icon in the toolbar.
+    ///
+    /// - TODO: Circular fan menu that builds out and shows the tools that the user can select.
+    fileprivate func setUpDrawingToolButton() {
+        let paintBrushButton = setUpTabBarButton(width: 50.0, height: 50.0,
+                                           imageEdgeInsets: UIEdgeInsets(top: 13,
+                                                                         left: 13,
+                                                                         bottom: 13,
+                                                                         right: 13),
+                                           imageName: "PaintBrush",
+                                           action: #selector(paintBrushButtonPressed(sender:)),
+                                           backgroundColor: .white)
+
+        let fillButton = setUpTabBarButton(width: 50.0, height: 50.0,
+                                           imageEdgeInsets: UIEdgeInsets(top: 13,
+                                                                         left: 13,
+                                                                         bottom: 13,
+                                                                         right: 13),
+                                           imageName: "PaintBucket",
+                                           action: #selector(fillButtonPressed(sender:)),
+                                           backgroundColor: .white)
+        
+        // Add rounded corners for circular background effect.
+        // Note: Using non-hard-coded values did NOT work!
+        paintBrushButton.layer.cornerRadius = 25.0
+        paintBrushButton.layer.masksToBounds = true
+        fillButton.layer.cornerRadius = 25.0
+        fillButton.layer.masksToBounds = true
+        
+        // Add buttons to the view.
+        self.view.addSubview(paintBrushButton)
+        self.view.addSubview(fillButton)
+
+        // Add constraints.
+        paintBrushButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        paintBrushButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                            constant: 20.0).isActive = true
+        fillButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        fillButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                            constant: 40.0).isActive = true
+
+    }
+
+    /// MARK: - Button touch methods.
 
     @objc func colorPickerButtonPressed(sender: UIButton!) {
         let colorPickerVC = ColorPickerViewController()
@@ -147,19 +256,42 @@ class DrawingViewController: UIViewController {
         commandManager.undo()
     }
 
+    @objc func fillButtonPressed(sender: UIButton!) {
+        // TODO: Missing implementation.
+        print("Fill button pressed")
+    }
+
+    @objc func paintBrushButtonPressed(sender: UIButton!) {
+        // TODO: Missing implementation.
+        print("Paint button pressed")
+    }
+
     private func setupOrientationObserver() {
         observer = NotificationCenter.default.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: nil, using: orientationChanged)
     }
 
+    /// Initialises toolbars, adds them to the view and applies position and width/height
+    /// constraints.
     private func registerToolbar() {
-        let screenSize = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-        let screenHeight = screenSize.height
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
 
-        toolbarView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: screenHeight-100), size: CGSize(width: screenWidth, height: 100 )))
-        toolbarView?.backgroundColor = LIGHT_GREY
+        // Create upper and lower toolbar section.
+        lowerToolbar = UIView()
+        lowerToolbar.backgroundColor = LIGHT_GREY
 
-        self.view.addSubview(toolbarView!)
+        // Add to drawing view.
+        self.view.addSubview(lowerToolbar)
+
+        // Calculate correct height of bars according to screen ratio.
+        let toolBarHeight = screenHeight / 9
+
+        // Set autoconstraints.
+        lowerToolbar.translatesAutoresizingMaskIntoConstraints = false
+        lowerToolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        lowerToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        lowerToolbar.heightAnchor.constraint(equalToConstant: toolBarHeight).isActive = true
+        lowerToolbar.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
     }
 
     private func registerGestureRecognizer() {

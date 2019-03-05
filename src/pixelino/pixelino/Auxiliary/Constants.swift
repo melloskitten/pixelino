@@ -25,3 +25,8 @@ let COLOR_EQUALITY_TOLERANCE: CGFloat = 0.1
 let ANIMATION_DURATION: TimeInterval = 0.4
 let CANVAS_WIDTH = 20
 let CANVAS_HEIGHT = 20
+
+/// Drawing toolbar icon width.
+let ICON_WIDTH: CGFloat = 40.0
+/// Drawing toolbar icon height.
+let ICON_HEIGHT: CGFloat = ICON_WIDTH
