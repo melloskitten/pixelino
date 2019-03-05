@@ -13,17 +13,17 @@ import CoreData
 
 class DrawingViewController: UIViewController {
 
-    // MARK: - Properties.
-
-    // MARK: - Attributes
+    // MARK: - General Attributes.
 
     var commandManager = CommandManager()
-    var canvasView: CanvasView?
     var observer: AnyObject?
     var currentDrawingColor: UIColor = .black
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     var previousDrawing: Drawing?
 
+    // MARK: - UIView-related Attributes.
+    
+    var canvasView: CanvasView?
     var lowerToolbar: UIView!
 
     /// Attribute making sure that you cannot draw while you're pinching or panning
@@ -102,7 +102,8 @@ class DrawingViewController: UIViewController {
                                                                                     bottom: 10,
                                                                                     right: 10),
                                        imageName: String,
-                                       action: Selector) -> UIButton {
+                                       action: Selector,
+                                       backgroundColor: UIColor? = nil ) -> UIButton {
         let button = UIButton()
         button.imageEdgeInsets = imageEdgeInsets
         button.setImage(UIImage(named: imageName), for: .normal)
@@ -111,6 +112,11 @@ class DrawingViewController: UIViewController {
         self.view.addSubview(button)
         button.widthAnchor.constraint(equalToConstant: width).isActive = true
         button.heightAnchor.constraint(equalToConstant: height).isActive = true
+        
+        if let backgroundColor = backgroundColor {
+            button.backgroundColor = backgroundColor
+        }
+        
         return button
     }
 
@@ -170,24 +176,31 @@ class DrawingViewController: UIViewController {
     /// - TODO: Circular fan menu that builds out and shows the tools that the user can select.
     fileprivate func setUpDrawingToolButton() {
         let paintBrushButton = setUpTabBarButton(width: 50.0, height: 50.0,
-                                           imageEdgeInsets: UIEdgeInsets(top: 13, left: 13,
-                                                                         bottom: 13, right: 13),
+                                           imageEdgeInsets: UIEdgeInsets(top: 13,
+                                                                         left: 13,
+                                                                         bottom: 13,
+                                                                         right: 13),
                                            imageName: "PaintBrush",
-                                           action: #selector(paintBrushButtonPressed(sender:)))
+                                           action: #selector(paintBrushButtonPressed(sender:)),
+                                           backgroundColor: .white)
 
         let fillButton = setUpTabBarButton(width: 50.0, height: 50.0,
-                                           imageEdgeInsets: UIEdgeInsets(top: 13, left: 13,
-                                                                         bottom: 13, right: 13),
+                                           imageEdgeInsets: UIEdgeInsets(top: 13,
+                                                                         left: 13,
+                                                                         bottom: 13,
+                                                                         right: 13),
                                            imageName: "PaintBucket",
-                                           action: #selector(fillButtonPressed(sender:)))
-        paintBrushButton.backgroundColor = .white
+                                           action: #selector(fillButtonPressed(sender:)),
+                                           backgroundColor: .white)
+        
+        // Add rounded corners for circular background effect.
+        // Note: Using non-hard-coded values did NOT work!
         paintBrushButton.layer.cornerRadius = 25.0
         paintBrushButton.layer.masksToBounds = true
-
-        fillButton.backgroundColor = .white
         fillButton.layer.cornerRadius = 25.0
         fillButton.layer.masksToBounds = true
-
+        
+        // Add buttons to the view.
         self.view.addSubview(paintBrushButton)
         self.view.addSubview(fillButton)
 
@@ -195,7 +208,6 @@ class DrawingViewController: UIViewController {
         paintBrushButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         paintBrushButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
                                             constant: 20.0).isActive = true
-
         fillButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         fillButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
                                             constant: 40.0).isActive = true
@@ -245,10 +257,12 @@ class DrawingViewController: UIViewController {
     }
 
     @objc func fillButtonPressed(sender: UIButton!) {
+        // TODO: Missing implementation.
         print("Fill button pressed")
     }
 
     @objc func paintBrushButtonPressed(sender: UIButton!) {
+        // TODO: Missing implementation.
         print("Paint button pressed")
     }
 
