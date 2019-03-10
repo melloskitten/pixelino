@@ -1,20 +1,20 @@
 PODS:
-  - ChromaColorPicker (1.7)
+  - Pikko (1.0.2)
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
-  - ChromaColorPicker
+  - Pikko
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - ChromaColorPicker
+    - Pikko
     - SwiftLint
 
 SPEC CHECKSUMS:
-  ChromaColorPicker: 33efa67b17cca51dd253689d18b83ac7e05642c2
+  Pikko: 89b3d4ad2ce4894b1ae86291a91b73355cd970af
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: d5a3d43f4a733709677bf136cb253de8932a553f
+PODFILE CHECKSUM: 0de4d37041c232cbad6cc1a52092605466a7bc14
 
 COCOAPODS: 1.5.3
