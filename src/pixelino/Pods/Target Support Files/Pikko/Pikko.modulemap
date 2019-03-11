@@ -1,0 +1,6 @@
+framework module Pikko {
+  umbrella header "Pikko-umbrella.h"
+
+  export *
+  module * { export * }
+}

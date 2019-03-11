@@ -7,132 +7,87 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		026C52E94076F814AD2A18F911588CC5 /* ChromaColorPicker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 81F604E24A259F3143B26470AAC15494 /* ChromaColorPicker-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0D206B88E406422F3E9A1FB13FEBAF41 /* UIColor+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF0B2D4EB1EBB606737DD6EE7900507 /* UIColor+Utilities.swift */; };
-		1F0DF23EAC1EFF6ECEB709B78B4D4E82 /* Pods-pixelino-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 86651B5F44901E2AE61D86994A8FF7BE /* Pods-pixelino-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		340CBE4A416D39CAC507DBBD5928BAF0 /* ChromaHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32375A5ADA588410856FAD2B8CF59E87 /* ChromaHandle.swift */; };
-		363E5BECAA20AF25F8DE72EDC56FB767 /* ChromaColorPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BED1DFB3493FD95D457700C8B81A3AD /* ChromaColorPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4FBA139F2C3B722D5BA65F1FC7632229 /* ChromaColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B816E35BD6CEB110842202150A0B74 /* ChromaColorPicker.swift */; };
-		5388B3A897EB4D98607215D607977FB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */; };
-		58A9613FB137CB612542E098E1D9ACC6 /* Pods-pixelino-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B4937D4FDF830DCE44A5DF577C1A05 /* Pods-pixelino-dummy.m */; };
-		94735EB1BFBE473841978C26C1B45529 /* ColorModeToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B843AD8925498ECDBF953E58F508618 /* ColorModeToggleButton.swift */; };
-		A04545A74ADF966AF179551AFA489D9B /* ChromaAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F356640DA33FCFF5CE5B5D373E7056 /* ChromaAddButton.swift */; };
-		B1B8FB6C7C917BF802F494CB577F4687 /* ChromaShadeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8E5067B47E28ABEB54EF12A9B2F6D0 /* ChromaShadeSlider.swift */; };
-		B275C9704D67B3D0AE6026F6323F8BC6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */; };
-		B4F7769657403DBFF38EAAD7F6837D21 /* ChromaColorPicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E2308A1E31605AAF9C54A4A0A367045 /* ChromaColorPicker-dummy.m */; };
+		1E5AEA687AE7003E3D08E6F2BC7590FB /* BrightnessSaturationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A27CC3EF5F4736C318AC773408CE24C /* BrightnessSaturationView.swift */; };
+		24B9D32CDC9E880F52DA52117151F507 /* HueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F369D6194DBF94CD908797B3CF594844 /* HueView.swift */; };
+		2CAFF8B16F7EB1D9C09F2E49F44D4DF6 /* HueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9D83246B75C91B17BBBCBEFAEBDF6F /* HueDelegate.swift */; };
+		3F3E0F4D64FF2F407005DF847C74FDF0 /* Pods-pixelino-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B4937D4FDF830DCE44A5DF577C1A05 /* Pods-pixelino-dummy.m */; };
+		47C49A411A42E16F017215C0E01CF6E8 /* UIColor+HSBAComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5862662BC025CC5F4C225980CF4F9C8D /* UIColor+HSBAComponents.swift */; };
+		735C02128DFD1754FA71F01C3D87F969 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
+		7D95BCB0C80EFA830FAD292D3FC49FD9 /* PikkoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C76864666CFA61690783D169C8ECE0 /* PikkoDelegate.swift */; };
+		9FD7E7F7F9BD1F76C77DB41F84DF1E92 /* Pikko-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9001080F0281EA1246396A124C1DDE01 /* Pikko-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4DD59D08E1FEE02840C1B5FFDAFACFE /* Pods-pixelino-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 86651B5F44901E2AE61D86994A8FF7BE /* Pods-pixelino-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A55006FD528830E858D5B12BE41138BA /* Pikko-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDDCFBC01BBEEE1EF9E710071BFE20D /* Pikko-dummy.m */; };
+		A769767855E792EE6CD7785CC4AE70E5 /* Pikko.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672404801C7C44F68FEB19FB009888AA /* Pikko.swift */; };
+		B3C2DB5D7041A089B2B87B58213D1F5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
+		B7356925F2EF247BE031A6F403024B11 /* ColorUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E82678AD118B5669CEE35BDA3FD9BF6 /* ColorUtilities.swift */; };
+		BFC714B18A29DD8859E7D1D71EDC367A /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7397CFEDF90F9E575E2B258B8A9C3FE5 /* Animations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		50E85D7F093F80D144D309FB49EDC6BC /* PBXContainerItemProxy */ = {
+		748DA3B51A555F328C0D494F85D7EECF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = FEAFBB12C7096AEFCA1AA8FA96E57D73;
-			remoteInfo = ChromaColorPicker;
+			remoteGlobalIDString = 3ACE7B079AC9F078191E08ABCB9D43FF;
+			remoteInfo = Pikko;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01F356640DA33FCFF5CE5B5D373E7056 /* ChromaAddButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChromaAddButton.swift; path = ChromaColorPicker/ChromaAddButton.swift; sourceTree = "<group>"; };
-		032D6D18F39DDA5E57FD3D36DD8C5F8A /* ChromaColorPicker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ChromaColorPicker.modulemap; sourceTree = "<group>"; };
-		03D4204B74F98EC8C6868152F623C983 /* Pods_pixelino.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_pixelino.framework; path = "Pods-pixelino.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		15B816E35BD6CEB110842202150A0B74 /* ChromaColorPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChromaColorPicker.swift; path = ChromaColorPicker/ChromaColorPicker.swift; sourceTree = "<group>"; };
-		32375A5ADA588410856FAD2B8CF59E87 /* ChromaHandle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChromaHandle.swift; path = ChromaColorPicker/ChromaHandle.swift; sourceTree = "<group>"; };
+		1B8D9A1D0CCB3E72AEE4060F850A4D93 /* Pikko.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pikko.xcconfig; sourceTree = "<group>"; };
+		2E82678AD118B5669CEE35BDA3FD9BF6 /* ColorUtilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ColorUtilities.swift; path = Pikko/Classes/Util/ColorUtilities.swift; sourceTree = "<group>"; };
 		3CD113B59D3DA61CC601303969EEED66 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B843AD8925498ECDBF953E58F508618 /* ColorModeToggleButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ColorModeToggleButton.swift; path = ChromaColorPicker/ColorModeToggleButton.swift; sourceTree = "<group>"; };
-		4C8E5067B47E28ABEB54EF12A9B2F6D0 /* ChromaShadeSlider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChromaShadeSlider.swift; path = ChromaColorPicker/ChromaShadeSlider.swift; sourceTree = "<group>"; };
+		497E48C2ACB01DA7FDC2CF316008C2A0 /* Pikko-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pikko-prefix.pch"; sourceTree = "<group>"; };
+		5862662BC025CC5F4C225980CF4F9C8D /* UIColor+HSBAComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIColor+HSBAComponents.swift"; path = "Pikko/Classes/Util/UIColor+HSBAComponents.swift"; sourceTree = "<group>"; };
+		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		5A3EF8D73F2895A56D8F11C73E6A7EEE /* Pods_pixelino.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_pixelino.framework; path = "Pods-pixelino.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63F68991B5112347D0F73B02942B369F /* Pods-pixelino-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-pixelino-resources.sh"; sourceTree = "<group>"; };
+		672404801C7C44F68FEB19FB009888AA /* Pikko.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Pikko.swift; path = Pikko/Classes/UI/Pikko.swift; sourceTree = "<group>"; };
 		679ED2E6DF2E6D6FC74D8729C449189D /* Pods-pixelino.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-pixelino.release.xcconfig"; sourceTree = "<group>"; };
-		78DA49FB5507C8C15BF849FC183FDD62 /* ChromaColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ChromaColorPicker.framework; path = ChromaColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E2308A1E31605AAF9C54A4A0A367045 /* ChromaColorPicker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ChromaColorPicker-dummy.m"; sourceTree = "<group>"; };
-		7F38AE3110CD9D8474C72248DAC9FB29 /* ChromaColorPicker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ChromaColorPicker.xcconfig; sourceTree = "<group>"; };
-		81F604E24A259F3143B26470AAC15494 /* ChromaColorPicker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ChromaColorPicker-umbrella.h"; sourceTree = "<group>"; };
+		7397CFEDF90F9E575E2B258B8A9C3FE5 /* Animations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Animations.swift; path = Pikko/Classes/Util/Animations.swift; sourceTree = "<group>"; };
 		86651B5F44901E2AE61D86994A8FF7BE /* Pods-pixelino-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-pixelino-umbrella.h"; sourceTree = "<group>"; };
-		876C1FD608240DCED035DBC0AA2BB05A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		89BB92CC6E1489FFEB30309C8D7AFD43 /* ChromaColorPicker-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ChromaColorPicker-prefix.pch"; sourceTree = "<group>"; };
-		8BED1DFB3493FD95D457700C8B81A3AD /* ChromaColorPicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ChromaColorPicker.h; path = ChromaColorPicker/ChromaColorPicker.h; sourceTree = "<group>"; };
+		8A27CC3EF5F4736C318AC773408CE24C /* BrightnessSaturationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BrightnessSaturationView.swift; path = Pikko/Classes/UI/BrightnessSaturationView.swift; sourceTree = "<group>"; };
+		8C23491DD2D99A05AC776205F143B684 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F8398DFA933DBD129C716767008753F /* Pikko.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pikko.framework; path = Pikko.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9001080F0281EA1246396A124C1DDE01 /* Pikko-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pikko-umbrella.h"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93A8A2E3A732117A71EC639F4FF21F96 /* Pods-pixelino-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-pixelino-acknowledgements.markdown"; sourceTree = "<group>"; };
 		CDE0A5025C739408213C38D120B5619B /* Pods-pixelino-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-pixelino-acknowledgements.plist"; sourceTree = "<group>"; };
+		D044C2661971494C757585E1CFAC18D0 /* Pikko.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Pikko.modulemap; sourceTree = "<group>"; };
 		D2B4937D4FDF830DCE44A5DF577C1A05 /* Pods-pixelino-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-pixelino-dummy.m"; sourceTree = "<group>"; };
-		D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		DCF0B2D4EB1EBB606737DD6EE7900507 /* UIColor+Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIColor+Utilities.swift"; path = "ChromaColorPicker/UIColor+Utilities.swift"; sourceTree = "<group>"; };
 		E3CAF918520FE5EE0833C1D1323CEC48 /* Pods-pixelino.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-pixelino.modulemap"; sourceTree = "<group>"; };
+		E8C76864666CFA61690783D169C8ECE0 /* PikkoDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PikkoDelegate.swift; path = Pikko/Classes/Delegate/PikkoDelegate.swift; sourceTree = "<group>"; };
 		EDC2FDA92ECDA62278F72149C0D31F69 /* Pods-pixelino.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-pixelino.debug.xcconfig"; sourceTree = "<group>"; };
+		F369D6194DBF94CD908797B3CF594844 /* HueView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HueView.swift; path = Pikko/Classes/UI/HueView.swift; sourceTree = "<group>"; };
+		FC9D83246B75C91B17BBBCBEFAEBDF6F /* HueDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HueDelegate.swift; path = Pikko/Classes/Delegate/HueDelegate.swift; sourceTree = "<group>"; };
+		FCDDCFBC01BBEEE1EF9E710071BFE20D /* Pikko-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pikko-dummy.m"; sourceTree = "<group>"; };
 		FEB0121E7FE3ACF0B77092773C09C2E4 /* Pods-pixelino-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-pixelino-frameworks.sh"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A6D9D0FC09DCC33DD2C7DC0AFB284DAD /* Frameworks */ = {
+		548FB5C61991708876DBB94755ECAD7C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5388B3A897EB4D98607215D607977FB4 /* Foundation.framework in Frameworks */,
+				735C02128DFD1754FA71F01C3D87F969 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AC1A9C32E23ADD0DC4ABD4F02B23884B /* Frameworks */ = {
+		EBA49CEDA87D9F143DFA2C14A6697685 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B275C9704D67B3D0AE6026F6323F8BC6 /* Foundation.framework in Frameworks */,
+				B3C2DB5D7041A089B2B87B58213D1F5F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		11CFC79ECEA00D9E587608AC1DB52F26 /* Support Files */ = {
+		5E0D919E635D23B70123790B8308F8EF /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				032D6D18F39DDA5E57FD3D36DD8C5F8A /* ChromaColorPicker.modulemap */,
-				7F38AE3110CD9D8474C72248DAC9FB29 /* ChromaColorPicker.xcconfig */,
-				7E2308A1E31605AAF9C54A4A0A367045 /* ChromaColorPicker-dummy.m */,
-				89BB92CC6E1489FFEB30309C8D7AFD43 /* ChromaColorPicker-prefix.pch */,
-				81F604E24A259F3143B26470AAC15494 /* ChromaColorPicker-umbrella.h */,
-				876C1FD608240DCED035DBC0AA2BB05A /* Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/ChromaColorPicker";
-			sourceTree = "<group>";
-		};
-		11E18A2F70C87EF967E8874999B26D81 /* SwiftLint */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = SwiftLint;
-			path = SwiftLint;
-			sourceTree = "<group>";
-		};
-		37B4EB26274DB8FA16EE70593A7782A2 /* ChromaColorPicker */ = {
-			isa = PBXGroup;
-			children = (
-				01F356640DA33FCFF5CE5B5D373E7056 /* ChromaAddButton.swift */,
-				8BED1DFB3493FD95D457700C8B81A3AD /* ChromaColorPicker.h */,
-				15B816E35BD6CEB110842202150A0B74 /* ChromaColorPicker.swift */,
-				32375A5ADA588410856FAD2B8CF59E87 /* ChromaHandle.swift */,
-				4C8E5067B47E28ABEB54EF12A9B2F6D0 /* ChromaShadeSlider.swift */,
-				4B843AD8925498ECDBF953E58F508618 /* ColorModeToggleButton.swift */,
-				DCF0B2D4EB1EBB606737DD6EE7900507 /* UIColor+Utilities.swift */,
-				11CFC79ECEA00D9E587608AC1DB52F26 /* Support Files */,
-			);
-			name = ChromaColorPicker;
-			path = ChromaColorPicker;
-			sourceTree = "<group>";
-		};
-		3C0CAC23849C572CC3B4C7A000981D9A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				37B4EB26274DB8FA16EE70593A7782A2 /* ChromaColorPicker */,
-				11E18A2F70C87EF967E8874999B26D81 /* SwiftLint */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		44D5347904CF754D6785B84253F2574A /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */,
+				5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -142,8 +97,8 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				3C0CAC23849C572CC3B4C7A000981D9A /* Pods */,
-				D1AF7B98DF245ACC695D9543BC68948F /* Products */,
+				C67E806A2956C04CAED9E05A31808030 /* Pods */,
+				8B988A7FCB4CCC8D5BC0609BD2400CAB /* Products */,
 				8DF2D80A6CF5198C09872AD3C371518C /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -166,6 +121,15 @@
 			path = "Target Support Files/Pods-pixelino";
 			sourceTree = "<group>";
 		};
+		8B988A7FCB4CCC8D5BC0609BD2400CAB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F8398DFA933DBD129C716767008753F /* Pikko.framework */,
+				5A3EF8D73F2895A56D8F11C73E6A7EEE /* Pods_pixelino.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8DF2D80A6CF5198C09872AD3C371518C /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,78 +141,116 @@
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				44D5347904CF754D6785B84253F2574A /* iOS */,
+				5E0D919E635D23B70123790B8308F8EF /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D1AF7B98DF245ACC695D9543BC68948F /* Products */ = {
+		C67E806A2956C04CAED9E05A31808030 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				78DA49FB5507C8C15BF849FC183FDD62 /* ChromaColorPicker.framework */,
-				03D4204B74F98EC8C6868152F623C983 /* Pods_pixelino.framework */,
+				FA1416BDA994600DBD75314CB2855DD7 /* Pikko */,
+				D55924FA21C236049588FD164DD8AE24 /* SwiftLint */,
 			);
-			name = Products;
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CA6F4B785CE5E11064B5A2E3EF9C1DB4 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8C23491DD2D99A05AC776205F143B684 /* Info.plist */,
+				D044C2661971494C757585E1CFAC18D0 /* Pikko.modulemap */,
+				1B8D9A1D0CCB3E72AEE4060F850A4D93 /* Pikko.xcconfig */,
+				FCDDCFBC01BBEEE1EF9E710071BFE20D /* Pikko-dummy.m */,
+				497E48C2ACB01DA7FDC2CF316008C2A0 /* Pikko-prefix.pch */,
+				9001080F0281EA1246396A124C1DDE01 /* Pikko-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pikko";
+			sourceTree = "<group>";
+		};
+		D55924FA21C236049588FD164DD8AE24 /* SwiftLint */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SwiftLint;
+			path = SwiftLint;
+			sourceTree = "<group>";
+		};
+		FA1416BDA994600DBD75314CB2855DD7 /* Pikko */ = {
+			isa = PBXGroup;
+			children = (
+				7397CFEDF90F9E575E2B258B8A9C3FE5 /* Animations.swift */,
+				8A27CC3EF5F4736C318AC773408CE24C /* BrightnessSaturationView.swift */,
+				2E82678AD118B5669CEE35BDA3FD9BF6 /* ColorUtilities.swift */,
+				FC9D83246B75C91B17BBBCBEFAEBDF6F /* HueDelegate.swift */,
+				F369D6194DBF94CD908797B3CF594844 /* HueView.swift */,
+				672404801C7C44F68FEB19FB009888AA /* Pikko.swift */,
+				E8C76864666CFA61690783D169C8ECE0 /* PikkoDelegate.swift */,
+				5862662BC025CC5F4C225980CF4F9C8D /* UIColor+HSBAComponents.swift */,
+				CA6F4B785CE5E11064B5A2E3EF9C1DB4 /* Support Files */,
+			);
+			name = Pikko;
+			path = Pikko;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		DCAFAB88425DA208D9ADA72964D4DE94 /* Headers */ = {
+		37608C4B2E7416ED8D9B02465CCA187D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				026C52E94076F814AD2A18F911588CC5 /* ChromaColorPicker-umbrella.h in Headers */,
-				363E5BECAA20AF25F8DE72EDC56FB767 /* ChromaColorPicker.h in Headers */,
+				9FD7E7F7F9BD1F76C77DB41F84DF1E92 /* Pikko-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E6A2E48EA1B0148D26FB55EB7920A0DB /* Headers */ = {
+		FEEB37814DD505C0912AC677A5FE975F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F0DF23EAC1EFF6ECEB709B78B4D4E82 /* Pods-pixelino-umbrella.h in Headers */,
+				A4DD59D08E1FEE02840C1B5FFDAFACFE /* Pods-pixelino-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		301BE9C8D2F75B0D1DF918BA1110B99E /* Pods-pixelino */ = {
+		37A26533621587FB9D110A07456EF01F /* Pods-pixelino */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DCD6DD0538DA89BAEC4E24D30DE1449A /* Build configuration list for PBXNativeTarget "Pods-pixelino" */;
+			buildConfigurationList = 7036C2D75E645433D0668BD103722509 /* Build configuration list for PBXNativeTarget "Pods-pixelino" */;
 			buildPhases = (
-				E6A2E48EA1B0148D26FB55EB7920A0DB /* Headers */,
-				0F95EF5C97BFD83ECDB3FBB6D5236F27 /* Sources */,
-				AC1A9C32E23ADD0DC4ABD4F02B23884B /* Frameworks */,
-				94DF90BB20FB92B89903F3F1A992B759 /* Resources */,
+				FEEB37814DD505C0912AC677A5FE975F /* Headers */,
+				6A444FA8DB9A548CAC3194BC1AD9D96F /* Sources */,
+				EBA49CEDA87D9F143DFA2C14A6697685 /* Frameworks */,
+				6A8A082712C8BF2119DAE29C066959D4 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				89FC488E7F10E41025484AB043F758AE /* PBXTargetDependency */,
+				DFEE66CCC64035625A46FA5C5DE70796 /* PBXTargetDependency */,
 			);
 			name = "Pods-pixelino";
 			productName = "Pods-pixelino";
-			productReference = 03D4204B74F98EC8C6868152F623C983 /* Pods_pixelino.framework */;
+			productReference = 5A3EF8D73F2895A56D8F11C73E6A7EEE /* Pods_pixelino.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		FEAFBB12C7096AEFCA1AA8FA96E57D73 /* ChromaColorPicker */ = {
+		3ACE7B079AC9F078191E08ABCB9D43FF /* Pikko */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8E75CD54B557568019C87A63DF0A4D3A /* Build configuration list for PBXNativeTarget "ChromaColorPicker" */;
+			buildConfigurationList = D30CD2A5933447AE4A1B206216350437 /* Build configuration list for PBXNativeTarget "Pikko" */;
 			buildPhases = (
-				DCAFAB88425DA208D9ADA72964D4DE94 /* Headers */,
-				6B53353D6A8EC7FBD3B436B183491B7F /* Sources */,
-				A6D9D0FC09DCC33DD2C7DC0AFB284DAD /* Frameworks */,
-				B8B84C52E733F44B9532B2977FE1AAAB /* Resources */,
+				37608C4B2E7416ED8D9B02465CCA187D /* Headers */,
+				E1177C72CCA4FA33F3E569F250FB8FD3 /* Sources */,
+				548FB5C61991708876DBB94755ECAD7C /* Frameworks */,
+				AC5BC7083B792E8C65DEF7C3013B306E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ChromaColorPicker;
-			productName = ChromaColorPicker;
-			productReference = 78DA49FB5507C8C15BF849FC183FDD62 /* ChromaColorPicker.framework */;
+			name = Pikko;
+			productName = Pikko;
+			productReference = 8F8398DFA933DBD129C716767008753F /* Pikko.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -268,25 +270,25 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = D1AF7B98DF245ACC695D9543BC68948F /* Products */;
+			productRefGroup = 8B988A7FCB4CCC8D5BC0609BD2400CAB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FEAFBB12C7096AEFCA1AA8FA96E57D73 /* ChromaColorPicker */,
-				301BE9C8D2F75B0D1DF918BA1110B99E /* Pods-pixelino */,
+				3ACE7B079AC9F078191E08ABCB9D43FF /* Pikko */,
+				37A26533621587FB9D110A07456EF01F /* Pods-pixelino */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		94DF90BB20FB92B89903F3F1A992B759 /* Resources */ = {
+		6A8A082712C8BF2119DAE29C066959D4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B8B84C52E733F44B9532B2977FE1AAAB /* Resources */ = {
+		AC5BC7083B792E8C65DEF7C3013B306E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -296,76 +298,43 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0F95EF5C97BFD83ECDB3FBB6D5236F27 /* Sources */ = {
+		6A444FA8DB9A548CAC3194BC1AD9D96F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58A9613FB137CB612542E098E1D9ACC6 /* Pods-pixelino-dummy.m in Sources */,
+				3F3E0F4D64FF2F407005DF847C74FDF0 /* Pods-pixelino-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6B53353D6A8EC7FBD3B436B183491B7F /* Sources */ = {
+		E1177C72CCA4FA33F3E569F250FB8FD3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A04545A74ADF966AF179551AFA489D9B /* ChromaAddButton.swift in Sources */,
-				B4F7769657403DBFF38EAAD7F6837D21 /* ChromaColorPicker-dummy.m in Sources */,
-				4FBA139F2C3B722D5BA65F1FC7632229 /* ChromaColorPicker.swift in Sources */,
-				340CBE4A416D39CAC507DBBD5928BAF0 /* ChromaHandle.swift in Sources */,
-				B1B8FB6C7C917BF802F494CB577F4687 /* ChromaShadeSlider.swift in Sources */,
-				94735EB1BFBE473841978C26C1B45529 /* ColorModeToggleButton.swift in Sources */,
-				0D206B88E406422F3E9A1FB13FEBAF41 /* UIColor+Utilities.swift in Sources */,
+				BFC714B18A29DD8859E7D1D71EDC367A /* Animations.swift in Sources */,
+				1E5AEA687AE7003E3D08E6F2BC7590FB /* BrightnessSaturationView.swift in Sources */,
+				B7356925F2EF247BE031A6F403024B11 /* ColorUtilities.swift in Sources */,
+				2CAFF8B16F7EB1D9C09F2E49F44D4DF6 /* HueDelegate.swift in Sources */,
+				24B9D32CDC9E880F52DA52117151F507 /* HueView.swift in Sources */,
+				A55006FD528830E858D5B12BE41138BA /* Pikko-dummy.m in Sources */,
+				A769767855E792EE6CD7785CC4AE70E5 /* Pikko.swift in Sources */,
+				7D95BCB0C80EFA830FAD292D3FC49FD9 /* PikkoDelegate.swift in Sources */,
+				47C49A411A42E16F017215C0E01CF6E8 /* UIColor+HSBAComponents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		89FC488E7F10E41025484AB043F758AE /* PBXTargetDependency */ = {
+		DFEE66CCC64035625A46FA5C5DE70796 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ChromaColorPicker;
-			target = FEAFBB12C7096AEFCA1AA8FA96E57D73 /* ChromaColorPicker */;
-			targetProxy = 50E85D7F093F80D144D309FB49EDC6BC /* PBXContainerItemProxy */;
+			name = Pikko;
+			target = 3ACE7B079AC9F078191E08ABCB9D43FF /* Pikko */;
+			targetProxy = 748DA3B51A555F328C0D494F85D7EECF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0574FE4F6363502B12F011941B2B286E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F38AE3110CD9D8474C72248DAC9FB29 /* ChromaColorPicker.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ChromaColorPicker/ChromaColorPicker-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ChromaColorPicker/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/ChromaColorPicker/ChromaColorPicker.modulemap";
-				PRODUCT_MODULE_NAME = ChromaColorPicker;
-				PRODUCT_NAME = ChromaColorPicker;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		097925C9397DC04C6431142272FC1B20 /* Release */ = {
+		006BDAA0DAEC357E91774F5D2FCA2562 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -420,16 +389,51 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
-		6F0F128AC4FA1E2BD933734F29902EA2 /* Debug */ = {
+		2BB83988CB9D302947C4B489CDF18355 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDC2FDA92ECDA62278F72149C0D31F69 /* Pods-pixelino.debug.xcconfig */;
+			baseConfigurationReference = 1B8D9A1D0CCB3E72AEE4060F850A4D93 /* Pikko.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Pikko/Pikko-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pikko/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Pikko/Pikko.modulemap";
+				PRODUCT_MODULE_NAME = Pikko;
+				PRODUCT_NAME = Pikko;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		517480B693FC66574641AFB1521E25D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 679ED2E6DF2E6D6FC74D8729C449189D /* Pods-pixelino.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -459,13 +463,16 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		7D279A1BC1A699808A4158D20301FFD7 /* Debug */ = {
+		CC6C33C3833ADC4268C21E6D0F1DD0DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -525,15 +532,49 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		8EB5BBA62C40795CE13467B305FBB37F /* Release */ = {
+		D96A77756D01AE0A2251717001D38520 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 679ED2E6DF2E6D6FC74D8729C449189D /* Pods-pixelino.release.xcconfig */;
+			baseConfigurationReference = 1B8D9A1D0CCB3E72AEE4060F850A4D93 /* Pikko.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Pikko/Pikko-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pikko/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Pikko/Pikko.modulemap";
+				PRODUCT_MODULE_NAME = Pikko;
+				PRODUCT_NAME = Pikko;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F07EB8DC3D07FD4ED3D0A734750D8A6E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDC2FDA92ECDA62278F72149C0D31F69 /* Pods-pixelino.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -563,48 +604,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
-		};
-		D4E33556B5926BBAA2B59FAB92A63F55 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F38AE3110CD9D8474C72248DAC9FB29 /* ChromaColorPicker.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ChromaColorPicker/ChromaColorPicker-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ChromaColorPicker/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/ChromaColorPicker/ChromaColorPicker.modulemap";
-				PRODUCT_MODULE_NAME = ChromaColorPicker;
-				PRODUCT_NAME = ChromaColorPicker;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -612,26 +618,26 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7D279A1BC1A699808A4158D20301FFD7 /* Debug */,
-				097925C9397DC04C6431142272FC1B20 /* Release */,
+				CC6C33C3833ADC4268C21E6D0F1DD0DC /* Debug */,
+				006BDAA0DAEC357E91774F5D2FCA2562 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8E75CD54B557568019C87A63DF0A4D3A /* Build configuration list for PBXNativeTarget "ChromaColorPicker" */ = {
+		7036C2D75E645433D0668BD103722509 /* Build configuration list for PBXNativeTarget "Pods-pixelino" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0574FE4F6363502B12F011941B2B286E /* Debug */,
-				D4E33556B5926BBAA2B59FAB92A63F55 /* Release */,
+				F07EB8DC3D07FD4ED3D0A734750D8A6E /* Debug */,
+				517480B693FC66574641AFB1521E25D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DCD6DD0538DA89BAEC4E24D30DE1449A /* Build configuration list for PBXNativeTarget "Pods-pixelino" */ = {
+		D30CD2A5933447AE4A1B206216350437 /* Build configuration list for PBXNativeTarget "Pikko" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6F0F128AC4FA1E2BD933734F29902EA2 /* Debug */,
-				8EB5BBA62C40795CE13467B305FBB37F /* Release */,
+				D96A77756D01AE0A2251717001D38520 /* Debug */,
+				2BB83988CB9D302947C4B489CDF18355 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

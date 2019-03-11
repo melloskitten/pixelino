@@ -22,7 +22,7 @@ class DrawingViewController: UIViewController {
     var previousDrawing: Drawing?
 
     // MARK: - UIView-related Attributes.
-    
+
     var canvasView: CanvasView?
     var lowerToolbar: UIView!
 
@@ -112,11 +112,11 @@ class DrawingViewController: UIViewController {
         self.view.addSubview(button)
         button.widthAnchor.constraint(equalToConstant: width).isActive = true
         button.heightAnchor.constraint(equalToConstant: height).isActive = true
-        
+
         if let backgroundColor = backgroundColor {
             button.backgroundColor = backgroundColor
         }
-        
+
         return button
     }
 
@@ -192,14 +192,14 @@ class DrawingViewController: UIViewController {
                                            imageName: "PaintBucket",
                                            action: #selector(fillButtonPressed(sender:)),
                                            backgroundColor: .white)
-        
+
         // Add rounded corners for circular background effect.
         // Note: Using non-hard-coded values did NOT work!
         paintBrushButton.layer.cornerRadius = 25.0
         paintBrushButton.layer.masksToBounds = true
         fillButton.layer.cornerRadius = 25.0
         fillButton.layer.masksToBounds = true
-        
+
         // Add buttons to the view.
         self.view.addSubview(paintBrushButton)
         self.view.addSubview(fillButton)
