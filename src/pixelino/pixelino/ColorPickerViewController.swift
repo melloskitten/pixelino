@@ -8,34 +8,30 @@
 
 import Foundation
 import UIKit
-import ChromaColorPicker
+import Pikko
 import CoreData
 
 class ColorPickerViewController: UIViewController {
 
     weak var colorChoiceDelegate: ColorChoiceDelegate?
     var colorHistoryCollectionView: UICollectionView!
-    var neatColorPicker: ChromaColorPicker!
+    var pikko: Pikko!
     var colorHistory = [UIColor]()
 
     fileprivate func setUpColorPicker() {
         // TODO: Adjust the position of the color picker dynamically.
-        neatColorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
-        neatColorPicker.delegate = self
-        neatColorPicker.padding = 10
-        neatColorPicker.stroke = 10
-        neatColorPicker.hexLabel.textColor = UIColor.white
-        neatColorPicker.center.x = view.center.x
+        pikko = Pikko(dimension: 360)
+        pikko.center = CGPoint(x: view.frame.width / 2.0, y: 360 / 2 + 20)
         setCurrentColorOnColorPicker()
-
-        view.addSubview(neatColorPicker)
+        view.addSubview(pikko)
     }
 
     fileprivate func setCurrentColorOnColorPicker() {
         guard let mostRecentColor = self.colorHistory.first else {
             return
         }
-        neatColorPicker.adjustToColor(mostRecentColor)
+
+        pikko.setColor(mostRecentColor)
     }
 
     fileprivate func setUpGestureRecognizer() {
@@ -74,7 +70,10 @@ class ColorPickerViewController: UIViewController {
         setUpGestureRecognizer()
     }
 
+    /// User dismissed the color picker view.
     @objc func dismissView(_ sender: UISwipeGestureRecognizer) {
+        let color = pikko.getColor()
+        colorWasSelected(color: color)
         dismiss(animated: true, completion: nil)
     }
 
@@ -100,17 +99,13 @@ class ColorPickerViewController: UIViewController {
         }
     }
 
-    // User has selected a color, dismiss screen and write back to delegate, as well as save to color history.
+    /// Update the color that was selected by the user (either from the picker or from the history).
     private func colorWasSelected(color: UIColor) {
         saveColorInColorHistoryOnce(color: color)
         colorChoiceDelegate?.colorChoicePicked(color)
-        dismiss(animated: true, completion: nil)
-    }
-}
 
-extension ColorPickerViewController: ChromaColorPickerDelegate {
-    func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {
-        colorWasSelected(color: color)
+        // Update the Pikko color since this method might be called after a history color was loaded.
+        pikko.setColor(color)
     }
 }
 

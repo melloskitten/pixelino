@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7FEAE8C808A874161F2D5CA5 /* Pods_pixelino.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */; };
+		0B355CACA4717FD83A9542EF /* Pods_pixelino.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79FF97CA974F7B6957B51B7 /* Pods_pixelino.framework */; };
 		BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01F970211A2E8000D43A45 /* PictureExporter.swift */; };
 		BC11DADE2131DC4B00ABF196 /* MainMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */; };
 		BC11DAE02131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */; };
@@ -44,9 +44,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A3DE91FA43F7E53A6552444 /* Pods-pixelino.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.debug.xcconfig"; sourceTree = "<group>"; };
-		88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixelino.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A2492726C00F6C59E27C46F2 /* Pods-pixelino.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.release.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.release.xcconfig"; sourceTree = "<group>"; };
+		2310D404BCE3C6DEDFD70CA3 /* Pods-pixelino.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.release.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.release.xcconfig"; sourceTree = "<group>"; };
+		6B6C49EE67FB27022063A2E6 /* Pods-pixelino.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.debug.xcconfig"; sourceTree = "<group>"; };
+		B79FF97CA974F7B6957B51B7 /* Pods_pixelino.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixelino.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC01F970211A2E8000D43A45 /* PictureExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureExporter.swift; sourceTree = "<group>"; };
 		BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTableViewController.swift; sourceTree = "<group>"; };
 		BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuDrawingTableViewCell.swift; sourceTree = "<group>"; };
@@ -89,20 +89,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FEAE8C808A874161F2D5CA5 /* Pods_pixelino.framework in Frameworks */,
+				0B355CACA4717FD83A9542EF /* Pods_pixelino.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1CE651E503F4809BC7A484AB /* Pods */ = {
+		28C27B299E1F30B8CA6ACF3B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1A3DE91FA43F7E53A6552444 /* Pods-pixelino.debug.xcconfig */,
-				A2492726C00F6C59E27C46F2 /* Pods-pixelino.release.xcconfig */,
+				B79FF97CA974F7B6957B51B7 /* Pods_pixelino.framework */,
 			);
-			name = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC11DAE32131DD7C00ABF196 /* Resources */ = {
@@ -183,8 +182,8 @@
 			children = (
 				BCF7BCD820AA159F005C5468 /* pixelino */,
 				BCF7BCD720AA159F005C5468 /* Products */,
-				1CE651E503F4809BC7A484AB /* Pods */,
-				D670A1C2F42E784392406920 /* Frameworks */,
+				FB2D1E121AED17130C0500C6 /* Pods */,
+				28C27B299E1F30B8CA6ACF3B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -220,12 +219,13 @@
 			path = pixelino;
 			sourceTree = "<group>";
 		};
-		D670A1C2F42E784392406920 /* Frameworks */ = {
+		FB2D1E121AED17130C0500C6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				88E001C460C62CBC07D7E6C5 /* Pods_pixelino.framework */,
+				6B6C49EE67FB27022063A2E6 /* Pods-pixelino.debug.xcconfig */,
+				2310D404BCE3C6DEDFD70CA3 /* Pods-pixelino.release.xcconfig */,
 			);
-			name = Frameworks;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,13 +235,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BCF7BCE820AA15A0005C5468 /* Build configuration list for PBXNativeTarget "pixelino" */;
 			buildPhases = (
-				6A65F1677B882625A83CC3C7 /* [CP] Check Pods Manifest.lock */,
+				DE4EFC665E4C80A52504F81A /* [CP] Check Pods Manifest.lock */,
 				BCF7BCD220AA159F005C5468 /* Sources */,
 				BCF7BCD320AA159F005C5468 /* Frameworks */,
 				BCF7BCD420AA159F005C5468 /* Resources */,
-				AB3DAB40F28E39EBB9728EAB /* [CP] Embed Pods Frameworks */,
 				2AD6D09421663CE500BCBBC1 /* ShellScript */,
 				2A8CBE5C21665CFF00F6E61B /* ShellScript */,
+				F19800963AC76919A6B68E1B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -333,16 +333,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# autocorrect wherever possible\n\"${PODS_ROOT}/SwiftLint/swiftlint\" autocorrect\n";
 		};
-		6A65F1677B882625A83CC3C7 /* [CP] Check Pods Manifest.lock */ = {
+		DE4EFC665E4C80A52504F81A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-pixelino-checkManifestLockResult.txt",
 			);
@@ -351,16 +355,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AB3DAB40F28E39EBB9728EAB /* [CP] Embed Pods Frameworks */ = {
+		F19800963AC76919A6B68E1B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-pixelino/Pods-pixelino-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Pikko/Pikko.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pikko.framework",
 			);
@@ -539,12 +547,12 @@
 		};
 		BCF7BCE920AA15A0005C5468 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A3DE91FA43F7E53A6552444 /* Pods-pixelino.debug.xcconfig */;
+			baseConfigurationReference = 6B6C49EE67FB27022063A2E6 /* Pods-pixelino.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 45E39Y8V9N;
+				DEVELOPMENT_TEAM = MVY877MQV7;
 				INFOPLIST_FILE = pixelino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -560,12 +568,12 @@
 		};
 		BCF7BCEA20AA15A0005C5468 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A2492726C00F6C59E27C46F2 /* Pods-pixelino.release.xcconfig */;
+			baseConfigurationReference = 2310D404BCE3C6DEDFD70CA3 /* Pods-pixelino.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 45E39Y8V9N;
+				DEVELOPMENT_TEAM = MVY877MQV7;
 				INFOPLIST_FILE = pixelino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

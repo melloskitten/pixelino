@@ -108,8 +108,8 @@ extension Pikko: HueDelegate {
 
 extension Pikko: PikkoDelegate {
     public func writeBackColor(color: UIColor) {
+        currentColor = color
         if let delegate = delegate {
-            currentColor = color
             delegate.writeBackColor(color: color)
         }
     }
