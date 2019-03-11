@@ -18,6 +18,7 @@ class DrawingViewController: UIViewController {
     var commandManager = CommandManager()
     var observer: AnyObject?
     var currentDrawingColor: UIColor = .black
+    var currentTool: Tool = Paintbrush()
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     var previousDrawing: Drawing?
 
@@ -257,13 +258,11 @@ class DrawingViewController: UIViewController {
     }
 
     @objc func fillButtonPressed(sender: UIButton!) {
-        // TODO: Missing implementation.
-        print("Fill button pressed")
+        currentTool = Bucket()
     }
 
     @objc func paintBrushButtonPressed(sender: UIButton!) {
-        // TODO: Missing implementation.
-        print("Paint button pressed")
+        currentTool = Paintbrush()
     }
 
     private func setupOrientationObserver() {
@@ -349,46 +348,12 @@ class DrawingViewController: UIViewController {
 
     @objc func handleDrawFrom(_ sender: UIPanGestureRecognizer) {
         if canDraw {
-            // Initialise group draw command and tear down when needed.
-            switch sender.state {
-            case .began:
-                groupDrawCommand = GroupDrawCommand()
-            case .ended:
-                commandManager.execute(groupDrawCommand)
-            default:
-                break
-            }
-
-            let canvasScene = canvasView?.canvasScene
-            let touchLocation = sender.location(in: sender.view)
-            let touchLocationInScene = canvasView?.convert(touchLocation, to: canvasScene!)
-
-            let nodes = canvasScene?.nodes(at: touchLocationInScene!)
-
-            nodes?.forEach({ (node) in
-                if let pixel = node as? Pixel {
-                    let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
-                    // FIXME: Figure out a better name.
-                    groupDrawCommand.appendAndExecuteSingle(drawCommand)
-                }
-            })
+            currentTool.handleDrawFrom(sender, self)
         }
     }
 
     @objc func handleTapFrom(_ sender: UITapGestureRecognizer) {
-        let canvasScene = canvasView?.canvasScene
-
-        let touchLocation = sender.location(in: sender.view)
-        let touchLocationInScene = canvasView?.convert(touchLocation, to: canvasScene!)
-
-        let nodes = canvasScene?.nodes(at: touchLocationInScene!)
-
-        nodes?.forEach({ (node) in
-            if let pixel = node as? Pixel {
-                let drawCommand = DrawCommand(oldColor: pixel.fillColor, newColor: currentDrawingColor, pixel: pixel)
-                commandManager.execute(drawCommand)
-            }
-        })
+        currentTool.handleTapFrom(sender, self)
     }
 
     @objc func handlePanFrom(_ sender: UIPanGestureRecognizer) {
@@ -497,4 +462,76 @@ extension DrawingViewController: ColorChoiceDelegate {
     func colorChoicePicked(_ color: UIColor) {
         self.currentDrawingColor = color
     }
+}
+
+/// - TODO: Move to own file when on develop.
+protocol Tool {
+    
+    func handleTapFrom(_ sender: UITapGestureRecognizer, _ controller: DrawingViewController)
+    func handleDrawFrom(_ sender: UIPanGestureRecognizer, _ controller: DrawingViewController)
+    
+}
+
+class Paintbrush: Tool {
+    
+    func handleTapFrom(_ sender: UITapGestureRecognizer, _ controller: DrawingViewController) {
+        
+        let canvasScene = controller.canvasView?.canvasScene
+        
+        let touchLocation = sender.location(in: sender.view)
+        let touchLocationInScene = controller.canvasView?.convert(touchLocation, to: canvasScene!)
+        
+        let nodes = canvasScene?.nodes(at: touchLocationInScene!)
+        
+        nodes?.forEach({ (node) in
+            if let pixel = node as? Pixel {
+                let drawCommand = DrawCommand(oldColor: pixel.fillColor,
+                                              newColor: controller.currentDrawingColor,
+                                              pixel: pixel)
+                
+                controller.commandManager.execute(drawCommand)
+            }
+        })
+    }
+    
+    func handleDrawFrom(_ sender: UIPanGestureRecognizer, _ controller: DrawingViewController) {
+        // Initialise group draw command and tear down when needed.
+        switch sender.state {
+        case .began:
+            controller.groupDrawCommand = GroupDrawCommand()
+        case .ended:
+            controller.commandManager.execute(controller.groupDrawCommand)
+        default:
+            break
+        }
+        
+        let canvasScene = controller.canvasView?.canvasScene
+        let touchLocation = sender.location(in: sender.view)
+        let touchLocationInScene = controller.canvasView?.convert(touchLocation, to: canvasScene!)
+        
+        let nodes = canvasScene?.nodes(at: touchLocationInScene!)
+        
+        nodes?.forEach({ (node) in
+            if let pixel = node as? Pixel {
+                let drawCommand = DrawCommand(oldColor: pixel.fillColor,
+                                              newColor: controller.currentDrawingColor,
+                                              pixel: pixel)
+                
+                // FIXME: Figure out a better name.
+                controller.groupDrawCommand.appendAndExecuteSingle(drawCommand)
+            }
+        })
+    }
+    
+}
+
+class Bucket: Tool {
+    func handleTapFrom(_ sender: UITapGestureRecognizer, _ controller: DrawingViewController) {
+        // TODO: Implement me.
+    }
+    
+    func handleDrawFrom(_ sender: UIPanGestureRecognizer, _ controller: DrawingViewController) {
+        // TODO: Implement me.
+    }
+    
 }
