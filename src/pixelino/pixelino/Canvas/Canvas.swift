@@ -11,7 +11,10 @@ import SpriteKit
 
 class Canvas: SKSpriteNode {
 
+    /// Amount of pixels on a horizontal scale.
     private var width: Int = 0
+
+    /// Amount of pixels on a vertical scale.
     private var height: Int = 0
     private var pixelArray = [Pixel]()
 
@@ -48,6 +51,31 @@ class Canvas: SKSpriteNode {
 
     func getPixelWidth() -> Int {
         return PIXEL_SIZE
+    }
+
+    /// Helper method that returns a pixel based on the x/y. The x and y position are
+    /// ordinated along the regular cartesian coordinate system, x increasing
+    /// in the right direction and y increasing in the up direction.
+    func getPixel(x: Int, y: Int) -> Pixel? {
+        let translatedXPosition = x * height
+        let translatedYPosition = y
+
+        if translatedXPosition + translatedYPosition >= pixelArray.count
+            || translatedXPosition < 0 || translatedXPosition >= pixelArray.count
+            || translatedYPosition < 0 || translatedYPosition >= pixelArray.count {
+            return nil
+        }
+
+        return pixelArray[translatedXPosition + translatedYPosition]
+    }
+
+    /// Gets the correct indices for a given pixel node according to the cartesian
+    /// coordinate system. Note `getPixel()` for more information.
+    func getPosition(pixel forPixel: Pixel) -> (Int, Int) {
+            let currentIndex = pixelArray.index(where: {$0 == forPixel})
+            let translatedXPosition = currentIndex! / height
+            let translatedYPosition = currentIndex! % height
+            return (translatedXPosition, translatedYPosition)
     }
 
     /// Returns actual size of canvas width in screen (scale factor included).
