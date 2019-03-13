@@ -20,7 +20,7 @@ let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 let MAX_AMOUNT_PIXEL_PER_SCREEN: CGFloat = 4.0
 let MAX_ZOOM_OUT: CGFloat = 0.75
 // Tolerance for checking equality of UIColors.
-let COLOR_EQUALITY_TOLERANCE: CGFloat = 0.1
+let COLOR_EQUALITY_TOLERANCE: CGFloat = 0.001
 
 let ANIMATION_DURATION: TimeInterval = 0.4
 let CANVAS_WIDTH = 20
@@ -30,6 +30,3 @@ let CANVAS_HEIGHT = 20
 let ICON_WIDTH: CGFloat = 40.0
 /// Drawing toolbar icon height.
 let ICON_HEIGHT: CGFloat = ICON_WIDTH
-
-/// Tolerance constant needed for defining the equality of two colors.
-let COLOR_EQUALITY_TOLERANCE = 0.0001
