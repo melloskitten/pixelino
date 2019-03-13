@@ -357,7 +357,12 @@ class DrawingViewController: UIViewController {
                     // TODO: Here, the panning outside of
                     // the view has to be implemented and transformed
                     // to appropriate coordinates.
-                    break
+                    let firstPixel = canvasView.canvas.getPixel(x: 0, y: canvasView.canvas.getAmountOfPixelsForWidth()-1)!
+                    let lastPixel = canvasView.canvas.getPixel(x: canvasView.canvas.getAmountOfPixelsForWidth()-1,
+                                                               y: canvasView.canvas.getAmountOfPixelsForHeight()-1)!
+
+                    
+                    print("Touched \(touchLocation)")
 
                 default:
                     break
