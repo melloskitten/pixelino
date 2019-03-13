@@ -41,6 +41,9 @@
 		BCF7BCDC20AA159F005C5468 /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7BCDB20AA159F005C5468 /* DrawingViewController.swift */; };
 		BCF7BCE120AA15A0005C5468 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCF7BCE020AA15A0005C5468 /* Assets.xcassets */; };
 		BCF7BCE420AA15A0005C5468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCF7BCE220AA15A0005C5468 /* LaunchScreen.storyboard */; };
+		BCFC666F22393B46001EC5C9 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC666E22393B46001EC5C9 /* Tool.swift */; };
+		BCFC667122394044001EC5C9 /* Paintbrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC667022394044001EC5C9 /* Paintbrush.swift */; };
+		BCFC66732239441E001EC5C9 /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC66722239441E001EC5C9 /* Bucket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +85,9 @@
 		BCF7BCE020AA15A0005C5468 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCF7BCE320AA15A0005C5468 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCF7BCE520AA15A0005C5468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCFC666E22393B46001EC5C9 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		BCFC667022394044001EC5C9 /* Paintbrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paintbrush.swift; sourceTree = "<group>"; };
+		BCFC66722239441E001EC5C9 /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +204,7 @@
 		BCF7BCD820AA159F005C5468 /* pixelino */ = {
 			isa = PBXGroup;
 			children = (
+				BCFC666D22393B34001EC5C9 /* Tools */,
 				BC1F12B522204EF700598DBD /* Extensions */,
 				BCD4A687213415660060327B /* Canvas */,
 				BC11DAE32131DD7C00ABF196 /* Resources */,
@@ -217,6 +224,16 @@
 				BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */,
 			);
 			path = pixelino;
+			sourceTree = "<group>";
+		};
+		BCFC666D22393B34001EC5C9 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				BCFC666E22393B46001EC5C9 /* Tool.swift */,
+				BCFC667022394044001EC5C9 /* Paintbrush.swift */,
+				BCFC66722239441E001EC5C9 /* Bucket.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		FB2D1E121AED17130C0500C6 /* Pods */ = {
@@ -387,6 +404,7 @@
 				BCF7BCDC20AA159F005C5468 /* DrawingViewController.swift in Sources */,
 				BC6959B8211F1FBD00770249 /* Canvas.swift in Sources */,
 				BC1322222136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift in Sources */,
+				BCFC666F22393B46001EC5C9 /* Tool.swift in Sources */,
 				BC6959BC211F201600770249 /* CanvasView.swift in Sources */,
 				BC13221F2136B9F500CB18EF /* Drawing.swift in Sources */,
 				BC1322202136B9F500CB18EF /* Drawing+CoreDataProperties.swift in Sources */,
@@ -394,6 +412,7 @@
 				BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */,
 				BC89D93E2123748100003C68 /* DrawCommand.swift in Sources */,
 				BCD4A689213415BA0060327B /* CoreDataManager.swift in Sources */,
+				BCFC667122394044001EC5C9 /* Paintbrush.swift in Sources */,
 				BC93B4422135B1EF00B4EABE /* Constants.swift in Sources */,
 				BCF6B4B92111F43900384785 /* SplitPresentationController.swift in Sources */,
 				BC11DAE62131E22F00ABF196 /* CustomNavigationController.swift in Sources */,
@@ -406,6 +425,7 @@
 				BCF6B4E1211777C900384785 /* Extensions.swift in Sources */,
 				BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */,
 				BC1F12B2221EFDEC00598DBD /* pixelino.xcdatamodeld in Sources */,
+				BCFC66732239441E001EC5C9 /* Bucket.swift in Sources */,
 				BC1F12B4222032C700598DBD /* CustomFonts.swift in Sources */,
 				BC89D9362121C42B00003C68 /* CommandManager.swift in Sources */,
 				BC1F12B722204F3200598DBD /* UIAlertViewController+Customisable.swift in Sources */,
@@ -552,7 +572,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MVY877MQV7;
+				DEVELOPMENT_TEAM = 45E39Y8V9N;
 				INFOPLIST_FILE = pixelino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -573,7 +593,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MVY877MQV7;
+				DEVELOPMENT_TEAM = 45E39Y8V9N;
 				INFOPLIST_FILE = pixelino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
