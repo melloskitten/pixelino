@@ -70,17 +70,23 @@ class CanvasView: SKView {
         }
     }
 
+    /// Returns the current x and y locations of the lower left edge pixel and
+    /// the upper right pixel, defining a boundary of positions around the canvas
+    /// object.
     internal func getConvertedEdgePoints(resultView: UIView) -> (CGFloat, CGFloat, CGFloat, CGFloat) {
         let firstPixel = self.canvas.getPixelArray().first!
         let lastPixel = self.canvas.getPixelArray().last!
 
-        let startPosition = canvasScene.convert(firstPixel.position, from: self.canvas)
-        let lastPosition = canvasScene.convert(lastPixel.position, from: self.canvas)
+        var startPosition = canvasScene.convert(firstPixel.position, from: self.canvas)
+        var lastPosition = canvasScene.convert(lastPixel.position, from: self.canvas)
 
-        let a  = self.convert(startPosition, from: canvasScene)
-        let b  = self.convert(lastPosition, from: canvasScene)
+        startPosition  = self.convert(startPosition, from: canvasScene)
+        lastPosition  = self.convert(lastPosition, from: canvasScene)
 
-        return (a.x, a.y, b.x, b.y)
+        return (startPosition.x,
+                startPosition.y,
+                lastPosition.x + self.canvas.getScaledPixelWidth(),
+                lastPosition.y - self.canvas.getScaledPixelHeight())
 
     }
 }

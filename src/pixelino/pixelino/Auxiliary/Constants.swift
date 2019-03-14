@@ -30,3 +30,8 @@ let CANVAS_HEIGHT = 20
 let ICON_WIDTH: CGFloat = 40.0
 /// Drawing toolbar icon height.
 let ICON_HEIGHT: CGFloat = ICON_WIDTH
+
+/// Pipette tool offset so that the pipette tool
+/// is not located directly under the finger of the user
+/// and thus cannot be seen.
+let PIPETTE_TOOL_OFFSET: CGFloat = 10.0
