@@ -27,6 +27,7 @@ class Paintbrush: Tool {
 
             nodes.forEach({ (node) in
                 if let pixel = node as? Pixel {
+
                     let drawCommand = DrawCommand(oldColor: pixel.fillColor,
                                                   newColor: controller.currentDrawingColor,
                                                   pixel: pixel)

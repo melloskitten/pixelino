@@ -69,4 +69,18 @@ class CanvasView: SKView {
             canvas.position = skView.center
         }
     }
+
+    internal func getConvertedEdgePoints(resultView: UIView) -> (CGFloat, CGFloat, CGFloat, CGFloat) {
+        let firstPixel = self.canvas.getPixelArray().first!
+        let lastPixel = self.canvas.getPixelArray().last!
+
+        let startPosition = canvasScene.convert(firstPixel.position, from: self.canvas)
+        let lastPosition = canvasScene.convert(lastPixel.position, from: self.canvas)
+
+        let a  = self.convert(startPosition, from: canvasScene)
+        let b  = self.convert(lastPosition, from: canvasScene)
+
+        return (a.x, a.y, b.x, b.y)
+
+    }
 }

@@ -309,10 +309,10 @@ class DrawingViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapFrom(_:)))
 
         // Pipette tool gesture recognizer.
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressNew(_:)))
         longPressGestureRecognizer.numberOfTapsRequired = 1
-        longPressGestureRecognizer.minimumPressDuration = 0.25
-        longPressGestureRecognizer.allowableMovement = 15
+        longPressGestureRecognizer.minimumPressDuration = 0
+        longPressGestureRecognizer.allowableMovement = 30
 
         // Add to view
         view.addGestureRecognizer(zoomGestureRecognizer)
@@ -326,9 +326,8 @@ class DrawingViewController: UIViewController {
 
     var pipetteCircle: UIView?
 
-    @objc func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+    @objc func handleLongPressNew(_ sender: UILongPressGestureRecognizer) {
 
-        // Get underlying node and its color.
         if let canvasScene = self.canvasView?.canvasScene,
             let canvasView = self.canvasView {
 
@@ -339,72 +338,98 @@ class DrawingViewController: UIViewController {
             // Get the tapped pixel.
             let nodes = canvasScene.nodes(at: touchLocationInScene)
 
+            let potentialPixel = nodes.map { (node) -> Pixel? in
+                if let pixel = node as? Pixel {
+                    return pixel
+                }
+                return nil
+            }.first
+
             // Get location of touch for determining circle's position.
             var pipetteLocation = touchLocation
-            pipetteLocation.y -= 30.0
 
-            // If user is outside of the canvas, handle the picker by
-            // moving it along the axis and making sure to remove
-            // it if the gesture ended.
-            if nodes.isEmpty {
+            switch sender.state {
 
-                switch sender.state {
-                case .ended:
-                    // Remove circle.
-                    pipetteCircle?.removeFromSuperview()
+            case .began:
+                // Draw circle and position it, change circle
+                // color to underlying node color.
+                if let temp = potentialPixel, let pix = temp {
 
-                case .changed:
-                    // TODO: Here, the panning outside of
-                    // the view has to be implemented and transformed
-                    // to appropriate coordinates.
-                    let firstPixel = canvasView.canvas.getPixel(x: 0, y: canvasView.canvas.getAmountOfPixelsForWidth()-1)!
-                    let lastPixel = canvasView.canvas.getPixel(x: canvasView.canvas.getAmountOfPixelsForWidth()-1,
-                                                               y: canvasView.canvas.getAmountOfPixelsForHeight()-1)!
+                        pipetteCircle = UIView(frame: CGRect(x: 0,
+                                                             y: 0,
+                                                             width: 80,
+                                                             height: 80))
+                        pipetteCircle?.layer.cornerRadius = 40.0
+                        pipetteCircle?.center = pipetteLocation
+                        pipetteCircle?.backgroundColor = pix.fillColor
+                        pipetteLocation.y -= 10.0
+                        self.view.addSubview(pipetteCircle!)
 
-                    
-                    print("Touched \(touchLocation)")
-
-                default:
-                    break
+                } else {
+                        // Circle was drawn outside of canvas, remove it.
+                        pipetteCircle?.removeFromSuperview()
                 }
 
-            } else {
-                nodes.forEach({ (node) in
+            case .changed:
+                // TODO: Here, the panning outside of
+                // the view has to be implemented and transformed
+                // to appropriate coordinates.
+
+                var (startX, startY, endX, endY) = canvasView.getConvertedEdgePoints(resultView: self.view)
+
+                endX += canvasView.canvas.getScaledPixelWidth()
+                endY -= canvasView.canvas.getScaledPixelHeight()
+
+                if touchLocation.x < startX {
+                    pipetteLocation.x = startX + 5.0
+                }
+
+                if  touchLocation.x > endX {
+                    pipetteLocation.x = endX - 5.0
+                }
+
+                if touchLocation.y > startY {
+                    pipetteLocation.y = startY - 5.0
+                }
+
+                if touchLocation.y < endY {
+                    pipetteLocation.y = endY + 5.0
+                }
+
+                pipetteLocation.y -= 10.0
+                pipetteCircle?.center = pipetteLocation
+
+                if let temp = potentialPixel, let pix = temp {
+                    pipetteCircle?.backgroundColor = pix.fillColor
+                    return
+                }
+
+                pipetteLocation.y += 10.0
+                // Second check for pixels that are located on the corner of the canvas.
+                // Translate back to correct view.
+                var tempLocation = canvasView.convert(pipetteLocation, from: self.view)
+                tempLocation = canvasScene.convertPoint(fromView: tempLocation)
+
+                let tempPixel = canvasScene.nodes(at: tempLocation)
+                    .map { (node) -> Pixel? in
                     if let pixel = node as? Pixel {
-
-                        switch sender.state {
-                        case .began:
-                            // Draw circle and position it, change circle
-                            // color to underlying node color.
-                            pipetteCircle = UIView(frame: CGRect(x: 0,
-                                                                 y: 0,
-                                                                 width: 60,
-                                                                 height: 60))
-                            pipetteCircle?.layer.cornerRadius = 30.0
-                            pipetteCircle?.center = pipetteLocation
-                            pipetteCircle?.backgroundColor = pixel.fillColor
-                            self.view.addSubview(pipetteCircle!)
-
-                        case .changed:
-                            // Update position of circle, and change the
-                            // circle color to underlying node color.
-                            pipetteCircle?.center = pipetteLocation
-                            pipetteCircle?.backgroundColor = pixel.fillColor
-
-                        case .ended:
-                            // Remove circle.
-                            pipetteCircle?.removeFromSuperview()
-
-                        default:
-                            break
-                        }
-
+                        return pixel
                     }
-                })
+                    return nil
+                    }.first
+
+                if let bla = tempPixel, let pix = bla {
+                   pipetteCircle?.backgroundColor = pix.fillColor
+                }
+
+            case .ended:
+                pipetteCircle?.removeFromSuperview()
+
+            default:
+                pipetteCircle?.removeFromSuperview()
             }
 
         }
-
     }
 
     @objc func handlePinchFrom(_ sender: UIPinchGestureRecognizer) {

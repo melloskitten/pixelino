@@ -33,6 +33,10 @@ class Canvas: SKSpriteNode {
         setUpPixelGrid(colorArray: colorArray)
     }
 
+    func getPixelArray() -> [Pixel] {
+        return pixelArray
+    }
+
     func getCanvasWidth() -> Int {
         return width * PIXEL_SIZE
     }
@@ -53,8 +57,16 @@ class Canvas: SKSpriteNode {
         return PIXEL_SIZE
     }
 
+    func getScaledPixelWidth() -> CGFloat {
+        return getScaledCanvasWidth() / CGFloat(getAmountOfPixelsForWidth())
+    }
+
+    func getScaledPixelHeight() -> CGFloat {
+        return getScaledCanvasHeight() / CGFloat(getAmountOfPixelsForHeight())
+    }
+
     /// Helper method that returns a pixel based on the x/y. The x and y position are
-    /// ordinated along the regular cartesian coordinate system, x increasing
+    /// ordinated along the standard cartesian axis by the following system: x increasing
     /// in the right direction and y increasing in the up direction.
     func getPixel(x: Int, y: Int) -> Pixel? {
         let translatedXPosition = x * height
