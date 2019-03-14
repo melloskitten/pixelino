@@ -219,7 +219,7 @@ class DrawingViewController: UIViewController {
     /// MARK: - Button touch methods.
 
     @objc func colorPickerButtonPressed(sender: UIButton!) {
-        let colorPickerVC = ColorPickerViewController()
+        let colorPickerVC = ColorPickerViewController(initialColor: currentDrawingColor)
         colorPickerVC.colorChoiceDelegate = self
         colorPickerVC.transitioningDelegate = self
         colorPickerVC.modalPresentationStyle = .custom
@@ -364,6 +364,7 @@ class DrawingViewController: UIViewController {
                     pipetteCircle?.layer.cornerRadius = 40.0
                     pipetteLocation.y -= PIPETTE_TOOL_OFFSET
                     pipetteCircle?.center = pipetteLocation
+                    currentDrawingColor = pix.fillColor
                     pipetteCircle?.backgroundColor = pix.fillColor
                     self.view.addSubview(pipetteCircle!)
 
@@ -400,6 +401,7 @@ class DrawingViewController: UIViewController {
                 if let pix = potentialPixel {
                     pipetteLocation.y -= PIPETTE_TOOL_OFFSET
                     pipetteCircle?.center = pipetteLocation
+                    currentDrawingColor = pix.fillColor
                     pipetteCircle?.backgroundColor = pix.fillColor
                     return
                 }
@@ -415,6 +417,7 @@ class DrawingViewController: UIViewController {
                                             touchLocationInScene: tempLocation) {
                     pipetteLocation.y -= PIPETTE_TOOL_OFFSET
                     pipetteCircle?.center = pipetteLocation
+                    currentDrawingColor = tempPixel.fillColor
                     pipetteCircle?.backgroundColor = tempPixel.fillColor
                 }
 

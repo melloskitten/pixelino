@@ -18,6 +18,16 @@ class ColorPickerViewController: UIViewController {
     var pikko: Pikko!
     var colorHistory = [UIColor]()
 
+    init(initialColor: UIColor) {
+        super.init(nibName: nil, bundle: nil)
+        setUpColorPicker()
+        setColorOnPicker(color: initialColor)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     fileprivate func setUpColorPicker() {
         // TODO: Adjust the position of the color picker dynamically.
         pikko = Pikko(dimension: 360)
@@ -32,6 +42,10 @@ class ColorPickerViewController: UIViewController {
         }
 
         pikko.setColor(mostRecentColor)
+    }
+
+    fileprivate func setColorOnPicker(color: UIColor) {
+        pikko.setColor(color)
     }
 
     fileprivate func setUpGestureRecognizer() {
