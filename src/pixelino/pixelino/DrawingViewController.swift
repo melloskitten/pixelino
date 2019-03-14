@@ -21,12 +21,15 @@ class DrawingViewController: UIViewController {
     var currentTool: Tool = Paintbrush()
     var groupDrawCommand: GroupDrawCommand = GroupDrawCommand()
     var previousDrawing: Drawing?
+    var tapGestureRecognizer: UITapGestureRecognizer?
+    var longPressGestureRecognizer: UILongPressGestureRecognizer?
 
     // MARK: - UIView-related Attributes.
 
     var canvasView: CanvasView?
     var lowerToolbar: UIView!
     var pipetteCircle: UIView?
+    var colorPickerButton: UIButton?
 
     /// Attribute making sure that you cannot draw while you're pinching or panning
     /// around the screen.
@@ -122,6 +125,36 @@ class DrawingViewController: UIViewController {
         return button
     }
 
+    /// This method provides a convenience button creation method. Please note that this method
+    /// does __not__ add any _positioning_ autoconstraints to the buttons.
+    ///
+    /// - Parameters:
+    ///   - width: width of the button
+    ///   - height: height of the button
+    ///   - action: selector of action that should be performed when button is tapped.
+    /// - Returns: the set up button.
+    fileprivate func setupColorPickerButton(width: CGFloat,
+                                            height: CGFloat,
+                                            action: Selector) -> UIButton {
+        let button = UIButton()
+
+        // Setup rounded corners.
+        button.layer.cornerRadius = width / 2.0
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = UIColor.white.cgColor
+
+        // Register listener.
+        button.addTarget(self, action: action, for: .touchUpInside)
+
+        // Setup constraints.
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        button.widthAnchor.constraint(equalToConstant: width).isActive = true
+        button.heightAnchor.constraint(equalToConstant: height).isActive = true
+
+        return button
+    }
+
     /// Sets up all regular toolbar icons (excluding the paint tool selection button, please look
     /// at the `setUpDrawingToolButton()` method for further details) as well as their
     /// constraints according to relative constants.
@@ -132,9 +165,10 @@ class DrawingViewController: UIViewController {
                               action: #selector(exportButtonPressed(sender:)))
 
         // Color Picker button.
-        let colorPickerButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
+        /*let colorPickerButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
                               imageName: "ColorPicker",
-                              action: #selector(colorPickerButtonPressed(sender:)))
+                              action: #selector(colorPickerButtonPressed(sender:)))*/
+        colorPickerButton = setupColorPickerButton(width: ICON_WIDTH, height: ICON_HEIGHT, action: #selector(colorPickerButtonPressed(sender:)))
 
         // Undo button.
         let undoButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
@@ -163,9 +197,9 @@ class DrawingViewController: UIViewController {
                                         constant: topBarSpacing).isActive = true
 
         // Add constraints (from the right side).
-        colorPickerButton.centerXAnchor.constraint(equalTo: exportButton.leftAnchor,
+        colorPickerButton!.centerXAnchor.constraint(equalTo: exportButton.leftAnchor,
                                                    constant: -relativeSpacing).isActive = true
-        colorPickerButton.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+        colorPickerButton!.topAnchor.constraint(equalTo: lowerToolbar.topAnchor,
                                                constant: topBarSpacing).isActive = true
         exportButton.centerXAnchor.constraint(equalTo: view.rightAnchor,
                                               constant: -edgeSpacing).isActive = true
@@ -307,21 +341,20 @@ class DrawingViewController: UIViewController {
         let drawGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleDrawFrom(_:)))
         drawGestureRecognizer.maximumNumberOfTouches = 1
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapFrom(_:)))
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapFrom(_:)))
 
         // Pipette tool gesture recognizer.
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressNew(_:)))
-        longPressGestureRecognizer.numberOfTapsRequired = 1
-        longPressGestureRecognizer.numberOfTouchesRequired = 1
-        longPressGestureRecognizer.minimumPressDuration = 0.2
-        longPressGestureRecognizer.allowableMovement = 20
+        longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressNew(_:)))
+        longPressGestureRecognizer?.numberOfTouchesRequired = 1
+        longPressGestureRecognizer?.minimumPressDuration = 0.4
+        longPressGestureRecognizer?.allowableMovement = 20
 
         // Add to view
         view.addGestureRecognizer(zoomGestureRecognizer)
         view.addGestureRecognizer(navigatorGestureRecognizer)
         view.addGestureRecognizer(drawGestureRecognizer)
-        view.addGestureRecognizer(tapGestureRecognizer)
-        canvasView?.addGestureRecognizer(longPressGestureRecognizer)
+        view.addGestureRecognizer(tapGestureRecognizer!)
+        canvasView?.addGestureRecognizer(longPressGestureRecognizer!)
     }
 
     // MARK: - GestureRecognizer methods.
@@ -366,12 +399,25 @@ class DrawingViewController: UIViewController {
                     pipetteCircle?.center = pipetteLocation
                     currentDrawingColor = pix.fillColor
                     pipetteCircle?.backgroundColor = pix.fillColor
+                    colorPickerButton?.backgroundColor = pix.fillColor
+
+                    // Setup border.
+                    pipetteCircle?.layer.borderColor = UIColor.darkGray.cgColor
+                    pipetteCircle?.layer.borderWidth = 0.75
+
+                    // Setup shadow.
+                    pipetteCircle?.layer.shadowColor = UIColor.black.cgColor
+                    pipetteCircle?.layer.shadowRadius = 5.0
+                    pipetteCircle?.layer.shadowOpacity = 0.4
+                    pipetteCircle?.layer.shadowOffset = CGSize(width: 0, height: 3)
+
                     self.view.addSubview(pipetteCircle!)
 
                 } else {
                     // If the pipette tool was started outside the canvas,
                     // remove pipette circle in case it is still there.
                     pipetteCircle?.removeFromSuperview()
+                    pipetteCircle = nil
                 }
 
             case .changed:
@@ -379,50 +425,61 @@ class DrawingViewController: UIViewController {
                 // finger in the view. If the user pulls the finger outside of the
                 // canvas, apply appropriate transformations so the pipette circle
                 // can still be dragged around the corners.
+                // The pipetteCircle MUST exist for this part to be executed.
+                // This is because otherwise we would update the color for the
+                // color picker button in the view and lose performance calculating
+                // a color for the pipette circle when it is not even shown on screen.
+                if pipetteCircle != nil {
+                    let (startX, startY, endX, endY) = canvasView.getConvertedEdgePoints(resultView: self.view)
 
-                let (startX, startY, endX, endY) = canvasView.getConvertedEdgePoints(resultView: self.view)
+                    if touchLocation.x - 5.0 < startX {
+                        pipetteLocation.x = startX + 5.0
+                    }
 
-                if touchLocation.x < startX {
-                    pipetteLocation.x = startX + 5.0
-                }
+                    if  touchLocation.x + 5.0 > endX {
+                        pipetteLocation.x = endX - 5.0
+                    }
 
-                if  touchLocation.x > endX {
-                    pipetteLocation.x = endX - 5.0
-                }
+                    if touchLocation.y + 5.0 > startY {
+                        pipetteLocation.y = startY - 5.0
+                    }
 
-                if touchLocation.y > startY {
-                    pipetteLocation.y = startY - 5.0
-                }
+                    if touchLocation.y - 5.0 < endY {
+                        pipetteLocation.y = endY + 5.0
+                    }
 
-                if touchLocation.y < endY {
-                    pipetteLocation.y = endY + 5.0
-                }
+                    if let pix = potentialPixel {
+                        pipetteLocation.y -= PIPETTE_TOOL_OFFSET
+                        pipetteCircle?.center = pipetteLocation
+                        currentDrawingColor = pix.fillColor
+                        pipetteCircle?.backgroundColor = pix.fillColor
+                        colorPickerButton?.backgroundColor = pix.fillColor
+                        return
+                    }
 
-                if let pix = potentialPixel {
-                    pipetteLocation.y -= PIPETTE_TOOL_OFFSET
-                    pipetteCircle?.center = pipetteLocation
-                    currentDrawingColor = pix.fillColor
-                    pipetteCircle?.backgroundColor = pix.fillColor
-                    return
-                }
+                    // Second check for pixels that are located on the corner of the canvas.
+                    // Translate back to correct view in order to get a reference
+                    // pixel to update color, otherwise we will never get a color
+                    // because the touch location is directly at the edge of the canvas.
+                    var tempLocation = canvasView.convert(pipetteLocation, from: self.view)
+                    tempLocation = canvasScene.convertPoint(fromView: tempLocation)
 
-                // Second check for pixels that are located on the corner of the canvas.
-                // Translate back to correct view in order to get a reference
-                // pixel to update color, otherwise we will never get a color
-                // because the touch location is directly at the edge of the canvas.
-                var tempLocation = canvasView.convert(pipetteLocation, from: self.view)
-                tempLocation = canvasScene.convertPoint(fromView: tempLocation)
+                    if let tempPixel = getPixel(canvasScene: canvasScene,
+                                                touchLocationInScene: tempLocation) {
+                        pipetteLocation.y -= PIPETTE_TOOL_OFFSET
+                        pipetteCircle?.center = pipetteLocation
 
-                if let tempPixel = getPixel(canvasScene: canvasScene,
-                                            touchLocationInScene: tempLocation) {
-                    pipetteLocation.y -= PIPETTE_TOOL_OFFSET
-                    pipetteCircle?.center = pipetteLocation
-                    currentDrawingColor = tempPixel.fillColor
-                    pipetteCircle?.backgroundColor = tempPixel.fillColor
-                }
+                        // Update color.
+                        currentDrawingColor = tempPixel.fillColor
+                        pipetteCircle?.backgroundColor = tempPixel.fillColor
+                        colorPickerButton?.backgroundColor = tempPixel.fillColor
+
+                        }
+                    }
 
             default:
                 pipetteCircle?.removeFromSuperview()
+                pipetteCircle = nil
             }
         }
     }
