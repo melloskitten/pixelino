@@ -108,5 +108,23 @@ class MainMenuTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let duplicateAction = UIContextualAction(style: .normal, title: "Duplicate") { _, _, completionHandler in
+            print("duplicating the cell")
+            completionHandler(true)
+        }
+
+        // FIXME: Probably a destructive cell would be better.
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { _, _, completionHandler in
+            print("deleting the cell")
+            completionHandler(true)
+        }
+
+        duplicateAction.backgroundColor = UIColor.darkGray
+        deleteAction.backgroundColor = UIColor.red
+        return UISwipeActionsConfiguration(actions: [deleteAction, duplicateAction])
+    }
 
 }
