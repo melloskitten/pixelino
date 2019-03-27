@@ -99,16 +99,6 @@ class MainMenuTableViewController: UITableViewController {
         present(drawingVC, animated: true, completion: nil)
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let deletedThumbnail = thumbnailArray.remove(at: indexPath.row)
-            // Delete corresponding Core Data entry.
-            CoreDataManager.deleteDrawing(correspondingThumbnail: deletedThumbnail)
-
-            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
         let duplicateAction = UIContextualAction(style: .normal, title: "Duplicate") { _, _, completionHandler in
@@ -116,9 +106,15 @@ class MainMenuTableViewController: UITableViewController {
             completionHandler(true)
         }
 
-        // FIXME: Probably a destructive cell would be better.
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { _, _, completionHandler in
-            print("deleting the cell")
+        // Delete Action.
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
+
+            // Grab deleted thumbnail, remove it from the array
+            // and delete the corresponding CoreData entry.
+            let deletedThumbnail = self.thumbnailArray.remove(at: indexPath.row)
+            CoreDataManager.deleteDrawing(correspondingThumbnail: deletedThumbnail)
+            // tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+
             completionHandler(true)
         }
 
