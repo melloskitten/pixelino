@@ -132,7 +132,13 @@ class MainMenuTableViewController: UITableViewController {
         return duplicateAction
     }
 
-    /// - TODO: Missing documentation.
+
+    /// Convenience getter for a preconfigured UIContextualAction that is used to
+    /// delete a drawing.
+    ///
+    /// - Parameter indexPath: table view index path
+    /// - Returns: a UIContextualAction that deletes the drawing that is displayed in
+    ///   the cell that is identified by the indexPath.
     private func getDeleteAction(forIndexPath indexPath: IndexPath) -> UIContextualAction {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
 
@@ -150,13 +156,13 @@ class MainMenuTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
+        // Setup swipe actions.
         let duplicateAction = getDuplicateAction(forIndexPath: indexPath)
-
-        // Delete Action.
         let deleteAction = getDeleteAction(forIndexPath: indexPath)
 
         duplicateAction.backgroundColor = UIColor.darkGray
         deleteAction.backgroundColor = UIColor.red
+        
         return UISwipeActionsConfiguration(actions: [deleteAction, duplicateAction])
     }
 
