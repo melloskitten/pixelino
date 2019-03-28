@@ -4,4 +4,5 @@ use_frameworks!
 target 'pixelino' do
     pod 'Pikko'
     pod 'SwiftLint'
+    pod 'Hero'
 end

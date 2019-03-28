@@ -1,20 +1,24 @@
 PODS:
+  - Hero (1.4.0)
   - Pikko (1.0.3)
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
+  - Hero
   - Pikko
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Hero
     - Pikko
     - SwiftLint
 
 SPEC CHECKSUMS:
+  Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   Pikko: e57424f5aafba9c0b18fd624dbfaa0168dda3235
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 0de4d37041c232cbad6cc1a52092605466a7bc14
+PODFILE CHECKSUM: df23a9401b1d35cfc62dc58280fdb3c3c8d2cf20
 
 COCOAPODS: 1.5.3
