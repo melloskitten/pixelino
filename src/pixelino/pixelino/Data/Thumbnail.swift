@@ -26,4 +26,8 @@ public class Thumbnail: NSManagedObject {
         self.drawing = drawing
     }
 
+    convenience init(thumbnail: Thumbnail) {
+        self.init(fileName: thumbnail.fileName, date: thumbnail.date, imageData: thumbnail.imageData as Data, drawing: thumbnail.drawing)
+    }
+
 }

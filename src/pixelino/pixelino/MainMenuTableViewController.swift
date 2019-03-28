@@ -21,6 +21,10 @@ class MainMenuTableViewController: UITableViewController {
         // Load all saved images.
         setUpThumbnailArray()
         setUpViews()
+
+        CoreDataManager.deleteThumbnails()
+        CoreDataManager.deleteDrawings()
+
     }
 
     // MARK: - ViewDidAppear.
@@ -101,9 +105,38 @@ class MainMenuTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
+        thumbnailArray.forEach { (thumbnail) in
+            print(thumbnail.id)
+            print(thumbnail)
+        }
+
         let duplicateAction = UIContextualAction(style: .normal, title: "Duplicate") { _, _, completionHandler in
-            print("duplicating the cell")
+
+            // Grab the current cell.
+            let currentDrawing = self.thumbnailArray[indexPath.row].drawing
+            let currentThumbnail = currentDrawing.thumbnail
+
+            // Create new thumbnail.
+            let duplicatedDrawing = Drawing(drawing: currentDrawing)
+            let duplicatedThumbnail = Thumbnail(thumbnail: currentThumbnail)
+
+            duplicatedDrawing.thumbnail = duplicatedThumbnail
+            duplicatedThumbnail.drawing = duplicatedDrawing
+
+            print("Current Drawing: ")
+            print(currentDrawing.id)
+            print(currentThumbnail.id)
+
+            print("Duplicated: ")
+            print(duplicatedThumbnail.id)
+            print(duplicatedDrawing.id)
+
+            CoreDataManager.duplicateDrawing(duplicatedDrawing: duplicatedDrawing)
+
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+
             completionHandler(true)
+
         }
 
         // Delete Action.

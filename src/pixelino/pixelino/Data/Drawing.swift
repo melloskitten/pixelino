@@ -26,4 +26,8 @@ public class Drawing: NSManagedObject {
         self.init(colorArray: colorArray, width: width, height: height)
         self.thumbnail = thumbnail
     }
+
+    convenience init(drawing: Drawing) {
+        self.init(colorArray: drawing.colorArray, width: Int(drawing.width), height: Int(drawing.height))
+    }
 }

@@ -138,6 +138,21 @@ class CoreDataManager {
         }
     }
 
+    public static func duplicateDrawing(duplicatedDrawing drawing: Drawing) {
+        // Grab Core Data context.
+        guard let managedContext = drawing.managedObjectContext else {
+            return
+        }
+
+        do {
+            try managedContext.save()
+
+        } catch let error as NSError {
+            // FIXME: Implement proper error handling.
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+
     /// Updates an already existing drawing and returns true or false depending on whether
     /// the update was successful or not. (It is also unsuccessful when the drawing is not
     /// yet in the database, thus cannot be updated.)
@@ -148,7 +163,7 @@ class CoreDataManager {
         }
 
         let updateRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Drawing")
-        updateRequest.predicate = NSPredicate(format: "id == %@", updatedDrawing.id as CVarArg)
+        updateRequest.predicate = NSPredicate(format: "id = %@", updatedDrawing.id as CVarArg)
 
         do {
             let result = try managedContext.fetch(updateRequest)
