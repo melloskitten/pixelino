@@ -22,9 +22,6 @@ class MainMenuTableViewController: UITableViewController {
         setUpThumbnailArray()
         setUpViews()
 
-        CoreDataManager.deleteThumbnails()
-        CoreDataManager.deleteDrawings()
-
     }
 
     // MARK: - ViewDidAppear.
@@ -103,12 +100,11 @@ class MainMenuTableViewController: UITableViewController {
         present(drawingVC, animated: true, completion: nil)
     }
 
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
-        thumbnailArray.forEach { (thumbnail) in
-            print(thumbnail.id)
-            print(thumbnail)
-        }
+    /// Gets the duplication action, for a specific row in the table.
+    ///
+    /// - Parameter indexPath: the indexPath at which the original swiping was done.
+    /// - Returns: the duplicate contextual action.
+    private func getDuplicateAction(forIndexPath indexPath: IndexPath) -> UIContextualAction {
 
         let duplicateAction = UIContextualAction(style: .normal, title: "Duplicate") { _, _, completionHandler in
 
@@ -120,39 +116,53 @@ class MainMenuTableViewController: UITableViewController {
             let duplicatedDrawing = Drawing(drawing: currentDrawing)
             let duplicatedThumbnail = Thumbnail(thumbnail: currentThumbnail)
 
+            // Reset relationships.
             duplicatedDrawing.thumbnail = duplicatedThumbnail
             duplicatedThumbnail.drawing = duplicatedDrawing
 
-            print("Current Drawing: ")
-            print(currentDrawing.id)
-            print(currentThumbnail.id)
-
-            print("Duplicated: ")
-            print(duplicatedThumbnail.id)
-            print(duplicatedDrawing.id)
-
+            // Duplicate drawing in CoreData.
             CoreDataManager.duplicateDrawing(duplicatedDrawing: duplicatedDrawing)
-
+            self.setUpThumbnailArray()
             self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
 
             completionHandler(true)
 
         }
 
-        // Delete Action.
+        return duplicateAction
+    }
+
+
+    /// Convenience getter for a preconfigured UIContextualAction that is used to
+    /// delete a drawing.
+    ///
+    /// - Parameter indexPath: table view index path
+    /// - Returns: a UIContextualAction that deletes the drawing that is displayed in
+    ///   the cell that is identified by the indexPath.
+    private func getDeleteAction(forIndexPath indexPath: IndexPath) -> UIContextualAction {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
 
             // Grab deleted thumbnail, remove it from the array
             // and delete the corresponding CoreData entry.
             let deletedThumbnail = self.thumbnailArray.remove(at: indexPath.row)
             CoreDataManager.deleteDrawing(correspondingThumbnail: deletedThumbnail)
-            // tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
 
             completionHandler(true)
         }
 
+        return deleteAction
+    }
+
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        // Setup swipe actions.
+        let duplicateAction = getDuplicateAction(forIndexPath: indexPath)
+        let deleteAction = getDeleteAction(forIndexPath: indexPath)
+
         duplicateAction.backgroundColor = UIColor.darkGray
         deleteAction.backgroundColor = UIColor.red
+        
         return UISwipeActionsConfiguration(actions: [deleteAction, duplicateAction])
     }
 
