@@ -132,6 +132,7 @@ class MainMenuTableViewController: UITableViewController {
             // and delete the corresponding CoreData entry.
             let deletedThumbnail = self.thumbnailArray.remove(at: indexPath.row)
             CoreDataManager.deleteDrawing(correspondingThumbnail: deletedThumbnail)
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
 
             completionHandler(true)
         }
