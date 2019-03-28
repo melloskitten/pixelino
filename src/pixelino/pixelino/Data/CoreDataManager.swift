@@ -138,6 +138,7 @@ class CoreDataManager {
         }
     }
 
+    // - TODO: Missing documentation.
     public static func duplicateDrawing(duplicatedDrawing drawing: Drawing) {
         // Grab Core Data context.
         guard let managedContext = drawing.managedObjectContext else {
@@ -149,7 +150,7 @@ class CoreDataManager {
 
         } catch let error as NSError {
             // FIXME: Implement proper error handling.
-            print("Could not save. \(error), \(error.userInfo)")
+            print("Could not duplicate drawing. \(error), \(error.userInfo)")
         }
     }
 

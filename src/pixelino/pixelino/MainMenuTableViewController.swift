@@ -22,9 +22,6 @@ class MainMenuTableViewController: UITableViewController {
         setUpThumbnailArray()
         setUpViews()
 
-        CoreDataManager.deleteThumbnails()
-        CoreDataManager.deleteDrawings()
-
     }
 
     // MARK: - ViewDidAppear.
@@ -105,11 +102,6 @@ class MainMenuTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
-        thumbnailArray.forEach { (thumbnail) in
-            print(thumbnail.id)
-            print(thumbnail)
-        }
-
         let duplicateAction = UIContextualAction(style: .normal, title: "Duplicate") { _, _, completionHandler in
 
             // Grab the current cell.
@@ -120,19 +112,13 @@ class MainMenuTableViewController: UITableViewController {
             let duplicatedDrawing = Drawing(drawing: currentDrawing)
             let duplicatedThumbnail = Thumbnail(thumbnail: currentThumbnail)
 
+            // Reset relationships.
             duplicatedDrawing.thumbnail = duplicatedThumbnail
             duplicatedThumbnail.drawing = duplicatedDrawing
 
-            print("Current Drawing: ")
-            print(currentDrawing.id)
-            print(currentThumbnail.id)
-
-            print("Duplicated: ")
-            print(duplicatedThumbnail.id)
-            print(duplicatedDrawing.id)
-
+            // Duplicate drawing in CoreData.
             CoreDataManager.duplicateDrawing(duplicatedDrawing: duplicatedDrawing)
-
+            self.setUpThumbnailArray()
             self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
 
             completionHandler(true)
@@ -146,7 +132,6 @@ class MainMenuTableViewController: UITableViewController {
             // and delete the corresponding CoreData entry.
             let deletedThumbnail = self.thumbnailArray.remove(at: indexPath.row)
             CoreDataManager.deleteDrawing(correspondingThumbnail: deletedThumbnail)
-            // tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
 
             completionHandler(true)
         }
