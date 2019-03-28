@@ -117,6 +117,11 @@ class CoreDataManager {
     /// new drawing, as well as updating a drawing that is already existing.
     /// If a drawing is already existing, the a reference oldThumbnail has to be provided,
     /// as it needs to be deleted from the database as well.
+    /// - WARNING: There seems to be a problem with the current method. No matter
+    /// whether it tries to save a new or update an existing drawing, it never
+    /// enters the second part of the if statement. This implies that somehow,
+    /// it manages to find a drawing with the same id that is already saved, which should not
+    /// be the case.
     public static func saveDrawing(drawing: Drawing, oldThumbnail: Thumbnail? = nil) {
             if updateDrawing(updatedDrawing: drawing) {
                 if let oldThumbnail = oldThumbnail {
@@ -138,7 +143,12 @@ class CoreDataManager {
         }
     }
 
-    // - TODO: Missing documentation.
+    /// Creates a duplicate version of a drawing and saves it to core data.
+    /// This method assumes that the thumbnail connection has already
+    /// been set up manually.
+    /// - Note: This expects a deep copy of the original drawing
+    /// as an input.
+    /// - Parameter drawing: The drawing that should be saved.
     public static func duplicateDrawing(duplicatedDrawing drawing: Drawing) {
         // Grab Core Data context.
         guard let managedContext = drawing.managedObjectContext else {

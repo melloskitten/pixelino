@@ -100,7 +100,11 @@ class MainMenuTableViewController: UITableViewController {
         present(drawingVC, animated: true, completion: nil)
     }
 
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    /// Gets the duplication action, for a specific row in the table.
+    ///
+    /// - Parameter indexPath: the indexPath at which the original swiping was done.
+    /// - Returns: the duplicate contextual action.
+    private func getDuplicateAction(forIndexPath indexPath: IndexPath) -> UIContextualAction {
 
         let duplicateAction = UIContextualAction(style: .normal, title: "Duplicate") { _, _, completionHandler in
 
@@ -125,7 +129,11 @@ class MainMenuTableViewController: UITableViewController {
 
         }
 
-        // Delete Action.
+        return duplicateAction
+    }
+
+    /// - TODO: Missing documentation.
+    private func getDeleteAction(forIndexPath indexPath: IndexPath) -> UIContextualAction {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
 
             // Grab deleted thumbnail, remove it from the array
@@ -136,6 +144,16 @@ class MainMenuTableViewController: UITableViewController {
 
             completionHandler(true)
         }
+
+        return deleteAction
+    }
+
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let duplicateAction = getDuplicateAction(forIndexPath: indexPath)
+
+        // Delete Action.
+        let deleteAction = getDeleteAction(forIndexPath: indexPath)
 
         duplicateAction.backgroundColor = UIColor.darkGray
         deleteAction.backgroundColor = UIColor.red
