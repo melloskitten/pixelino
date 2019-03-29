@@ -71,7 +71,8 @@ class ShareViewController: UIViewController {
         }
 
         // FIXME: Hardcoded values - take them as input (through a prompt) from the user.
-        let sharedImage = pictureExporter.generateUIImagefromDrawing(width: 300, height: 300)
+        // FIXME: Show a loading indicator while the image is created.
+        let sharedImage = pictureExporter.generateUIImagefromDrawing(width: 1000, height: 1000)
         let objectsToShare = [sharedImage]
 
         let activityVC = UIActivityViewController(activityItems: objectsToShare as [Any],
