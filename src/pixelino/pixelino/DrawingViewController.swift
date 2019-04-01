@@ -165,10 +165,9 @@ class DrawingViewController: UIViewController {
                               action: #selector(exportButtonPressed(sender:)))
 
         // Color Picker button.
-        /*let colorPickerButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
-                              imageName: "ColorPicker",
-                              action: #selector(colorPickerButtonPressed(sender:)))*/
         colorPickerButton = setupColorPickerButton(width: ICON_WIDTH, height: ICON_HEIGHT, action: #selector(colorPickerButtonPressed(sender:)))
+        // Initialize starting color on colorpicker.
+        colorPickerButton?.backgroundColor = .black
 
         // Undo button.
         let undoButton = setUpTabBarButton(width: ICON_WIDTH, height: ICON_HEIGHT,
@@ -644,5 +643,6 @@ extension DrawingViewController: UIGestureRecognizerDelegate {
 extension DrawingViewController: ColorChoiceDelegate {
     func colorChoicePicked(_ color: UIColor) {
         self.currentDrawingColor = color
+        self.colorPickerButton?.backgroundColor = color
     }
 }
