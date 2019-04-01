@@ -83,7 +83,7 @@ class PictureExporter: NSObject {
     }
 
     func generateThumbnailFromDrawing() -> UIImage? {
-        guard let image = generateUIImagefromDrawing(width: 150, height: 150) else {
+        guard let image = generateUIImagefromDrawing(width: 300, height: 300) else {
             return nil
         }
 
