@@ -24,6 +24,7 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        setupProgressIndicator()
     }
 
     fileprivate func setUpView() {
@@ -65,18 +66,51 @@ class ShareViewController: UIViewController {
 
     }
 
+    var progressBar: CircularProgressIndicator?
+
+    func setupProgressIndicator() {
+        progressBar = CircularProgressIndicator(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
+        progressBar?.translatesAutoresizingMaskIntoConstraints = false
+        progressBar?.lineWidth = 10.0
+        self.view.addSubview(progressBar!)
+        progressBar?.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        progressBar?.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        progressBar?.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        progressBar?.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        showProgressIndicator(false)
+    }
+
+    func showProgressIndicator(_ isOn: Bool) {
+        if isOn {
+            progressBar?.isHidden = false
+            progressBar?.isUserInteractionEnabled = true
+        } else {
+            progressBar?.isHidden = true
+            progressBar?.isUserInteractionEnabled = false
+            progressBar?.setProgress(to: 0.0, withAnimation: false)
+        }
+    }
+
+    func updateProgressIndicator(_ to: Double) {
+        if let progressBar = progressBar {
+            progressBar.setProgress(to: to, withAnimation: false)
+        }
+    }
+
     @objc func shareButtonPressed(_ sender: UIButton) {
-        guard let pictureExporter = pictureExporter else {
+        showProgressIndicator(true)
+
+        guard let pictureExporter = self.pictureExporter else {
             return
         }
 
         // FIXME: Hardcoded values - take them as input (through a prompt) from the user.
-        // FIXME: Show a loading indicator while the image is created.
-        let sharedImage = pictureExporter.generateUIImagefromDrawing(width: 1000, height: 1000)
-        let objectsToShare = [sharedImage]
+        let sharedImage = pictureExporter.generateUIImagefromDrawing(width: 1000, height: 1000, uiHandler: self.updateProgressIndicator(_:))
 
+        let objectsToShare = [sharedImage]
         let activityVC = UIActivityViewController(activityItems: objectsToShare as [Any],
                                                   applicationActivities: nil)
+        
         activityVC.excludedActivityTypes = [UIActivityType.addToReadingList,
                                             UIActivityType.assignToContact,
                                             UIActivityType.openInIBooks,
@@ -84,7 +118,9 @@ class ShareViewController: UIViewController {
                                             UIActivityType.openInIBooks]
         activityVC.popoverPresentationController?.sourceView = sender
 
-        self.present(activityVC, animated: true, completion: nil)
+        self.present(activityVC, animated: true) {
+            self.showProgressIndicator(false)
+        }
     }
 
     @objc func returnButtonPressed(_ sender: UIButton) {
