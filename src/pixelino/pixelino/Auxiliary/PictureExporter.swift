@@ -43,6 +43,12 @@ class PictureExporter: NSObject {
         }
     }
 
+    /// This method generates an UIImage that can be saved to Photos.
+    ///
+    /// - Parameters:
+    ///   - width: the width of the canvas.
+    ///   - height: the height of the canvas.
+    ///   - uiHandler: an ui handler for showing an ui update as the method progresses.
     public func generateUIImagefromDrawing(width: Int, height: Int, uiHandler: ((Double) -> Void)? = nil) -> UIImage? {
         // Build the bitmap input for the CGImage conversion.
         guard let dataProvider = CGDataProvider(data: NSData(bytes: &rawPixelArray, length: rawPixelArray.count * MemoryLayout<RawPixel>.size)
