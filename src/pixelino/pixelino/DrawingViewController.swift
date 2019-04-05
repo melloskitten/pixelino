@@ -280,7 +280,8 @@ class DrawingViewController: UIViewController {
         }
 
         // Present new view controller.
-        self.present(shareVC, animated: true, completion: nil)
+        let navVC = CustomNavigationController(rootViewController: shareVC)
+        self.present(navVC, animated: true, completion: nil)
     }
 
     @objc func redoButtonPressed(sender: UIButton!) {
