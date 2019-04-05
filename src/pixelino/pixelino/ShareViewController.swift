@@ -8,13 +8,13 @@
 import UIKit
 
 class ShareViewController: UIViewController {
-    
+
     // MARK: - UI-related attributes.
-    
+
     var progressBar: CircularProgressIndicator?
 
     // MARK: - Export-related attributes.
-    
+
     var drawing: Drawing? {
         didSet {
             guard let setDrawing = drawing else {
@@ -85,7 +85,7 @@ class ShareViewController: UIViewController {
         let objectsToShare = [sharedImage]
         let activityVC = UIActivityViewController(activityItems: objectsToShare as [Any],
                                                   applicationActivities: nil)
-        
+
         activityVC.excludedActivityTypes = [UIActivityType.addToReadingList,
                                             UIActivityType.assignToContact,
                                             UIActivityType.openInIBooks,
@@ -119,6 +119,12 @@ class ShareViewController: UIViewController {
     }
 
     @objc func menuButtonPressed(_ sender: UIButton) {
+        
+        // Delete the changes done to the drawing if user returns to the menu
+        // without saving. This is needed because else the managedObjectContext
+        // keeps the changes done to the drawing, even though the user did not specifically
+        // choose to save the image.
+        drawing?.managedObjectContext?.reset()
         self.presentingViewController?.presentingViewController?.dismiss(animated: true,
                                                                          completion: nil)
     }
@@ -174,7 +180,7 @@ class ShareViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
 
     }
-    
+
     /// Creates and adds the progress indicator to the view.
     func setupProgressIndicator() {
         progressBar = CircularProgressIndicator(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -187,7 +193,7 @@ class ShareViewController: UIViewController {
         progressBar?.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         showProgressIndicator(false)
     }
-    
+
     func showProgressIndicator(_ isOn: Bool) {
         if isOn {
             progressBar?.isHidden = false
@@ -198,7 +204,7 @@ class ShareViewController: UIViewController {
             progressBar?.setProgress(to: 0.0, withAnimation: false)
         }
     }
-    
+
     /// Updates the progress indicator's progress to the specific percentage.
     ///
     /// - Parameter to: percentage of progress, e.g. 0.5 for 50%.
