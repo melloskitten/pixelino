@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B355CACA4717FD83A9542EF /* Pods_pixelino.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79FF97CA974F7B6957B51B7 /* Pods_pixelino.framework */; };
 		BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01F970211A2E8000D43A45 /* PictureExporter.swift */; };
+		BC05C409225297A300C52E16 /* CircularProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05C408225297A300C52E16 /* CircularProgressIndicator.swift */; };
 		BC11DADE2131DC4B00ABF196 /* MainMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */; };
 		BC11DAE02131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */; };
 		BC11DAE42131DE6F00ABF196 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC11DAE22131DD6700ABF196 /* Roboto-Regular.ttf */; };
@@ -51,6 +52,7 @@
 		6B6C49EE67FB27022063A2E6 /* Pods-pixelino.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.debug.xcconfig"; sourceTree = "<group>"; };
 		B79FF97CA974F7B6957B51B7 /* Pods_pixelino.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixelino.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC01F970211A2E8000D43A45 /* PictureExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureExporter.swift; sourceTree = "<group>"; };
+		BC05C408225297A300C52E16 /* CircularProgressIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressIndicator.swift; sourceTree = "<group>"; };
 		BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTableViewController.swift; sourceTree = "<group>"; };
 		BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuDrawingTableViewCell.swift; sourceTree = "<group>"; };
 		BC11DAE22131DD6700ABF196 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				BCF7BCE220AA15A0005C5468 /* LaunchScreen.storyboard */,
+				BC05C408225297A300C52E16 /* CircularProgressIndicator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				BC6959B8211F1FBD00770249 /* Canvas.swift in Sources */,
 				BC1322222136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift in Sources */,
 				BCFC666F22393B46001EC5C9 /* Tool.swift in Sources */,
+				BC05C409225297A300C52E16 /* CircularProgressIndicator.swift in Sources */,
 				BC6959BC211F201600770249 /* CanvasView.swift in Sources */,
 				BC13221F2136B9F500CB18EF /* Drawing.swift in Sources */,
 				BC1322202136B9F500CB18EF /* Drawing+CoreDataProperties.swift in Sources */,
