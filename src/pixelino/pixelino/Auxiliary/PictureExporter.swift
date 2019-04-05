@@ -50,6 +50,7 @@ class PictureExporter: NSObject {
     ///   - height: the height of the canvas.
     ///   - uiHandler: an ui handler for showing an ui update as the method progresses.
     public func generateUIImagefromDrawing(width: Int, height: Int, uiHandler: ((Double) -> Void)? = nil) -> UIImage? {
+
         // Build the bitmap input for the CGImage conversion.
         guard let dataProvider = CGDataProvider(data: NSData(bytes: &rawPixelArray, length: rawPixelArray.count * MemoryLayout<RawPixel>.size)
             ) else {
@@ -67,16 +68,19 @@ class PictureExporter: NSObject {
         uiHandler?(0.5)
 
         // Convert to UIImage for later use in UIImageView.
-        let uiImage = UIImage(cgImage: cgImage)
+        guard let uiImage = UIImage(cgImage: cgImage).rotate(radians: -CGFloat.pi / 2.0) else {
+            return nil
+        }
 
         // Generate Image View for saving image by taking a screenshort.
         let imageView = UIImageView(image: uiImage)
+        imageView.backgroundColor = .red
         imageView.layer.magnificationFilter = kCAFilterNearest
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
 
         // Take actual screenshot from Image View context.
         UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, imageView.isOpaque, 0.0)
-        imageView.transform = imageView.transform.rotated(by: CGFloat.pi/2)
+        // imageView.transform = imageView.transform.rotated(by: CGFloat.pi/2)
         imageView.drawHierarchy(in: imageView.bounds, afterScreenUpdates: true)
         guard let snapshotImage = UIGraphicsGetImageFromCurrentImageContext() else {
             return nil
@@ -87,13 +91,13 @@ class PictureExporter: NSObject {
         uiHandler?(0.75)
 
         // Transform picture to correct rotation.
-        guard let rotatedSnapshotImage = snapshotImage.rotate(radians: -CGFloat.pi/2) else {
+        /*guard let rotatedSnapshotImage = snapshotImage.rotate(radians: -CGFloat.pi/2) else {
             return nil
-        }
+        }*/
 
         uiHandler?(1.0)
 
-        return rotatedSnapshotImage
+        return snapshotImage
     }
 
     func generateThumbnailFromDrawing() -> UIImage? {

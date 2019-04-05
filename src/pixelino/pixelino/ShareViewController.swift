@@ -119,7 +119,7 @@ class ShareViewController: UIViewController {
     }
 
     @objc func menuButtonPressed(_ sender: UIButton) {
-        
+
         // Delete the changes done to the drawing if user returns to the menu
         // without saving. This is needed because else the managedObjectContext
         // keeps the changes done to the drawing, even though the user did not specifically
