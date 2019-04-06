@@ -26,13 +26,13 @@ class MainMenuTableViewController: UITableViewController {
 
     // MARK: - ViewDidAppear.
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
 
         // Only reload the TableView if there was an actual change in data, otherwise
         // it looks very odd.
         if thumbnailArrayChanged() {
             setUpThumbnailArray()
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+            self.tableView.reloadData()
         }
 
     }
@@ -55,7 +55,7 @@ class MainMenuTableViewController: UITableViewController {
     fileprivate func thumbnailArrayChanged() -> Bool {
         let oldArray = thumbnailArray
         let newArray = loadThumbnails()
-        return oldArray != newArray
+        return true
     }
 
     /// Populates the thumbnailArray with thumbnails.
@@ -123,7 +123,7 @@ class MainMenuTableViewController: UITableViewController {
             // Duplicate drawing in CoreData.
             CoreDataManager.duplicateDrawing(duplicatedDrawing: duplicatedDrawing)
             self.setUpThumbnailArray()
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+            self.tableView.reloadData()
 
             completionHandler(true)
 
@@ -145,8 +145,7 @@ class MainMenuTableViewController: UITableViewController {
             // and delete the corresponding CoreData entry.
             let deletedThumbnail = self.thumbnailArray.remove(at: indexPath.row)
             CoreDataManager.deleteDrawing(correspondingThumbnail: deletedThumbnail)
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
-
+            self.tableView.reloadData()
             completionHandler(true)
         }
 
