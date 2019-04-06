@@ -576,7 +576,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 45E39Y8V9N;
+				DEVELOPMENT_TEAM = MVY877MQV7;
 				INFOPLIST_FILE = pixelino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -597,7 +597,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 45E39Y8V9N;
+				DEVELOPMENT_TEAM = MVY877MQV7;
 				INFOPLIST_FILE = pixelino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
