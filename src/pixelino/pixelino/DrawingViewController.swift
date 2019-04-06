@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import CoreGraphics
 import CoreData
-
+//swiftlint:disable all
 class DrawingViewController: UIViewController {
 
     // MARK: - General Attributes.
@@ -30,6 +30,12 @@ class DrawingViewController: UIViewController {
     var lowerToolbar: UIView!
     var pipetteCircle: UIView?
     var colorPickerButton: UIButton?
+
+    // Fan menu attributes.
+
+    var fanMenuButton: UIButton!
+    var paintBrushButton: UIButton!
+    var fillButton: UIButton!
 
     /// Attribute making sure that you cannot draw while you're pinching or panning
     /// around the screen.
@@ -88,6 +94,40 @@ class DrawingViewController: UIViewController {
             self.canvasView = CanvasView()
             self.view.addSubview(canvasView!)
         }
+    }
+
+    // MARK: Fan menu methods.
+
+    @objc private func hideFanMenu() {
+        paintBrushButton.isUserInteractionEnabled = false
+        fillButton.isUserInteractionEnabled = false
+        UIView.animate(withDuration: 0.3, animations: {
+            switch self.currentTool {
+            case is Paintbrush:
+                self.fillButton.alpha = 0
+            case is Bucket:
+                self.paintBrushButton.alpha = 0
+            default:
+                ()
+            }
+    
+            self.fillButton.center = self.fanMenuButton.center
+            self.paintBrushButton.center = self.fanMenuButton.center
+        })
+    }
+    
+    @objc private func showFanMenu() {
+        paintBrushButton.isUserInteractionEnabled = true
+        fillButton.isUserInteractionEnabled = true
+        UIView.animate(withDuration: 0.3, animations: {
+            self.fillButton.alpha = 1.0
+            self.paintBrushButton.alpha = 1.0
+            
+            let origin = self.fanMenuButton.center
+            self.fillButton.center = CGPoint(x: origin.x + 50, y: origin.y - 70)
+            self.paintBrushButton.center = CGPoint(x: origin.x - 50, y: origin.y - 70)
+
+        })
     }
 
     /// This method provides a convenience button creation method. Please note that this method
@@ -210,23 +250,37 @@ class DrawingViewController: UIViewController {
     ///
     /// - TODO: Circular fan menu that builds out and shows the tools that the user can select.
     fileprivate func setUpDrawingToolButton() {
-        let paintBrushButton = setUpTabBarButton(width: 50.0, height: 50.0,
-                                           imageEdgeInsets: UIEdgeInsets(top: 13,
-                                                                         left: 13,
-                                                                         bottom: 13,
-                                                                         right: 13),
-                                           imageName: "PaintBrush",
-                                           action: #selector(paintBrushButtonPressed(sender:)),
-                                           backgroundColor: .white)
+        // TODO: Move to separate setup method.
+        fanMenuButton = UIButton(frame: CGRect.zero)
+        fanMenuButton.addTarget(self, action: #selector(showFanMenu), for: .touchUpInside)
+        fanMenuButton.translatesAutoresizingMaskIntoConstraints = false
 
-        let fillButton = setUpTabBarButton(width: 50.0, height: 50.0,
-                                           imageEdgeInsets: UIEdgeInsets(top: 13,
-                                                                         left: 13,
-                                                                         bottom: 13,
-                                                                         right: 13),
-                                           imageName: "PaintBucket",
-                                           action: #selector(fillButtonPressed(sender:)),
-                                           backgroundColor: .white)
+        view.addSubview(fanMenuButton)
+        fanMenuButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        fanMenuButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
+                                                  constant: 20.0).isActive = true
+        fanMenuButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        fanMenuButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
+        
+        paintBrushButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        paintBrushButton.imageEdgeInsets = UIEdgeInsets(top: 13,
+                                                        left: 13,
+                                                        bottom: 13,
+                                                        right: 13)
+        paintBrushButton.backgroundColor = .white
+        paintBrushButton.setImage(UIImage(named: "PaintBrush"), for: .normal)
+        paintBrushButton.addTarget(self, action: #selector(paintBrushButtonPressed(sender:)), for: .touchUpInside)
+        
+        fillButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        fillButton.imageEdgeInsets = UIEdgeInsets(top: 13,
+                                                        left: 13,
+                                                        bottom: 13,
+                                                        right: 13)
+        fillButton.backgroundColor = .white
+        fillButton.setImage(UIImage(named: "PaintBucket"), for: .normal)
+        fillButton.addTarget(self, action: #selector(fillButtonPressed(sender:)), for: .touchUpInside)
+
 
         // Add rounded corners for circular background effect.
         // Note: Using non-hard-coded values did NOT work!
@@ -239,14 +293,21 @@ class DrawingViewController: UIViewController {
         self.view.addSubview(paintBrushButton)
         self.view.addSubview(fillButton)
 
+        hideFanMenu()
+
         // Add constraints.
-        paintBrushButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        /*paintBrushButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         paintBrushButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
                                             constant: 20.0).isActive = true
         fillButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         fillButton.centerYAnchor.constraint(equalTo: lowerToolbar.topAnchor,
-                                            constant: 40.0).isActive = true
+                                            constant: 40.0).isActive = true*/
 
+    }
+    
+    override func viewDidLayoutSubviews() {
+        paintBrushButton.center = fanMenuButton.center
+        fillButton.center = fanMenuButton.center
     }
 
     /// MARK: - Button touch methods.
@@ -293,10 +354,12 @@ class DrawingViewController: UIViewController {
 
     @objc func fillButtonPressed(sender: UIButton!) {
         currentTool = Bucket()
+        hideFanMenu()
     }
 
     @objc func paintBrushButtonPressed(sender: UIButton!) {
         currentTool = Paintbrush()
+        hideFanMenu()
     }
 
     private func setupOrientationObserver() {
