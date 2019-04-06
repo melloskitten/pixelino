@@ -1,8 +1,6 @@
 //
 //  ShareViewController.swift
-//  
 //
-//  Created by Sandra Grujovic on 26.08.18.
 //
 
 import UIKit
@@ -49,7 +47,7 @@ class ShareViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = UITableViewCell.init(style: .default, reuseIdentifier: "SettingsCell")
+        let cell = UITableViewCell.init(style: .value1, reuseIdentifier: "SettingsCell")
         cell.backgroundColor = DARK_GREY
         cell.contentView.backgroundColor = DARK_GREY
         cell.textLabel?.textColor = .white
@@ -60,13 +58,21 @@ class ShareViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             cell.textLabel?.text = "Rename Canvas"
-            cell.detailTextLabel?.text = fileName ?? "Untitled"
+            if let fileName = fileName {
+                if fileName == "" {
+                    cell.detailTextLabel?.text = "Untitled"
+                } else {
+                    cell.detailTextLabel?.text = fileName
+                }
+            } else {
+                cell.detailTextLabel?.text = "Untitled"
+            }
         case 1:
-            cell.textLabel?.text = "Share via ..."
-        case 2:
             cell.textLabel?.text = "Save Canvas"
+        case 2:
+            cell.textLabel?.text = "Share Canvas"
         case 3:
-            cell.textLabel?.text = "Return to Menu"
+            cell.textLabel?.text = "Exit Canvas"
         default:
             ()
         }
@@ -78,14 +84,16 @@ class ShareViewController: UITableViewController {
         case 0:
             renameButtonPressed()
         case 1:
-            shareButtonPressed()
-        case 2:
             saveButtonPressed()
+        case 2:
+            shareButtonPressed()
         case 3:
              menuButtonPressed()
         default:
             ()
         }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     fileprivate func setUpView() {
@@ -162,7 +170,14 @@ class ShareViewController: UITableViewController {
                 // FIXME: Show some error message here.
                 return
         }
-        self.saveToApp(imageData, self.fileName ?? "Untitled")
+
+        var actualFileName = "Untitled"
+
+        if let fileName = fileName, fileName != "" {
+            actualFileName = fileName
+        }
+
+        self.saveToApp(imageData, actualFileName)
     }
 
     @objc func menuButtonPressed() {

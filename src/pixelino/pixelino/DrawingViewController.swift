@@ -276,7 +276,8 @@ class DrawingViewController: UIViewController {
             updatedDrawing.colorArray = canvasColorArray
             shareVC.drawing = updatedDrawing
         } else {
-            shareVC.drawing = Drawing(colorArray: canvasColorArray, width: canvasWidth, height: canvasHeight)
+            previousDrawing = Drawing(colorArray: canvasColorArray, width: canvasWidth, height: canvasHeight)
+            shareVC.drawing = previousDrawing!
         }
 
         // Present new view controller.
