@@ -9,6 +9,12 @@ import UIKit
 
 class ShareViewController: UIViewController {
 
+    // MARK: - UI-related attributes.
+
+    var progressBar: CircularProgressIndicator?
+
+    // MARK: - Export-related attributes.
+
     var drawing: Drawing? {
         didSet {
             guard let setDrawing = drawing else {
@@ -24,6 +30,7 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        setupProgressIndicator()
     }
 
     fileprivate func setUpView() {
@@ -66,16 +73,19 @@ class ShareViewController: UIViewController {
     }
 
     @objc func shareButtonPressed(_ sender: UIButton) {
-        guard let pictureExporter = pictureExporter else {
+        showProgressIndicator(true)
+
+        guard let pictureExporter = self.pictureExporter else {
             return
         }
 
         // FIXME: Hardcoded values - take them as input (through a prompt) from the user.
-        let sharedImage = pictureExporter.generateUIImagefromDrawing(width: 300, height: 300)
-        let objectsToShare = [sharedImage]
+        let sharedImage = pictureExporter.generateUIImagefromDrawing(width: 1000, height: 1000, uiHandler: self.updateProgressIndicator(_:))
 
+        let objectsToShare = [sharedImage]
         let activityVC = UIActivityViewController(activityItems: objectsToShare as [Any],
                                                   applicationActivities: nil)
+
         activityVC.excludedActivityTypes = [UIActivityType.addToReadingList,
                                             UIActivityType.assignToContact,
                                             UIActivityType.openInIBooks,
@@ -83,7 +93,9 @@ class ShareViewController: UIViewController {
                                             UIActivityType.openInIBooks]
         activityVC.popoverPresentationController?.sourceView = sender
 
-        self.present(activityVC, animated: true, completion: nil)
+        self.present(activityVC, animated: true) {
+            self.showProgressIndicator(false)
+        }
     }
 
     @objc func returnButtonPressed(_ sender: UIButton) {
@@ -107,6 +119,12 @@ class ShareViewController: UIViewController {
     }
 
     @objc func menuButtonPressed(_ sender: UIButton) {
+
+        // Delete the changes done to the drawing if user returns to the menu
+        // without saving. This is needed because else the managedObjectContext
+        // keeps the changes done to the drawing, even though the user did not specifically
+        // choose to save the image.
+        drawing?.managedObjectContext?.reset()
         self.presentingViewController?.presentingViewController?.dismiss(animated: true,
                                                                          completion: nil)
     }
@@ -161,6 +179,39 @@ class ShareViewController: UIViewController {
 
         self.present(alertController, animated: true, completion: nil)
 
+    }
+
+    /// Creates and adds the progress indicator to the view.
+    func setupProgressIndicator() {
+        progressBar = CircularProgressIndicator(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        progressBar?.translatesAutoresizingMaskIntoConstraints = false
+        progressBar?.lineWidth = 10.0
+        self.view.addSubview(progressBar!)
+        progressBar?.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        progressBar?.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        progressBar?.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        progressBar?.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        showProgressIndicator(false)
+    }
+
+    func showProgressIndicator(_ isOn: Bool) {
+        if isOn {
+            progressBar?.isHidden = false
+            progressBar?.isUserInteractionEnabled = true
+        } else {
+            progressBar?.isHidden = true
+            progressBar?.isUserInteractionEnabled = false
+            progressBar?.setProgress(to: 0.0, withAnimation: false)
+        }
+    }
+
+    /// Updates the progress indicator's progress to the specific percentage.
+    ///
+    /// - Parameter to: percentage of progress, e.g. 0.5 for 50%.
+    func updateProgressIndicator(_ to: Double) {
+        if let progressBar = progressBar {
+            progressBar.setProgress(to: to, withAnimation: false)
+        }
     }
 
 }

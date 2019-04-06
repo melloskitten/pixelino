@@ -132,7 +132,6 @@ class MainMenuTableViewController: UITableViewController {
         return duplicateAction
     }
 
-
     /// Convenience getter for a preconfigured UIContextualAction that is used to
     /// delete a drawing.
     ///
@@ -162,7 +161,7 @@ class MainMenuTableViewController: UITableViewController {
 
         duplicateAction.backgroundColor = UIColor.darkGray
         deleteAction.backgroundColor = UIColor.red
-        
+
         return UISwipeActionsConfiguration(actions: [deleteAction, duplicateAction])
     }
 
