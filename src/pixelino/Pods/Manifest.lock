@@ -1,6 +1,6 @@
 PODS:
   - Pikko (1.0.3)
-  - SwiftLint (0.27.0)
+  - SwiftLint (0.31.0)
 
 DEPENDENCIES:
   - Pikko
@@ -13,7 +13,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Pikko: e57424f5aafba9c0b18fd624dbfaa0168dda3235
-  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+  SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
 PODFILE CHECKSUM: 0de4d37041c232cbad6cc1a52092605466a7bc14
 
