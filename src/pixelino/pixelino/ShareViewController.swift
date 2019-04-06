@@ -187,6 +187,7 @@ class ShareViewController: UITableViewController {
         // keeps the changes done to the drawing, even though the user did not specifically
         // choose to save the image.
         drawing?.managedObjectContext?.reset()
+        self.presentingViewController?.view.addSubview(self.view)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true,
                                                                          completion: nil)
     }

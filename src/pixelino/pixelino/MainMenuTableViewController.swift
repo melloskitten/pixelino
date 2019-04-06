@@ -27,14 +27,8 @@ class MainMenuTableViewController: UITableViewController {
     // MARK: - ViewDidAppear.
 
     override func viewWillAppear(_ animated: Bool) {
-
-        // Only reload the TableView if there was an actual change in data, otherwise
-        // it looks very odd.
-        if thumbnailArrayChanged() {
-            setUpThumbnailArray()
-            self.tableView.reloadData()
-        }
-
+        setUpThumbnailArray()
+        self.tableView.reloadData()
     }
 
     // MARK: - View and data source configuration and setup methods.
@@ -48,14 +42,6 @@ class MainMenuTableViewController: UITableViewController {
         tableView.backgroundColor = DARK_GREY
         tableView.separatorColor = LIGHT_GREY
         tableView.rowHeight = 150
-    }
-
-    /// Checks whether the thumbnailArray changed between the last and current load from
-    /// Core Data.
-    fileprivate func thumbnailArrayChanged() -> Bool {
-        let oldArray = thumbnailArray
-        let newArray = loadThumbnails()
-        return true
     }
 
     /// Populates the thumbnailArray with thumbnails.
