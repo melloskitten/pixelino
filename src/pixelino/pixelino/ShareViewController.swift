@@ -1,19 +1,20 @@
 //
 //  ShareViewController.swift
-//  
 //
-//  Created by Sandra Grujovic on 26.08.18.
 //
 
 import UIKit
 
-class ShareViewController: UIViewController {
+class ShareViewController: UITableViewController {
 
-    // MARK: - UI-related attributes.
+    // MARK: - UI related constants.
 
     var progressBar: CircularProgressIndicator?
+    var fileName: String?
 
     // MARK: - Export-related attributes.
+
+    var pictureExporter: PictureExporter?
 
     var drawing: Drawing? {
         didSet {
@@ -25,37 +26,85 @@ class ShareViewController: UIViewController {
         }
     }
 
-    var pictureExporter: PictureExporter?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
         setupProgressIndicator()
+        fileName = drawing?.thumbnail.fileName
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+
+    // MARK: TableViewController methods
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = UITableViewCell.init(style: .value1, reuseIdentifier: "SettingsCell")
+        cell.backgroundColor = DARK_GREY
+        cell.contentView.backgroundColor = DARK_GREY
+        cell.textLabel?.textColor = .white
+        cell.detailTextLabel?.textColor = .gray
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.setSelectedColor(color: .black)
+
+        switch indexPath.row {
+        case 0:
+            cell.textLabel?.text = "Rename Canvas"
+            if let fileName = fileName {
+                if fileName == "" {
+                    cell.detailTextLabel?.text = "Untitled"
+                } else {
+                    cell.detailTextLabel?.text = fileName
+                }
+            } else {
+                cell.detailTextLabel?.text = "Untitled"
+            }
+        case 1:
+            cell.textLabel?.text = "Save Canvas"
+        case 2:
+            cell.textLabel?.text = "Share Canvas"
+        case 3:
+            cell.textLabel?.text = "Exit Canvas"
+        default:
+            ()
+        }
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            renameButtonPressed()
+        case 1:
+            saveButtonPressed()
+        case 2:
+            shareButtonPressed()
+        case 3:
+             menuButtonPressed()
+        default:
+            ()
+        }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     fileprivate func setUpView() {
-        view.backgroundColor = DARK_GREY
-        setUpButtons()
-    }
+        // Set up navigation bar and button.
+        navigationItem.title = "Canvas Information"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(returnButtonPressed))
 
-    fileprivate func setUpButtons() {
-        setUpButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50),
-                    title: "Share With...", action: #selector(shareButtonPressed(_:)))
-        setUpButton(frame: CGRect(x: 100, y: 200, width: 200, height: 50),
-                    title: "Save to App", action: #selector(saveButtonPressed(_:)))
-        setUpButton(frame: CGRect(x: 100, y: 300, width: 200, height: 50),
-                    title: "Return", action: #selector(returnButtonPressed(_:)))
-        setUpButton(frame: CGRect(x: 100, y: 400, width: 200, height: 50),
-                    title: "Return to Menu", action: #selector(menuButtonPressed(_:)))
-    }
-
-    fileprivate func setUpButton(frame: CGRect, title: String, action: Selector) {
-        let button = UIButton(frame: frame)
-        button.backgroundColor = LIGHT_GREY
-        button.titleLabel?.textColor = .white
-        button.setTitle(title, for: .normal)
-        button.addTarget(self, action: action, for: .touchUpInside)
-        view.addSubview(button)
+        // Set up table view controller.
+        tableView.backgroundColor = DARK_GREY
+        tableView.separatorColor = LIGHT_GREY
+        tableView.rowHeight = 100
     }
 
     /// Saves a drawing and corresponding email based on imageData and fileName to the app.
@@ -70,9 +119,21 @@ class ShareViewController: UIViewController {
         // Save drawing.
         CoreDataManager.saveDrawing(drawing: drawing!, oldThumbnail: oldThumbnail)
 
+        // Dismiss the current view.
+        returnButtonPressed()
     }
 
-    @objc func shareButtonPressed(_ sender: UIButton) {
+    func renameButtonPressed() {
+        // Show filename input prompt.
+        showTextInputAlert(title: "Rename Canvas",
+                           message: "Please select a name for your canvas.",
+                           textFieldPlaceholder: "Untitled") { (fileName) in
+                           self.fileName = fileName
+                           self.saveButtonPressed()
+        }
+    }
+
+    func shareButtonPressed() {
         showProgressIndicator(true)
 
         guard let pictureExporter = self.pictureExporter else {
@@ -91,34 +152,35 @@ class ShareViewController: UIViewController {
                                             UIActivityType.openInIBooks,
                                             UIActivityType.copyToPasteboard,
                                             UIActivityType.openInIBooks]
-        activityVC.popoverPresentationController?.sourceView = sender
+        activityVC.popoverPresentationController?.sourceView = self.view
 
         self.present(activityVC, animated: true) {
             self.showProgressIndicator(false)
         }
     }
 
-    @objc func returnButtonPressed(_ sender: UIButton) {
+    @objc func returnButtonPressed() {
         self.dismiss(animated: true, completion: nil)
     }
 
-    @objc func saveButtonPressed(_ sender: UIButton) {
+    func saveButtonPressed() {
         guard let pictureExporter = pictureExporter,
             let thumbnailImage = pictureExporter.generateThumbnailFromDrawing(),
             let imageData = UIImagePNGRepresentation(thumbnailImage) else {
-            // FIXME: Show some error message here.
-            return
+                // FIXME: Show some error message here.
+                return
         }
 
-        // Show filename input prompt.
-        showTextInputAlert(title: "Save File",
-                           message: "Please select a name for your file.",
-                           textFieldPlaceholder: "Untitled") { (fileName) in
-            self.saveToApp(imageData, fileName)
+        var actualFileName = "Untitled"
+
+        if let fileName = fileName, fileName != "" {
+            actualFileName = fileName
         }
+
+        self.saveToApp(imageData, actualFileName)
     }
 
-    @objc func menuButtonPressed(_ sender: UIButton) {
+    @objc func menuButtonPressed() {
 
         // Delete the changes done to the drawing if user returns to the menu
         // without saving. This is needed because else the managedObjectContext

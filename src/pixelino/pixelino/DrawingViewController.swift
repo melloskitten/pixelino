@@ -353,11 +353,13 @@ class DrawingViewController: UIViewController {
             updatedDrawing.colorArray = canvasColorArray
             shareVC.drawing = updatedDrawing
         } else {
-            shareVC.drawing = Drawing(colorArray: canvasColorArray, width: canvasWidth, height: canvasHeight)
+            previousDrawing = Drawing(colorArray: canvasColorArray, width: canvasWidth, height: canvasHeight)
+            shareVC.drawing = previousDrawing!
         }
 
         // Present new view controller.
-        self.present(shareVC, animated: true, completion: nil)
+        let navVC = CustomNavigationController(rootViewController: shareVC)
+        self.present(navVC, animated: true, completion: nil)
     }
 
     @objc func redoButtonPressed(sender: UIButton!) {
