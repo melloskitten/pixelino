@@ -109,7 +109,7 @@ class ShareViewController: UITableViewController {
 
     /// Saves a drawing and corresponding email based on imageData and fileName to the app.
     fileprivate func saveToApp(_ imageData: Data, _ fileName: String) {
-        let thumbnail = Thumbnail(fileName: fileName, date: "\(Date.init())", imageData: imageData)
+        let thumbnail = Thumbnail(fileName: fileName, date: getFormattedDate(), imageData: imageData)
 
         // Establish the object relationships and save them in CoreData.
         let oldThumbnail = drawing?.thumbnail
@@ -121,6 +121,15 @@ class ShareViewController: UITableViewController {
 
         // Dismiss the current view.
         returnButtonPressed()
+    }
+
+    
+    /// Retrieves a user-locale adapted date and time description.
+    private func getFormattedDate() -> String {
+        let df = DateFormatter()
+        df.dateStyle = .long
+        df.timeStyle = .short
+        return df.string(from: .init())
     }
 
     func renameButtonPressed() {
