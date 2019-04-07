@@ -81,7 +81,7 @@
 		BCF6B4B82111F43900384785 /* SplitPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPresentationController.swift; sourceTree = "<group>"; };
 		BCF6B4BA2112061600384785 /* ColorHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCF6B4E0211777C900384785 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		BCF7BCD620AA159F005C5468 /* pixelino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pixelino.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCF7BCD620AA159F005C5468 /* pixelinoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pixelinoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF7BCD920AA159F005C5468 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCF7BCDB20AA159F005C5468 /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		BCF7BCE020AA15A0005C5468 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		BCF7BCD720AA159F005C5468 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BCF7BCD620AA159F005C5468 /* pixelino.app */,
+				BCF7BCD620AA159F005C5468 /* pixelinoo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,9 +251,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BCF7BCD520AA159F005C5468 /* pixelino */ = {
+		BCF7BCD520AA159F005C5468 /* pixelinoo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCF7BCE820AA15A0005C5468 /* Build configuration list for PBXNativeTarget "pixelino" */;
+			buildConfigurationList = BCF7BCE820AA15A0005C5468 /* Build configuration list for PBXNativeTarget "pixelinoo" */;
 			buildPhases = (
 				DE4EFC665E4C80A52504F81A /* [CP] Check Pods Manifest.lock */,
 				BCF7BCD220AA159F005C5468 /* Sources */,
@@ -267,9 +267,9 @@
 			);
 			dependencies = (
 			);
-			name = pixelino;
+			name = pixelinoo;
 			productName = pixelino;
-			productReference = BCF7BCD620AA159F005C5468 /* pixelino.app */;
+			productReference = BCF7BCD620AA159F005C5468 /* pixelinoo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -287,7 +287,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BCF7BCD120AA159F005C5468 /* Build configuration list for PBXProject "pixelino" */;
+			buildConfigurationList = BCF7BCD120AA159F005C5468 /* Build configuration list for PBXProject "pixelinoo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -300,7 +300,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BCF7BCD520AA159F005C5468 /* pixelino */,
+				BCF7BCD520AA159F005C5468 /* pixelinoo */,
 			);
 		};
 /* End PBXProject section */
@@ -578,15 +578,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45E39Y8V9N;
 				INFOPLIST_FILE = pixelino/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = melloskitten.pixelino;
+				PRODUCT_BUNDLE_IDENTIFIER = com.melloskitten.pixelinoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -599,22 +600,23 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45E39Y8V9N;
 				INFOPLIST_FILE = pixelino/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = melloskitten.pixelino;
+				PRODUCT_BUNDLE_IDENTIFIER = com.melloskitten.pixelinoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BCF7BCD120AA159F005C5468 /* Build configuration list for PBXProject "pixelino" */ = {
+		BCF7BCD120AA159F005C5468 /* Build configuration list for PBXProject "pixelinoo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCF7BCE620AA15A0005C5468 /* Debug */,
@@ -623,7 +625,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCF7BCE820AA15A0005C5468 /* Build configuration list for PBXNativeTarget "pixelino" */ = {
+		BCF7BCE820AA15A0005C5468 /* Build configuration list for PBXNativeTarget "pixelinoo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCF7BCE920AA15A0005C5468 /* Debug */,
