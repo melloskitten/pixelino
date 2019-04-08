@@ -12,7 +12,7 @@ Draw, color and create everything pixel-y! pixelinoo lets you draw whatever come
 
 You can get pixelinoo __for free__ on the App store 🎨
 
-![App store download](https://www.designpieces.com/wp-content/uploads/2016/02/download-on-the-app-store.png)
+[![App store download](https://www.designpieces.com/wp-content/uploads/2016/02/download-on-the-app-store.png)](https://itunes.apple.com/de/app/pixelinoo/id1459038137?l=en&mt=8)
 
 
 ## Contribution
