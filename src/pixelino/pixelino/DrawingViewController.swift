@@ -329,6 +329,7 @@ class DrawingViewController: UIViewController {
     /// MARK: - Button touch methods.
 
     @objc func colorPickerButtonPressed(sender: UIButton!) {
+
         let colorPickerVC = ColorPickerViewController(initialColor: currentDrawingColor)
         colorPickerVC.colorChoiceDelegate = self
         colorPickerVC.transitioningDelegate = self

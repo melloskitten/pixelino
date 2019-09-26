@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B355CACA4717FD83A9542EF /* Pods_pixelino.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79FF97CA974F7B6957B51B7 /* Pods_pixelino.framework */; };
+		AA27B9CE5524D7413C595EF4 /* Pods_pixelinoo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2ABDE71BEB531BA06C0D175 /* Pods_pixelinoo.framework */; };
 		BC01F971211A2E8000D43A45 /* PictureExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01F970211A2E8000D43A45 /* PictureExporter.swift */; };
 		BC05C409225297A300C52E16 /* CircularProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05C408225297A300C52E16 /* CircularProgressIndicator.swift */; };
 		BC11DADE2131DC4B00ABF196 /* MainMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */; };
@@ -32,6 +32,7 @@
 		BC89D93E2123748100003C68 /* DrawCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93D2123748100003C68 /* DrawCommand.swift */; };
 		BC89D940212374C300003C68 /* GroupDrawCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93F212374C300003C68 /* GroupDrawCommand.swift */; };
 		BC93B4422135B1EF00B4EABE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC93B4412135B1EF00B4EABE /* Constants.swift */; };
+		BCB91CCA233D291F00B2DA5B /* UIImage+Scaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB91CC9233D291F00B2DA5B /* UIImage+Scaling.swift */; };
 		BCD4A689213415BA0060327B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4A688213415BA0060327B /* CoreDataManager.swift */; };
 		BCF6B4B52110F0EA00384785 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */; };
 		BCF6B4B72111DDCF00384785 /* ColorChoiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */; };
@@ -48,9 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2310D404BCE3C6DEDFD70CA3 /* Pods-pixelino.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.release.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.release.xcconfig"; sourceTree = "<group>"; };
-		6B6C49EE67FB27022063A2E6 /* Pods-pixelino.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelino.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pixelino/Pods-pixelino.debug.xcconfig"; sourceTree = "<group>"; };
-		B79FF97CA974F7B6957B51B7 /* Pods_pixelino.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixelino.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E98803CCA93A197777C8CF5 /* Pods-pixelinoo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelinoo.release.xcconfig"; path = "Target Support Files/Pods-pixelinoo/Pods-pixelinoo.release.xcconfig"; sourceTree = "<group>"; };
 		BC01F970211A2E8000D43A45 /* PictureExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureExporter.swift; sourceTree = "<group>"; };
 		BC05C408225297A300C52E16 /* CircularProgressIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressIndicator.swift; sourceTree = "<group>"; };
 		BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTableViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		BC89D93F212374C300003C68 /* GroupDrawCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDrawCommand.swift; sourceTree = "<group>"; };
 		BC93B4412135B1EF00B4EABE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BCA7AD382136B68F00B1B463 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		BCB91CC9233D291F00B2DA5B /* UIImage+Scaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Scaling.swift"; sourceTree = "<group>"; };
 		BCD4A688213415BA0060327B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		BCF6B4B42110F0EA00384785 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		BCF6B4B62111DDCF00384785 /* ColorChoiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +90,8 @@
 		BCFC666E22393B46001EC5C9 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		BCFC667022394044001EC5C9 /* Paintbrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paintbrush.swift; sourceTree = "<group>"; };
 		BCFC66722239441E001EC5C9 /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
+		C2ABDE71BEB531BA06C0D175 /* Pods_pixelinoo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixelinoo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDC1DDECC72427B1F087AC18 /* Pods-pixelinoo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixelinoo.debug.xcconfig"; path = "Target Support Files/Pods-pixelinoo/Pods-pixelinoo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,19 +99,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B355CACA4717FD83A9542EF /* Pods_pixelino.framework in Frameworks */,
+				AA27B9CE5524D7413C595EF4 /* Pods_pixelinoo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		28C27B299E1F30B8CA6ACF3B /* Frameworks */ = {
+		0405CD2327B0B728245EBC3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B79FF97CA974F7B6957B51B7 /* Pods_pixelino.framework */,
+				C2ABDE71BEB531BA06C0D175 /* Pods_pixelinoo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		13AFFF22925E3BB0CC177A15 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EDC1DDECC72427B1F087AC18 /* Pods-pixelinoo.debug.xcconfig */,
+				6E98803CCA93A197777C8CF5 /* Pods-pixelinoo.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		BC11DAE32131DD7C00ABF196 /* Resources */ = {
@@ -125,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				BC1F12B622204F3200598DBD /* UIAlertViewController+Customisable.swift */,
+				BCB91CC9233D291F00B2DA5B /* UIImage+Scaling.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -191,8 +203,8 @@
 			children = (
 				BCF7BCD820AA159F005C5468 /* pixelino */,
 				BCF7BCD720AA159F005C5468 /* Products */,
-				FB2D1E121AED17130C0500C6 /* Pods */,
-				28C27B299E1F30B8CA6ACF3B /* Frameworks */,
+				13AFFF22925E3BB0CC177A15 /* Pods */,
+				0405CD2327B0B728245EBC3A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -239,15 +251,6 @@
 			path = Tools;
 			sourceTree = "<group>";
 		};
-		FB2D1E121AED17130C0500C6 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6B6C49EE67FB27022063A2E6 /* Pods-pixelino.debug.xcconfig */,
-				2310D404BCE3C6DEDFD70CA3 /* Pods-pixelino.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -255,13 +258,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BCF7BCE820AA15A0005C5468 /* Build configuration list for PBXNativeTarget "pixelinoo" */;
 			buildPhases = (
-				DE4EFC665E4C80A52504F81A /* [CP] Check Pods Manifest.lock */,
+				C0C031AF1723C236933279A4 /* [CP] Check Pods Manifest.lock */,
 				BCF7BCD220AA159F005C5468 /* Sources */,
 				BCF7BCD320AA159F005C5468 /* Frameworks */,
 				BCF7BCD420AA159F005C5468 /* Resources */,
 				2AD6D09421663CE500BCBBC1 /* ShellScript */,
 				2A8CBE5C21665CFF00F6E61B /* ShellScript */,
-				F19800963AC76919A6B68E1B /* [CP] Embed Pods Frameworks */,
+				990ED728738C60FD1FC0C178 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -353,7 +356,29 @@
 			shellPath = /bin/sh;
 			shellScript = "# autocorrect wherever possible\n\"${PODS_ROOT}/SwiftLint/swiftlint\" autocorrect\n";
 		};
-		DE4EFC665E4C80A52504F81A /* [CP] Check Pods Manifest.lock */ = {
+		990ED728738C60FD1FC0C178 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-pixelinoo/Pods-pixelinoo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Pikko/Pikko.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pikko.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pixelinoo/Pods-pixelinoo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0C031AF1723C236933279A4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -368,33 +393,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-pixelino-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-pixelinoo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F19800963AC76919A6B68E1B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-pixelino/Pods-pixelino-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Pikko/Pikko.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pikko.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pixelino/Pods-pixelino-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -410,6 +413,7 @@
 				BCFC666F22393B46001EC5C9 /* Tool.swift in Sources */,
 				BC05C409225297A300C52E16 /* CircularProgressIndicator.swift in Sources */,
 				BC6959BC211F201600770249 /* CanvasView.swift in Sources */,
+				BCB91CCA233D291F00B2DA5B /* UIImage+Scaling.swift in Sources */,
 				BC13221F2136B9F500CB18EF /* Drawing.swift in Sources */,
 				BC1322202136B9F500CB18EF /* Drawing+CoreDataProperties.swift in Sources */,
 				BC1322212136B9F500CB18EF /* Thumbnail.swift in Sources */,
@@ -571,7 +575,7 @@
 		};
 		BCF7BCE920AA15A0005C5468 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B6C49EE67FB27022063A2E6 /* Pods-pixelino.debug.xcconfig */;
+			baseConfigurationReference = EDC1DDECC72427B1F087AC18 /* Pods-pixelinoo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -593,7 +597,7 @@
 		};
 		BCF7BCEA20AA15A0005C5468 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2310D404BCE3C6DEDFD70CA3 /* Pods-pixelino.release.xcconfig */;
+			baseConfigurationReference = 6E98803CCA93A197777C8CF5 /* Pods-pixelinoo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

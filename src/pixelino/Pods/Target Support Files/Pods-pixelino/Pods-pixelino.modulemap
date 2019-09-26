@@ -1,6 +1,0 @@
-framework module Pods_pixelino {
-  umbrella header "Pods-pixelino-umbrella.h"
-
-  export *
-  module * { export * }
-}

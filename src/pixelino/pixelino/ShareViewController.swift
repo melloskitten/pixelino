@@ -123,7 +123,6 @@ class ShareViewController: UITableViewController {
         returnButtonPressed()
     }
 
-    
     /// Retrieves a user-locale adapted date and time description.
     private func getFormattedDate() -> String {
         let df = DateFormatter()
