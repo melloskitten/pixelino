@@ -16,6 +16,7 @@ class ColorPickerViewController: UIViewController {
     weak var colorChoiceDelegate: ColorChoiceDelegate?
     var colorHistoryCollectionView: UICollectionView!
     var pikko: Pikko!
+    var bar: UINavigationBar!
     var colorHistory = [UIColor]()
 
     init(initialColor: UIColor) {
@@ -28,36 +29,39 @@ class ColorPickerViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    fileprivate func setUpView() {
+    fileprivate func setUpBar() {
 
-        // Add fake navigation bar.
-        let bar = UINavigationBar(frame: CGRect(x: 0,
-                                                   y: 0,
-                                                   width: 0,
-                                                   height: 0))
+    // Add fake navigation bar.
+    self.bar = UINavigationBar(frame: CGRect(x: 0,
+    y: 0,
+    width: 0,
+    height: 0))
 
-        bar.barTintColor = LIGHT_GREY
-        bar.tintColor = .white
-        bar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bar)
-        var downImage = UIImage(named: "Down")!
-        downImage = downImage.scaleImage(toSize: CGSize(width: 8, height: 8))!
+    bar.barTintColor = LIGHT_GREY
+    bar.tintColor = .white
+    bar.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(bar)
+    var downImage = UIImage(named: "Down")!
+    downImage = downImage.scaleImage(toSize: CGSize(width: 8, height: 8))!
 
-        let navItem = UINavigationItem(title: "")
-        let arrowItem = UIBarButtonItem(image: downImage,
-                                        style: .plain,
-                                        target: self,
-                                        action: #selector(dismissView(_:)))
-        arrowItem.tintColor = .white
-        navItem.rightBarButtonItem = arrowItem
-        bar.setItems([navItem], animated: false)
+    let navItem = UINavigationItem(title: "")
+    let arrowItem = UIBarButtonItem(image: downImage,
+    style: .plain,
+    target: self,
+    action: #selector(dismissView(_:)))
+    arrowItem.tintColor = .white
+    navItem.rightBarButtonItem = arrowItem
+    bar.setItems([navItem], animated: false)
 
-        // Set bar constraints.
-        bar.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        bar.heightAnchor.constraint(equalToConstant: 45.0).isActive = true
-        bar.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        bar.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+    // Set bar constraints.
+    bar.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+    bar.heightAnchor.constraint(equalToConstant: 45.0).isActive = true
+    bar.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+    bar.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
 
+    }
+
+    fileprivate func setUpPicker() {
         // Add color picker.
         pikko = Pikko(dimension: 360)
         pikko.center = CGPoint(x: view.frame.width / 2.0, y: 360 / 2 + 20)
@@ -71,7 +75,11 @@ class ColorPickerViewController: UIViewController {
         pikko.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         pikko.widthAnchor.constraint(equalToConstant: 360.0).isActive = true
         pikko.heightAnchor.constraint(equalToConstant: 360.0).isActive = true
+    }
 
+    fileprivate func setUpView() {
+        setUpBar()
+        setUpPicker()
     }
 
     fileprivate func setCurrentColorOnColorPicker() {
