@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = SwiftLint;
+			productName = SwiftLint;
 		};
 /* End PBXAggregateTarget section */
 
@@ -66,11 +67,11 @@
 		92E4342C3D50D9A0B3FD40317B01CBCF /* Pods-pixelinoo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-pixelinoo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		930EE50B0090A7A8F2566C4D91AB8F5C /* PikkoDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PikkoDelegate.swift; path = Pikko/Classes/Delegate/PikkoDelegate.swift; sourceTree = "<group>"; };
 		971BA8242E9C8FE7136985A91C9F5ABF /* ColorUtilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ColorUtilities.swift; path = Pikko/Classes/Util/ColorUtilities.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9F693EA081FABD88A197C50F781465A0 /* Pods-pixelinoo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-pixelinoo-umbrella.h"; sourceTree = "<group>"; };
-		B3654D0948A519A8220E765D80884895 /* Pods_pixelinoo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_pixelinoo.framework; path = "Pods-pixelinoo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3654D0948A519A8220E765D80884895 /* Pods_pixelinoo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixelinoo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572CFE2B0AB4DA5ADADF1B51CDE206B /* Pikko-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pikko-umbrella.h"; sourceTree = "<group>"; };
-		BD1DB1F031AD9FD2795C0B0EA67E1EF0 /* Pikko.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pikko.framework; path = Pikko.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD1DB1F031AD9FD2795C0B0EA67E1EF0 /* Pikko.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pikko.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEF564768EA2ECE89BF62A4F2B5AA37 /* Pikko-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pikko-dummy.m"; sourceTree = "<group>"; };
 		C7368A35FDC8EBAE302DD9DFEB464939 /* HueDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HueDelegate.swift; path = Pikko/Classes/Delegate/HueDelegate.swift; sourceTree = "<group>"; };
 		C9AB34490DC50CC0B42FB67FC86843B9 /* HueView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HueView.swift; path = Pikko/Classes/UI/HueView.swift; sourceTree = "<group>"; };
@@ -108,7 +109,6 @@
 			children = (
 				9BE17963034948244D3797719E40BDFD /* Support Files */,
 			);
-			name = SwiftLint;
 			path = SwiftLint;
 			sourceTree = "<group>";
 		};
@@ -125,7 +125,6 @@
 				4135BB941000B75834964EB4656980B3 /* UIColor+HSBAComponents.swift */,
 				794C3F1E9636464C963D290427DD385F /* Support Files */,
 			);
-			name = Pikko;
 			path = Pikko;
 			sourceTree = "<group>";
 		};
@@ -297,6 +296,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = 418AD47916EF9612BEF6FE1694FB5453 /* Products */;
