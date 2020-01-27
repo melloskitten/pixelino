@@ -4,4 +4,5 @@ use_frameworks!
 target 'pixelinoo' do
     pod 'Pikko'
     pod 'SwiftLint'
+    pod 'Hero'
 end

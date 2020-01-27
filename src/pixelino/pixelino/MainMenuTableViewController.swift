@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 class MainMenuTableViewController: UITableViewController {
 
@@ -60,9 +61,19 @@ class MainMenuTableViewController: UITableViewController {
     // MARK: - Button handler methods.
 
     @objc func addButtonPressed(_ sender: UIButton) {
+
+        // TODO: UNCOMMENT ME
+        /*
         // FIXME: Perhaps a different segue animation is more fitting? Need feedback.
         let drawingViewController = DrawingViewController()
         self.present(drawingViewController, animated: true, completion: nil)
+        */
+
+        let customCanvasVC = CustomCanvasViewController()
+        customCanvasVC.modalPresentationStyle = .overCurrentContext
+        customCanvasVC.isHeroEnabled = true
+        customCanvasVC.hero.modalAnimationType = .fade
+        self.present(customCanvasVC, animated: true, completion: nil)
     }
 
     // MARK: - Table view data source.

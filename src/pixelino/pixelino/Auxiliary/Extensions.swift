@@ -79,3 +79,12 @@ extension UIImage {
         return nil
     }
 }
+
+// Taken from https://stackoverflow.com/a/45635306/7217195
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+}

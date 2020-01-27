@@ -27,6 +27,7 @@
 		BC6959BA211F1FE200770249 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959B9211F1FE200770249 /* Pixel.swift */; };
 		BC6959BC211F201600770249 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959BB211F201600770249 /* CanvasView.swift */; };
 		BC6959C5211F494600770249 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6959C4211F494600770249 /* Command.swift */; };
+		BC84DCC023DEFC0300FA3B04 /* CustomCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC84DCBF23DEFC0300FA3B04 /* CustomCanvasViewController.swift */; };
 		BC89D9362121C42B00003C68 /* CommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D9352121C42B00003C68 /* CommandManager.swift */; };
 		BC89D93C2123746000003C68 /* MultiCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93B2123746000003C68 /* MultiCommand.swift */; };
 		BC89D93E2123748100003C68 /* DrawCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89D93D2123748100003C68 /* DrawCommand.swift */; };
@@ -68,6 +69,7 @@
 		BC6959B9211F1FE200770249 /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
 		BC6959BB211F201600770249 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		BC6959C4211F494600770249 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		BC84DCBF23DEFC0300FA3B04 /* CustomCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCanvasViewController.swift; sourceTree = "<group>"; };
 		BC89D9352121C42B00003C68 /* CommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandManager.swift; sourceTree = "<group>"; };
 		BC89D93B2123746000003C68 /* MultiCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCommand.swift; sourceTree = "<group>"; };
 		BC89D93D2123748100003C68 /* DrawCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawCommand.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				BC11DADF2131DC8E00ABF196 /* MainMenuDrawingTableViewCell.swift */,
 				BCF6B4B82111F43900384785 /* SplitPresentationController.swift */,
 				BC11DADD2131DC4B00ABF196 /* MainMenuTableViewController.swift */,
+				BC84DCBF23DEFC0300FA3B04 /* CustomCanvasViewController.swift */,
 			);
 			path = pixelino;
 			sourceTree = "<group>";
@@ -365,12 +368,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-pixelinoo/Pods-pixelinoo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Pikko/Pikko.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pikko.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +416,7 @@
 				BC6959B8211F1FBD00770249 /* Canvas.swift in Sources */,
 				BC1322222136B9F500CB18EF /* Thumbnail+CoreDataProperties.swift in Sources */,
 				BCFC666F22393B46001EC5C9 /* Tool.swift in Sources */,
+				BC84DCC023DEFC0300FA3B04 /* CustomCanvasViewController.swift in Sources */,
 				BC05C409225297A300C52E16 /* CircularProgressIndicator.swift in Sources */,
 				BC6959BC211F201600770249 /* CanvasView.swift in Sources */,
 				BCB91CCA233D291F00B2DA5B /* UIImage+Scaling.swift in Sources */,

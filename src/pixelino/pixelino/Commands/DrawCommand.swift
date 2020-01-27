@@ -30,12 +30,12 @@ class DrawCommand: Command {
 }
 
 extension DrawCommand: Hashable {
-    
+
     // WARNING: Might become a problem.
     func hash(into hasher: inout Hasher) {
         hasher.combine(pixel.hashValue)
     }
-    
+
     static func == (lhs: DrawCommand, rhs: DrawCommand) -> Bool {
         return lhs.pixel == rhs.pixel
     }
